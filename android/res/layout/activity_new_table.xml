@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/activity_bg"
+    tools:context="${packageName}.${activityClass}" >
+
+  <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#333333"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/logoLayout"
+            android:src="@drawable/logo_small" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView1"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@string/logoLayout"
+            android:src="@drawable/slogan" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/relativeLayout1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Title"
+            android:textColor="#C69C6D"
+            android:textSize="30sp" 
+            android:textStyle="bold"
+            android:background="#666"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" 
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/label_tblNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_tblNum"
+                android:textColor="#C69C6D"
+                android:textSize="30sp" />
+
+            <Spinner
+                android:id="@+id/tblNum"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1" 
+                android:textColor="#C69C6D"	
+                />
+            <TextView
+                android:id="@+id/label_perNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_perNum"
+                android:textColor="#C69C6D"
+                android:textSize="30sp" />
+
+            <Spinner
+                android:id="@+id/perNum"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1" 
+                android:textColor="#C69C6D"	
+                android:entries="@array/perNumList"
+                />
+
+            <Button
+                android:id="@+id/activeTbl"
+                style="@style/button_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/customized_button"
+                android:clickable="true"
+                android:onClick="activeTable"
+                android:text="@string/activeTbl" />
+
+        </LinearLayout>
+        
+        
+    </LinearLayout>
+
+    
+
+    </RelativeLayout>
