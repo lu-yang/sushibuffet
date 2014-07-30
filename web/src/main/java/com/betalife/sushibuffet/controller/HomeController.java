@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.betalife.sushibuffet.manager.CustomerManager;
 import com.betalife.sushibuffet.model.Categories;
 import com.betalife.sushibuffet.model.Diningtable;
+import com.betalife.sushibuffet.model.Turnovers;
 
 /**
  * Handles requests for the application home page.
@@ -44,25 +46,19 @@ public class HomeController {
 	@Autowired
 	private CustomerManager customerManager;
 
-	/**
-	 * Retrieve a list of states. Accepts a GET request for JSON
-	 * 
-	 * @return A JSON array of states
-	 */
-	@RequestMapping(value = "states", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody
-	List<Categories> fetchStatesJson() {
-		customerManager.insertAccount(2, 3);
-		logger.info("fetching JSON states");
-		return customerManager.getCategoriesByParentId(0);
-	}
-
 	@RequestMapping(value = "availableTables", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Diningtable> fetchAllTables() {
 		System.out.println("fetchAllTables");
 		List<Diningtable> allTables = customerManager.getAvailableTables();
 		return allTables;
+	}
+
+	@RequestMapping(value = "openTable", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	public @ResponseBody
+	List<Categories> openTable(@RequestBody Turnovers turnover) {
+		customerManager.openTable(turnover.getTableId(), turnover.getCustomerCount());
+		return customerManager.getCategoriesByParentId(0);
 	}
 
 }

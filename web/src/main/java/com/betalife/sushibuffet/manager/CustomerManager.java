@@ -25,7 +25,7 @@ public class CustomerManager {
 	private CategoriesMapper categoriesMapper;
 
 	@Transactional
-	public void insertAccount(int tableId, int customerCount) {
+	public void openTable(int tableId, int customerCount) {
 		Turnovers turnovers = new Turnovers();
 		turnovers.setCustomerCount(customerCount);
 		turnovers.setTableId(tableId);

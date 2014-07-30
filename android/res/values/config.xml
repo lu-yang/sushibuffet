@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="username">admin</string>
+    <string name="password">pas2word</string>
+    <string name="app_name">Dodoro</string>
+
+    <string-array name="perNumList">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+    
+    <string name="ENGLISH">English</string>
+    <string name="CHINESE">中文</string>
+    <string name="JAPANESE">日本語</string>
+    
+    <string-array name="languages">
+        <item>@string/ENGLISH</item>
+        <item>@string/CHINESE</item>
+        <item>@string/JAPANESE</item>
+    </string-array>
+
+</resources>

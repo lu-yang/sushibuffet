@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logo">DODORO LOGO</string>
+	<string name="slogan">DODORO LOGO</string>
+	<string name="logoLayout">DODORO LOGO</string>
+	<string name="Title">桌号</string>
+	<string name="label_tblNum">选择桌号：</string>
+    <string name="label_perNum">用餐人数：</string>
+    <string name="activeTbl">开桌</string>
+    <string name="title_activity_new_table">Dodoro</string>
+    <string name="label_language">语言</string>
+</resources>

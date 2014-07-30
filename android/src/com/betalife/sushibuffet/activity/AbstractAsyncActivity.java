@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpBasicAuthentication;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -76,20 +75,18 @@ public abstract class AbstractAsyncActivity extends Activity implements AsyncAct
 
 	public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 
-		private HttpBasicAuthentication authentication = new HttpBasicAuthentication(
-				getString(R.string.username), getString(R.string.password));
-
 		protected RestTemplate restTemplate;
-		protected HttpEntity<?> requestEntity;
+
+		protected HttpHeaders requestHeaders;
 
 		public AbstractAsyncTask() {
-			// Set the Accept header for "application/json"
-			HttpHeaders requestHeaders = new HttpHeaders();
+			requestHeaders = new HttpHeaders();
 			List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
 			acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
 			requestHeaders.setAccept(acceptableMediaTypes);
+			HttpBasicAuthentication authentication = new HttpBasicAuthentication(
+					getString(R.string.username), getString(R.string.password));
 			requestHeaders.setAuthorization(authentication);
-			requestEntity = new HttpEntity<Object>(requestHeaders);
 
 			restTemplate = new RestTemplate();
 			restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
