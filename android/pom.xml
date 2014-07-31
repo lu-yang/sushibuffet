@@ -68,6 +68,16 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>com.joanzapata.android</groupId>
+			<artifactId>android-iconify</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+		<dependency>
+		   <groupId>com.google.android</groupId>
+		   <artifactId>support-v4</artifactId>
+		   <version>19</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

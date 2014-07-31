@@ -1,4 +1,4 @@
-package com.betalife.sushibuffet.util;
+package com.betalife.sushibuffet.activity;
 
 import java.util.HashMap;
 import java.util.Locale;

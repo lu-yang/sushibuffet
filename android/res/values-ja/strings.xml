@@ -9,4 +9,5 @@
     <string name="activeTbl">Active this table</string>
     <string name="title_activity_new_table">Dodoro</string>
     <string name="label_language"> 言語</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

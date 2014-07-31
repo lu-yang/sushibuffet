@@ -30,7 +30,7 @@ public class AccessActivity extends Activity {
 			@Override
 			public void run() {
 
-				intent.setClass(AccessActivity.this, NewTableActivity.class);
+				intent.setClass(AccessActivity.this, MainActivity.class);
 				startActivity(intent);
 			}
 		};
