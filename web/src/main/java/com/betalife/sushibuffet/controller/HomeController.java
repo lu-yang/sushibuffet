@@ -49,9 +49,15 @@ public class HomeController {
 	@RequestMapping(value = "availableTables", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Diningtable> fetchAllTables() {
-		System.out.println("fetchAllTables");
 		List<Diningtable> allTables = customerManager.getAvailableTables();
 		return allTables;
+	}
+
+	@RequestMapping(value = "rootCategories", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	List<Categories> fetchRootCategories() {
+		List<Categories> all = customerManager.getCategoriesByParentId(1);
+		return all;
 	}
 
 	@RequestMapping(value = "openTable", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")

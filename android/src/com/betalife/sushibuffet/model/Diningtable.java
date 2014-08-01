@@ -24,4 +24,8 @@ public class Diningtable extends BaseModel {
 		this.turnoverId = turnoverId;
 	}
 
+	public String toString() {
+		return "" + id;
+	}
+
 }

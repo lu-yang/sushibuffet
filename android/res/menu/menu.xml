@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+     <item
+        android:id="@+id/menu_collected"
+        android:icon="@drawable/ic_menu_star_holo_light"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/logoLayout"/>
+    
+</menu>

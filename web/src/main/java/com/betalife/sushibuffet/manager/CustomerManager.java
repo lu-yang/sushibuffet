@@ -38,7 +38,7 @@ public class CustomerManager {
 	}
 
 	public List<Categories> getCategoriesByParentId(int parentId) {
-		return categoriesMapper.selectByParentId(1);
+		return categoriesMapper.selectByParentId(parentId);
 	}
 
 	public List<Diningtable> getAvailableTables() {

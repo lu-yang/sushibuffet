@@ -35,5 +35,22 @@
         <item>@string/DUTCH</item>
         <item>@string/GERMAN</item>
     </string-array>
+    
+    <string-array name="tabs">
+        <item>fa_cutlery</item>
+        <item>fa_history</item>
+        <item>fa_info_circle</item>
+        <item>fa_globe</item>
+        <item>fa_cog</item>
+    </string-array>
+    
+    <string-array name="fragments">
+        <item>com.betalife.sushibuffet.activity.FragmentOrderpage</item>
+        <item>com.betalife.sushibuffet.activity.FragmentHistory</item>
+        <item>com.betalife.sushibuffet.activity.FragmentIntroduction</item>
+        <item>com.betalife.sushibuffet.activity.FragmentLang</item>
+        <item>com.betalife.sushibuffet.activity.FragmentSetting</item>
+    </string-array>
+    
 
 </resources>

@@ -1,12 +1,16 @@
 package com.betalife.sushibuffet.activity;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -16,18 +20,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.betalife.sushibuffet.AbstractAsyncTask;
 import com.betalife.sushibuffet.model.Categories;
 import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Turnovers;
-import com.betalife.sushibuffet.util.DodoroApplication;
 
-public class NewTableActivity extends AbstractAsyncActivity {
+public class NewTableActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_table);
-		TablesAsyncTask task = new TablesAsyncTask();
+		GetAllTablesAsyncTask task = new GetAllTablesAsyncTask(this);
 		task.execute();
 	}
 
@@ -40,7 +44,7 @@ public class NewTableActivity extends AbstractAsyncActivity {
 		turnover.setTableId(table.getId());
 		turnover.setCustomerCount(Integer.parseInt(num));
 		Toast.makeText(this, "table: " + table.getId() + ", people: " + num, Toast.LENGTH_SHORT).show();
-		OpenTableTask task = new OpenTableTask();
+		OpenTableTask task = new OpenTableTask(this);
 		task.execute(turnover);
 
 		Spinner spin3 = (Spinner) findViewById(R.id.language);
@@ -50,15 +54,27 @@ public class NewTableActivity extends AbstractAsyncActivity {
 	}
 
 	public void changeLanguage(String language) {
+		Map<String, Locale> languageMap = new HashMap<String, Locale>();
+		languageMap.put(getString(R.string.CHINESE), Locale.CHINESE);
+		languageMap.put(getString(R.string.JAPANESE), Locale.JAPANESE);
+		languageMap.put(getString(R.string.ENGLISH), Locale.ENGLISH);
+		languageMap.put(getString(R.string.FRENCH), Locale.FRENCH);
+		languageMap.put(getString(R.string.GERMAN), Locale.GERMAN);
+		languageMap.put(getString(R.string.DUTCH), new Locale("nl"));
+
 		Resources resources = getResources();
 		Configuration config = resources.getConfiguration();
 		DisplayMetrics dm = resources.getDisplayMetrics();
-		config.locale = DodoroApplication.getLocale(language);
+		config.locale = languageMap.get(language);
 		resources.updateConfiguration(config, dm);
 		recreate();
 	}
 
-	private class TablesAsyncTask extends AbstractAsyncTask<Void, List<Diningtable>> {
+	private class GetAllTablesAsyncTask extends AbstractAsyncTask<Void, List<Diningtable>> {
+
+		public GetAllTablesAsyncTask(Activity activity) {
+			super(activity);
+		}
 
 		@Override
 		public void postCallback(List<Diningtable> result) {
@@ -83,6 +99,10 @@ public class NewTableActivity extends AbstractAsyncActivity {
 	};
 
 	private class OpenTableTask extends AbstractAsyncTask<Turnovers, List<Categories>> {
+
+		public OpenTableTask(Activity activity) {
+			super(activity);
+		}
 
 		@Override
 		protected List<Categories> doInBackground(Turnovers... params) {

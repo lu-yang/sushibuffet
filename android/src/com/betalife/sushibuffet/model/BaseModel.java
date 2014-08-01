@@ -17,8 +17,4 @@ public abstract class BaseModel implements Serializable {
 		this.id = id;
 	}
 
-	public String toString() {
-		return "" + id;
-	}
-
 }
