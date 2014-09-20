@@ -7,6 +7,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.FragmentTransaction;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.View;
 
 import com.betalife.sushibuffet.util.FragmentFactory;
 import com.joanzapata.android.iconify.IconDrawable;
@@ -43,19 +45,26 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		});
 
 		actionBar = getActionBar();
-
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		// 设置ActionBar左边默认的图标是否可用
-		actionBar.setDisplayUseLogoEnabled(true);
+		actionBar.setDisplayUseLogoEnabled(false);
+		actionBar.setDisplayShowHomeEnabled(true);
 		// 设置ActionBar标题不显示
 		actionBar.setDisplayShowTitleEnabled(false);
-		// 设置导航模式为Tab选项标签导航模式
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+		// 设置ActionBar自定义布局
 		actionBar.setDisplayShowCustomEnabled(true);
 		actionBar.setCustomView(R.layout.abs_layout);
-
+		// 设置导航模式为Tab选项标签导航模式
+		
 		// actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME |
-		// ActionBar.DISPLAY_SHOW_CUSTOM);
+				// ActionBar.DISPLAY_SHOW_CUSTOM);
+		View homeIcon = findViewById(
+				Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? 
+			    android.R.id.home : R.id.FragmentHeader);
+			((View) homeIcon.getParent()).setVisibility(View.GONE);
+			((View) homeIcon).setVisibility(View.GONE);
+			
+		
 		// actionBar.setCustomView(R.layout.abs_layout);
 		// actionBar.setDisplayShowHomeEnabled(true);
 		// actionBar.setLogo(new ColorDrawable(Color.TRANSPARENT));
@@ -79,11 +88,11 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		viewPager.setOffscreenPageLimit(adapter.getCount());
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu, menu);
-		return true;
-	}
+//	@Override
+	//public boolean onCreateOptionsMenu(Menu menu) {
+		//getMenuInflater().inflate(R.menu.menu, menu);
+		//return true;
+	//}
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {

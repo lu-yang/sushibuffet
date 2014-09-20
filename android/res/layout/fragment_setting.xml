@@ -28,7 +28,8 @@
  	            android:layout_below="@+id/settingPage"
  	            android:layout_centerHorizontal="true"
  	            android:layout_marginTop="31dp"
- 	            android:text="Button" />
+ 	            android:text="加/减 用餐人数" 
+ 	            style="@style/button_text" />
 
  	        <Button
  	            android:id="@+id/btn_ChangeTable"
@@ -37,7 +38,8 @@
  	            android:layout_alignParentTop="true"
  	            android:layout_centerHorizontal="true"
  	            android:layout_marginTop="59dp"
- 	            android:text="Change Table" />
+ 	            android:text="换桌" 
+ 	            style="@style/button_text"/>
 
  	        <Button
  	            android:id="@+id/btn_Finished"
@@ -46,7 +48,8 @@
  	            android:layout_below="@+id/button1"
  	            android:layout_centerHorizontal="true"
  	            android:layout_marginTop="35dp"
- 	            android:text="Finished" />
+ 	            android:text="用餐结束" 
+ 	            style="@style/button_text"/>
 
  	    </RelativeLayout>
 

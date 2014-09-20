@@ -3,27 +3,75 @@
     <style name="AppBaseTheme" parent="android:Theme"></style>
 
     <!-- 将自定义的style取名为CustomTheme，父类为Theme.Holo.Light，也就是说默认背景是白底黑字（如果是Theme.Holo，则默认是黑底白字） -->
-    <style name="CustomTheme" parent="android:style/Theme.Holo.Light">
-
-        <!-- 这是item的背景修改，不按时透明，按时显示绿色 -->
-        <item name="android:selectableItemBackground">@drawable/ad_selectable_background</item>
-        <item name="android:actionBarTabStyle">@style/MyActionBarTabStyle</item>
-        <item name="android:actionBarTabTextStyle">@style/MyActionBarTabTextStyle</item>
+    <style name="Theme.Dodoro" parent="@android:style/Theme.Holo">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_dodoro</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Dodoro</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Dodoro</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Dodoro</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Dodoro</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Transparent.Dodoro</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_dodoro</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_dodoro</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Dodoro</item>
+        
+        
     </style>
 
-    <!-- Tab选项标签的样式 -->
-    <style name="MyActionBarTabStyle" parent="android:style/Widget.Holo.Light.ActionBar.TabView">
+    <style name="ActionBar.Solid.Dodoro" parent="@android:style/Widget.Holo.ActionBar.Solid">
+        <item name="android:background">@drawable/ab_solid_dodoro</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_dodoro</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_dodoro</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Dodoro</item>
+    </style>
+
+    <style name="ActionBar.Transparent.Dodoro" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_dodoro</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Dodoro</item>
+    </style>
+
+    <style name="PopupMenu.Dodoro" parent="@android:style/Widget.Holo.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_dodoro</item>	
+    </style>
+
+    <style name="DropDownListView.Dodoro" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_dodoro</item>
+    </style>
+
+    <style name="ActionBarTabStyle.Dodoro" parent="@android:style/Widget.Holo.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_dodoro</item>
+    </style>
+
+    <style name="DropDownNav.Dodoro" parent="@android:style/Widget.Holo.Spinner">
+        <item name="android:background">@drawable/spinner_background_ab_dodoro</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_dodoro</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_dodoro</item>
+    </style>
+    
+    <style name="ProgressBar.Dodoro" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_dodoro</item>
+    </style>
+    
+    <style name="ActionButton.CloseMode.Dodoro" parent="@android:style/Widget.Holo.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_dodoro</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Dodoro.Widget" parent="@android:style/Theme.Holo">
+        <item name="android:popupMenuStyle">@style/PopupMenu.Dodoro</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Dodoro</item>
+    </style>
+
+   <!-- Tab选项标签的样式 -->
+   <style name="MyActionBarTabStyle" parent="android:style/Widget.Holo.Light.ActionBar.TabView">
         <item name="android:paddingLeft">22dp</item>
         <item name="android:paddingRight">22dp</item>
     </style>
 
     <!-- Tab选项标签字体的样式 -->
-    <style name="MyActionBarTabTextStyle" parent="android:style/Widget.Holo.Light.ActionBar.TabText">
+     <style name="MyActionBarTabTextStyle" parent="android:style/Widget.Holo.Light.ActionBar.TabText">
         <item name="android:textColor">#ff0000</item>
         <item name="android:textSize">12sp</item>
-    </style>
-
-
+    </style> 
     <style name="button_text">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>

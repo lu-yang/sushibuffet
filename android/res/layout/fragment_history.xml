@@ -9,6 +9,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Order History Page" />
+        android:text="选餐记录" />
 
 </FrameLayout>
