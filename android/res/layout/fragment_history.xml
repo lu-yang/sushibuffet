@@ -2,13 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.orderapp.dodoro.FragmentHistory" >
+    tools:context="com.orderapp.dodoro.FragmentHistory" 
+    android:padding="10dp" >
 
     <!-- TODO: Update blank fragment layout -->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="选餐记录" />
+	 <android.widget.IconTextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:shadowColor="#22000000"
+	        android:shadowDx="3"
+	        android:shadowDy="3"
+	        android:shadowRadius="1"
+	        android:text="@string/head_historical"
+	        android:textColor="#C69C6D"
+	        android:textSize="25sp" 
+	        android:padding="10dp" />
+ 
 
 </FrameLayout>

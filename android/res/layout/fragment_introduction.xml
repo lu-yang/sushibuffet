@@ -1,16 +1,13 @@
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<LinearLayout 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.orderapp.dodoro.FragmentIntroduction" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp" >
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="使用说明" />
+    <!-- TODO: Update blank fragment layout -->  
 
 	    <android.widget.IconTextView
 	        android:layout_width="wrap_content"
@@ -19,15 +16,17 @@
 	        android:shadowDx="3"
 	        android:shadowDy="3"
 	        android:shadowRadius="1"
-	        android:text="{fa_info_circle}"
-	        android:textColor="#FF33B5E5"
-	        android:textSize="90dp" />
+	        android:text="@string/head_introduction"
+	        android:textColor="#C69C6D"
+	        android:textSize="25sp" 
+	        android:padding="10dp" />
 
 	    <TextView
 	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:layout_alignParentLeft="true"
-	        android:layout_alignParentTop="true"
+	        android:layout_height="wrap_content"
 	        android:text="@string/introduction" />
    
-</RelativeLayout>
+</LinearLayout>
+</ScrollView>
+
+<!--  tools:context="com.orderapp.dodoro.FragmentIntroduction" -->

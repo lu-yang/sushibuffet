@@ -27,12 +27,7 @@ public class AccessActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		actionBar = getActionBar();
-		actionBar.setDisplayUseLogoEnabled(false);
-		actionBar.setDisplayShowHomeEnabled(true);
-		// 设置ActionBar标题不显示
-		actionBar.setDisplayShowTitleEnabled(false);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		getActionBar().hide();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_access);
 		intent = new Intent();

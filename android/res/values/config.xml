@@ -3,7 +3,7 @@
 
     <string name="username">admin</string>
     <string name="password">pas2word</string>
-    <string name="app_name">Dodoro1</string>
+    <string name="app_name">Dodoro</string>
 
     <string-array name="perNumList">
         <item>1</item>

@@ -1,64 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:padding="10dp" >
 
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
+	  <android.widget.IconTextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:shadowColor="#22000000"
+	        android:layout_gravity="center"
+	        android:shadowDx="3"
+	        android:shadowDy="3"
+	        android:shadowRadius="1"
+	        android:text="@string/head_lang"
+	        android:textColor="@color/dodoro"
+	        android:textSize="25sp" 
+	        android:padding="10dp" />
+     <Button
             android:id="@+id/lang_fr"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/FRENCH"
-            android:textColor="@color/gold"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textColor="@color/beige"
+            android:textAppearance="?android:attr/textAppearanceLarge"           
+            style="@style/button_text" />
 
-        <TextView
+        <Button
             android:id="@+id/lang_nl"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/DUTCH"
-            android:textColor="@color/yellow"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textColor="@color/beige"
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+            style="@style/button_text"/>
 
-        <TextView
+        <Button
             android:id="@+id/lang_de"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/GERMAN"
-            android:textColor="@color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
+            android:textColor="@color/beige"
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+            style="@style/button_text"/>
+        
+          <Button
             android:id="@+id/lang_en"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/ENGLISH"
-            android:textColor="@color/firebrick"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textColor="@color/beige"
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+            style="@style/button_text"/>
 
-        <TextView
+        <Button
             android:id="@+id/lang_ch"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/CHINESE"
-            android:textColor="@color/wheat"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textColor="@color/beige"
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+            style="@style/button_text"/>
 
-        <TextView
+        <Button
             android:id="@+id/lang_jp"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/JAPANESE"
-            android:textColor="@color/whitesmoke"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
+            android:textColor="@color/beige"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            style="@style/button_text" />
+  
 
-</TableLayout>
+</LinearLayout>
+</ScrollView>

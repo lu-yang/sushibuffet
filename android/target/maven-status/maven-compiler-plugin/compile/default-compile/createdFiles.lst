@@ -3,8 +3,11 @@ com/betalife/sushibuffet/activity/MainActivity$1.class
 com/betalife/sushibuffet/activity/BuildConfig.class
 com/betalife/sushibuffet/activity/FragmentSetting.class
 com/betalife/sushibuffet/activity/AccessActivity.class
+com/betalife/sushibuffet/activity/FragmentSetting$1.class
+com/betalife/sushibuffet/activity/SettingActivity.class
 com/betalife/sushibuffet/activity/R$layout.class
 com/betalife/sushibuffet/activity/R$style.class
+com/betalife/sushibuffet/util/DodoroContext.class
 com/betalife/sushibuffet/activity/MainActivity$MyAdapter.class
 com/betalife/sushibuffet/util/FragmentFactory.class
 com/betalife/sushibuffet/activity/FragmentHistory.class
@@ -12,6 +15,7 @@ com/betalife/sushibuffet/activity/R$id.class
 com/betalife/sushibuffet/activity/AccessActivity$1.class
 com/betalife/sushibuffet/activity/FragmentOrderpage$GetRootCategoriesAsyncTask.class
 com/betalife/sushibuffet/activity/NewTableActivity$GetAllTablesAsyncTask.class
+com/betalife/sushibuffet/activity/AccessActivity$ConstantAsyncTask.class
 com/betalife/sushibuffet/model/Diningtable.class
 com/betalife/sushibuffet/activity/FragmentIntroduction.class
 com/betalife/sushibuffet/util/DodoroApplication.class

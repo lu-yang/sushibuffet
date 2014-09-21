@@ -75,7 +75,7 @@
     <style name="button_text">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#C69C6D</item>
+        <item name="android:textColor">@color/beige</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_margin">3dp</item>
         <item name="android:textSize">30sp</item>
@@ -84,6 +84,7 @@
         <item name="android:shadowDx">1</item>
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">2</item>
+       	<item name="android:background">@drawable/button_radius</item>
     </style>
 
 </resources>
