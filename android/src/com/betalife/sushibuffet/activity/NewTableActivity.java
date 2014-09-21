@@ -21,7 +21,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.betalife.sushibuffet.AbstractAsyncTask;
-import com.betalife.sushibuffet.model.Categories;
 import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Turnovers;
 
@@ -98,14 +97,14 @@ public class NewTableActivity extends Activity {
 
 	};
 
-	private class OpenTableTask extends AbstractAsyncTask<Turnovers, List<Categories>> {
+	private class OpenTableTask extends AbstractAsyncTask<Turnovers, Turnovers> {
 
 		public OpenTableTask(Activity activity) {
 			super(activity);
 		}
 
 		@Override
-		protected List<Categories> doInBackground(Turnovers... params) {
+		protected Turnovers doInBackground(Turnovers... params) {
 
 			Turnovers tur = params[0];
 
@@ -113,15 +112,15 @@ public class NewTableActivity extends Activity {
 
 			HttpEntity<Turnovers> requestEntity = new HttpEntity<Turnovers>(tur, requestHeaders);
 
-			ResponseEntity<Categories[]> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
-					requestEntity, Categories[].class);
+			ResponseEntity<Turnovers> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
+					requestEntity, Turnovers.class);
 
-			return Arrays.asList(responseEntity.getBody());
+			return responseEntity.getBody();
 
 		}
 
 		@Override
-		public void postCallback(List<Categories> result) {
+		public void postCallback(Turnovers result) {
 			// TODO Auto-generated method stub
 
 		}

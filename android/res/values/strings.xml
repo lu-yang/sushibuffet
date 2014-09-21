@@ -12,5 +12,11 @@
     <string name="label_language">language</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="label_categories">Categories</string>
+    <string name="label_password">Password</string>
+    <string name="title_password">Waiter Password</string>
+    <string name="label_passwordConfirmButton">OK</string>
+    <string name="title_activity_setting">Setting</string>
+    <string name="mes_password_wrong">Password is not correct.</string>
+    
 
 </resources>

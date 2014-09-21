@@ -14,13 +14,10 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Dodoro" 
-       
-       >
+        android:theme="@style/Theme.Dodoro" >
         <activity
             android:name="com.betalife.sushibuffet.activity.AccessActivity"
-            android:label="@string/app_name" 
-             >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,9 +31,11 @@
         </activity>
         <activity
             android:name="com.betalife.sushibuffet.activity.MainActivity"
-            android:label="@string/title_activity_main"
-          
-            >
+            android:label="@string/title_activity_main" >
+        </activity>
+         <activity
+            android:name="com.betalife.sushibuffet.activity.SettingActivity"
+            android:label="@string/title_activity_setting" >
         </activity>
     </application>
 

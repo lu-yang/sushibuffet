@@ -14,7 +14,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
 import android.view.View;
 
 import com.betalife.sushibuffet.util.FragmentFactory;
@@ -55,16 +54,14 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		actionBar.setDisplayShowCustomEnabled(true);
 		actionBar.setCustomView(R.layout.abs_layout);
 		// 设置导航模式为Tab选项标签导航模式
-		
+
 		// actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME |
-				// ActionBar.DISPLAY_SHOW_CUSTOM);
-		View homeIcon = findViewById(
-				Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? 
-			    android.R.id.home : R.id.FragmentHeader);
-			((View) homeIcon.getParent()).setVisibility(View.GONE);
-			((View) homeIcon).setVisibility(View.GONE);
-			
-		
+		// ActionBar.DISPLAY_SHOW_CUSTOM);
+		View homeIcon = findViewById(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? android.R.id.home
+				: R.id.FragmentHeader);
+		((View) homeIcon.getParent()).setVisibility(View.GONE);
+		((View) homeIcon).setVisibility(View.GONE);
+
 		// actionBar.setCustomView(R.layout.abs_layout);
 		// actionBar.setDisplayShowHomeEnabled(true);
 		// actionBar.setLogo(new ColorDrawable(Color.TRANSPARENT));
@@ -88,11 +85,11 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		viewPager.setOffscreenPageLimit(adapter.getCount());
 	}
 
-//	@Override
-	//public boolean onCreateOptionsMenu(Menu menu) {
-		//getMenuInflater().inflate(R.menu.menu, menu);
-		//return true;
-	//}
+	// @Override
+	// public boolean onCreateOptionsMenu(Menu menu) {
+	// getMenuInflater().inflate(R.menu.menu, menu);
+	// return true;
+	// }
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {

@@ -25,13 +25,10 @@ public class CustomerManager {
 	private CategoriesMapper categoriesMapper;
 
 	@Transactional
-	public void openTable(int tableId, int customerCount) {
-		Turnovers turnovers = new Turnovers();
-		turnovers.setCustomerCount(customerCount);
-		turnovers.setTableId(tableId);
+	public void openTable(Turnovers turnovers) {
 		turnoversMapper.insertTurnovers(turnovers);
 		Diningtable table = new Diningtable();
-		table.setId(tableId);
+		table.setId(turnovers.getTableId());
 		table.setAvailable(false);
 		table.setTurnoverId(turnovers.getId());
 		tableMapper.updateDiningtable(table);

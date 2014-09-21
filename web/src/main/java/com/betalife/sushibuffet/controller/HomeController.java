@@ -16,7 +16,9 @@
 
 package com.betalife.sushibuffet.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,9 +64,16 @@ public class HomeController {
 
 	@RequestMapping(value = "openTable", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
-	List<Categories> openTable(@RequestBody Turnovers turnover) {
-		customerManager.openTable(turnover.getTableId(), turnover.getCustomerCount());
-		return customerManager.getCategoriesByParentId(0);
+	Turnovers openTable(@RequestBody Turnovers turnover) {
+		customerManager.openTable(turnover);
+		return turnover;
 	}
 
+	@RequestMapping(value = "constants", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> fetchConstants() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("password", "pass");
+		return map;
+	}
 }
