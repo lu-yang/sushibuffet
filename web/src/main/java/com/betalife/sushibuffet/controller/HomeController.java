@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.betalife.sushibuffet.manager.CustomerManager;
 import com.betalife.sushibuffet.model.Categories;
 import com.betalife.sushibuffet.model.Diningtable;
+import com.betalife.sushibuffet.model.Products;
 import com.betalife.sushibuffet.model.Turnovers;
 
 /**
@@ -72,8 +74,16 @@ public class HomeController {
 	@RequestMapping(value = "constants", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	Map<String, Object> fetchConstants() {
+		// TODO
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("password", "pass");
 		return map;
+	}
+
+	@RequestMapping(value = "products/{categoryId}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	List<Products> fetchProductsByCategoryId(@PathVariable int categoryId) {
+		List<Products> all = customerManager.getProductsByCategoryId(categoryId);
+		return all;
 	}
 }

@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.betalife.sushibuffet.dao.CategoriesMapper;
 import com.betalife.sushibuffet.dao.DiningtableMapper;
+import com.betalife.sushibuffet.dao.ProductsMapper;
 import com.betalife.sushibuffet.dao.TurnoversMapper;
 import com.betalife.sushibuffet.model.Categories;
 import com.betalife.sushibuffet.model.Diningtable;
+import com.betalife.sushibuffet.model.Products;
 import com.betalife.sushibuffet.model.Turnovers;
 
 @Service
@@ -23,6 +25,9 @@ public class CustomerManager {
 
 	@Autowired
 	private CategoriesMapper categoriesMapper;
+
+	@Autowired
+	private ProductsMapper productsMapper;
 
 	@Transactional
 	public void openTable(Turnovers turnovers) {
@@ -40,5 +45,9 @@ public class CustomerManager {
 
 	public List<Diningtable> getAvailableTables() {
 		return tableMapper.selectAvailableTables();
+	}
+
+	public List<Products> getProductsByCategoryId(int categoryId) {
+		return productsMapper.selectByCategoryId(categoryId);
 	}
 }
