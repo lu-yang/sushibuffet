@@ -48,6 +48,7 @@ public class FragmentSetting extends Fragment {
 					TextView mes = (TextView) view.findViewById(R.id.mes_password_wrong);
 					mes.setVisibility(View.VISIBLE);
 				}
+				text.clear();
 			}
 		});
 		return view;

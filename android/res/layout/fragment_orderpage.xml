@@ -2,28 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" 
-    android:padding="10dp" >
- 	
- 	<android.widget.IconTextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:shadowColor="#22000000"
-	        android:shadowDx="3"
-	        android:shadowDy="3"
-	        android:shadowRadius="1"
-	        android:text="@string/label_categories"
-	        android:textColor="#C69C6D"
-	        android:textSize="25sp"
-	        android:padding="10dp"  />
-   
- 	
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
 
-    <Spinner
+    <ListView
         android:id="@+id/categories"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textColor="#C69C6D" />
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.3"
+        android:choiceMode="singleChoice"
+        android:drawSelectorOnTop="false"
+        android:scrollbars="vertical" />
 
-</LinearLayout> <!-- </FrameLayout> -->
+    <GridView
+        android:id="@+id/products"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7"
+        android:gravity="center"
+        android:horizontalSpacing="1pt"
+        android:numColumns="4"
+        android:verticalSpacing="1pt" />
+
+</LinearLayout>
