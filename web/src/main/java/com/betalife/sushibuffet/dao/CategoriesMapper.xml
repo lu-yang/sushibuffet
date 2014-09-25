@@ -10,18 +10,16 @@
 		SELECT
 			c.id, c.active, c.position, c.thumb, m.name, m.desc
 		FROM
-			categories c LEFT JOIN multilang m ON m.id = c.id + 'c'
+			categories c LEFT JOIN multilang m ON m.id = 'c'+c.id  AND m.locale='nl'
 		WHERE 
 			c.parent_id = #{id}
-			AND m.locale=#{locale}
 	</select>
 
 	<select id="selectAll" parameterType="String"  resultType="Categories">
 		SELECT
 			c.id, c.active, c.position, c.thumb, m.name, m.desc
 		FROM
-			categories c LEFT JOIN multilang m ON m.id = c.id + 'c'
-		WHERE m.locale=#{locale}
+			categories c LEFT JOIN multilang m ON m.id = 'c'+c.id  AND m.locale='nl'
 	</select>
 
 </mapper>
