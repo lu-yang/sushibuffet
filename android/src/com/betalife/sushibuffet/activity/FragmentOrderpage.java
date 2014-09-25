@@ -22,6 +22,7 @@ import android.widget.ListView;
 import com.betalife.sushibuffet.AbstractAsyncTask;
 import com.betalife.sushibuffet.model.Categories;
 import com.betalife.sushibuffet.model.Products;
+import com.betalife.sushibuffet.util.DodoroContext;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
@@ -73,7 +74,8 @@ public class FragmentOrderpage extends Fragment {
 
 		@Override
 		protected List<Categories> doInBackground(Void... params) {
-			String url = getString(R.string.base_uri) + "/rootCategories";
+			String url = getString(R.string.base_uri) + "/rootCategories/"
+					+ DodoroContext.languageCode(getActivity()) + "/1";
 			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 			ResponseEntity<Categories[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
 					requestEntity, Categories[].class);
@@ -102,7 +104,8 @@ public class FragmentOrderpage extends Fragment {
 
 		@Override
 		protected List<Products> doInBackground(Void... params) {
-			String url = getString(R.string.base_uri) + "/products/" + categoryId;
+			String url = getString(R.string.base_uri) + "/products/"
+					+ DodoroContext.languageCode(getActivity()) + "/" + categoryId;
 			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 			ResponseEntity<Products[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
 					requestEntity, Products[].class);

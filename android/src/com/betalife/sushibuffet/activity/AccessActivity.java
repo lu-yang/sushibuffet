@@ -19,7 +19,7 @@ public class AccessActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getActionBar().hide();
-		DodoroContext.locale(DodoroContext.DEFAULT_LOCALE, this);
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_access);
 
@@ -35,8 +35,12 @@ public class AccessActivity extends Activity {
 
 		@Override
 		public void postCallback(Constant result) {
-			System.out.println(result);
 			DodoroContext.getInstance().setConstant(result);
+			// DodoroContext.locale(DodoroContext.DEFAULT_LOCALE,
+			// AccessActivity.this);
+			// Resources resources = activity.getResources();
+			// Configuration config = resources.getConfiguration();
+			// config.locale = DodoroContext.DEFAULT_LOCALE;
 			Intent intent = new Intent();
 			intent.setClass(AccessActivity.this, NewTableActivity.class);
 			startActivity(intent);
@@ -44,7 +48,7 @@ public class AccessActivity extends Activity {
 
 		@Override
 		protected Constant doInBackground(Void... params) {
-			String url = getString(R.string.base_uri) + "/constants";
+			String url = getString(R.string.base_uri) + "/constant";
 			System.out.println("url: " + url);
 
 			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
