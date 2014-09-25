@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="logo">DODORO LOGO</string>
+    <string name="slogan">DODORO LOGO</string>
+    <string name="logoLayout">DODORO LOGO</string>
+    <string name="Title">New Table</string>
+    <string name="label_tblNum">Choose a table number:</string>
+    <string name="label_perNum">The number of persons:</string>
+    <string name="activeTbl">Active this table</string>
+    <string name="title_activity_new_table">Dodoro</string>
+    <string name="label_language">language</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="label_categories">{fa_list} Menu</string>
+    <string name="label_password">{fa_cog} Configuration</string>
+    <string name="title_password">Waiter Password</string>
+    <string name="label_passwordConfirmButton">OK</string>
+    <string name="title_activity_setting">Setting</string>
+    <string name="mes_password_wrong">Password is not correct.</string>
+    <string name="head_introduction">{fa_info_circle} How it works</string>
+    <string name="head_lang">{fa_globe} Language</string>
+   	<string name="head_historical">{fa_history} Ordered historical</string>
+    
+    
+    <string name="introduction">(NL)Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+         Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+         Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>	
+   
+</resources>

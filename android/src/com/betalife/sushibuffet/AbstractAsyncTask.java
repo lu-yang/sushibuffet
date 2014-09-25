@@ -23,7 +23,14 @@ public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 
 	private ProgressDialog progressDialog;
 
+	private boolean showProgressDialog;
+
 	protected Activity activity;
+
+	public AbstractAsyncTask(Activity activity, boolean showProgressDialog) {
+		this(activity);
+		this.showProgressDialog = showProgressDialog;
+	}
 
 	public AbstractAsyncTask(Activity activity) {
 		this.activity = activity;
@@ -41,6 +48,12 @@ public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 
 	@Override
 	protected void onPreExecute() {
+		if (showProgressDialog) {
+			showProgressDialog();
+		}
+	}
+
+	private void showProgressDialog() {
 		if (this.progressDialog == null) {
 			this.progressDialog = new ProgressDialog(activity);
 			this.progressDialog.setIndeterminate(true);
@@ -60,5 +73,13 @@ public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 	}
 
 	public abstract void postCallback(T result);
+
+	public ProgressDialog getProgressDialog() {
+		return progressDialog;
+	}
+
+	public void setProgressDialog(ProgressDialog progressDialog) {
+		this.progressDialog = progressDialog;
+	}
 
 }
