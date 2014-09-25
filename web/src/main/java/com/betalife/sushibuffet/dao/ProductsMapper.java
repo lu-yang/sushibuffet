@@ -5,7 +5,9 @@ import java.util.List;
 import com.betalife.sushibuffet.model.Products;
 
 public interface ProductsMapper {
-	List<Products> selectByCategoryId(int categoryId);
+	List<Products> selectByCategoryId(Products product);
 
-	List<Products> selectAll();
+	List<Products> selectById(Products product);
+
+	List<Products> selectAll(String locale);
 }

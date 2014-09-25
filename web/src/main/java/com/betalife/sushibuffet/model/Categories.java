@@ -13,6 +13,15 @@ public class Categories extends BaseModel {
 	private String description;
 	private String thumb;
 	private int view;
+	private String locale;
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
 
 	public boolean isActive() {
 		return active;

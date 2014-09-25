@@ -16,9 +16,7 @@
 
 package com.betalife.sushibuffet.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +33,7 @@ import com.betalife.sushibuffet.model.Categories;
 import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Products;
 import com.betalife.sushibuffet.model.Turnovers;
+import com.betalife.sushibuffet.util.Constant;
 
 /**
  * Handles requests for the application home page.
@@ -50,6 +49,9 @@ public class HomeController {
 	@Autowired
 	private CustomerManager customerManager;
 
+	@Autowired
+	private Constant constant;
+
 	@RequestMapping(value = "availableTables", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Diningtable> fetchAllTables() {
@@ -57,10 +59,13 @@ public class HomeController {
 		return allTables;
 	}
 
-	@RequestMapping(value = "rootCategories", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "rootCategories/{locale}/{parentId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<Categories> fetchRootCategories() {
-		List<Categories> all = customerManager.getCategoriesByParentId(1);
+	List<Categories> fetchRootCategories(@PathVariable String locale, @PathVariable int parentId) {
+		Categories model = new Categories();
+		model.setParentId(parentId);
+		model.setLocale(locale);
+		List<Categories> all = customerManager.getCategoriesByParentId(model);
 		return all;
 	}
 
@@ -71,19 +76,19 @@ public class HomeController {
 		return turnover;
 	}
 
-	@RequestMapping(value = "constants", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "constant", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	Map<String, Object> fetchConstants() {
-		// TODO
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("password", "pass");
-		return map;
+	Constant fetchConstants() {
+		return constant;
 	}
 
-	@RequestMapping(value = "products/{categoryId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "products/{locale}/{categoryId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<Products> fetchProductsByCategoryId(@PathVariable int categoryId) {
-		List<Products> all = customerManager.getProductsByCategoryId(categoryId);
+	List<Products> fetchProductsByCategoryId(@PathVariable String locale, @PathVariable int categoryId) {
+		Products model = new Products();
+		model.setCategoryId(categoryId);
+		model.setLocale(locale);
+		List<Products> all = customerManager.getProductsByCategoryId(model);
 		return all;
 	}
 }

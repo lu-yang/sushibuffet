@@ -24,6 +24,8 @@
 		</property>
 	</bean>
 	
+	<util:properties id="constants" location="classpath:constants.properties" />
+	
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />

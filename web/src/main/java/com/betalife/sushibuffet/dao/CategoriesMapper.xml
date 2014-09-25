@@ -6,15 +6,22 @@
 
 	<cache />
 
-	<select id="selectByParentId" parameterType="int" resultType="Categories">
-		select *
-		from categories
-		where parent_id=#{id}
+	<select id="selectByParentId" parameterType="Categories" resultType="Categories">
+		SELECT
+			c.id, c.active, c.position, c.thumb, m.name, m.desc
+		FROM
+			categories c LEFT JOIN multilang m ON m.id = c.id + 'c'
+		WHERE 
+			c.parent_id = #{id}
+			AND m.locale=#{locale}
 	</select>
 
-	<select id="selectAll" resultType="Categories">
-		select *
-		from categories
+	<select id="selectAll" parameterType="String"  resultType="Categories">
+		SELECT
+			c.id, c.active, c.position, c.thumb, m.name, m.desc
+		FROM
+			categories c LEFT JOIN multilang m ON m.id = c.id + 'c'
+		WHERE m.locale=#{locale}
 	</select>
 
 </mapper>

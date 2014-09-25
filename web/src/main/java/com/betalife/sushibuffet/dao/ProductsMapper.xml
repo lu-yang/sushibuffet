@@ -6,21 +6,35 @@
 
 	<cache />
 
-	<select id="selectByCategoryId" parameterType="int" resultType="Products">
-		select *
-		from products
-		where category_id=#{id}
+	<select id="selectByCategoryId" parameterType="Products" resultType="Products">
+		SELECT
+			c.id, c.category_id, c.product_price, c.active, c.position,  c.thumb, 
+			m.name, m.desc
+		FROM
+			products c LEFT JOIN multilang m 
+				ON m.id = 'p'	+ c.id AND m.locale= #{locale}
+		WHERE 
+			c.category_id = #{id}
 	</select>
 
-	<select id="selectById" parameterType="int" resultType="Products">
-		select *
-		from products
-		where id=#{id}
+	<select id="selectById" parameterType="Products" resultType="Products">
+		SELECT
+			c.id, c.category_id, c.product_price, c.active, c.position,  c.thumb, 
+			m.name, m.desc
+		FROM
+			products c LEFT JOIN multilang m 
+				ON m.id = 'p'	+ c.id AND m.locale= #{locale}
+		WHERE 
+			c.id = #{id}
 	</select>
 
-	<select id="selectAll" resultType="Products">
-		select *
-		from products
+	<select id="selectAll"  parameterType="String" resultType="Products">
+		SELECT
+			c.id, c.category_id, c.product_price, c.active, c.position,  c.thumb, 
+			m.name, m.desc
+		FROM
+			products c LEFT JOIN multilang m 
+				ON m.id = 'p'	+ c.id AND m.locale= #{locale}
 	</select>
 
 </mapper>

@@ -39,15 +39,15 @@ public class CustomerManager {
 		tableMapper.updateDiningtable(table);
 	}
 
-	public List<Categories> getCategoriesByParentId(int parentId) {
-		return categoriesMapper.selectByParentId(parentId);
+	public List<Categories> getCategoriesByParentId(Categories categories) {
+		return categoriesMapper.selectByParentId(categories);
 	}
 
 	public List<Diningtable> getAvailableTables() {
 		return tableMapper.selectAvailableTables();
 	}
 
-	public List<Products> getProductsByCategoryId(int categoryId) {
-		return productsMapper.selectByCategoryId(categoryId);
+	public List<Products> getProductsByCategoryId(Products products) {
+		return productsMapper.selectByCategoryId(products);
 	}
 }

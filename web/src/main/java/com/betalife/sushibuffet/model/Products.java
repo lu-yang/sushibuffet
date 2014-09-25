@@ -16,6 +16,15 @@ public class Products extends BaseModel {
 	private int num;
 	private int taxgroupId;
 	private float productPrice;
+	private String locale;
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
 
 	public int getCategoryId() {
 		return categoryId;
