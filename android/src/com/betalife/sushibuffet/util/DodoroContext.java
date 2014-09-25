@@ -1,11 +1,20 @@
 package com.betalife.sushibuffet.util;
 
-import java.util.Map;
+import java.util.Locale;
+
+import android.app.Activity;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+
+import com.betalife.sushibuffet.model.Constant;
 
 public class DodoroContext {
 	private static DodoroContext instance;
 
-	private Map<String, Object> constants;
+	public static final Locale DEFAULT_LOCALE = new Locale("nl");
+
+	private Constant constant;
 
 	private DodoroContext() {
 	}
@@ -17,12 +26,32 @@ public class DodoroContext {
 		return instance;
 	}
 
-	public String getString(String key) {
-		return (String) constants.get(key);
+	public Constant getConstant() {
+		return constant;
 	}
 
-	public void setConstants(Map<String, Object> constants) {
-		this.constants = constants;
+	public void setConstant(Constant constant) {
+		this.constant = constant;
 	}
 
+	public static void locale(Locale locale, Activity activity) {
+		Resources resources = activity.getResources();
+		Configuration config = resources.getConfiguration();
+		config.locale = locale;
+		DisplayMetrics dm = resources.getDisplayMetrics();
+		resources.updateConfiguration(config, dm);
+		activity.recreate();
+	}
+
+	public static Locale locale(Activity activity) {
+		Resources resources = activity.getResources();
+		Configuration config = resources.getConfiguration();
+		return config.locale;
+	}
+
+	public static String languageCode(Activity activity) {
+		Resources resources = activity.getResources();
+		Configuration config = resources.getConfiguration();
+		return config.locale.getLanguage();
+	}
 }

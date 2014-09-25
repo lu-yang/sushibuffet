@@ -32,12 +32,9 @@ public class NewTableActivity extends Activity {
 	public void activeTable(View v) {
 		Spinner spin = (Spinner) findViewById(R.id.tblNum);
 		Diningtable table = (Diningtable) spin.getSelectedItem();
-		Spinner spin2 = (Spinner) findViewById(R.id.perNum);
-		String num = (String) spin2.getSelectedItem();
 		Turnovers turnover = new Turnovers();
 		turnover.setTableId(table.getId());
-		turnover.setCustomerCount(Integer.parseInt(num));
-		Toast.makeText(this, "table: " + table.getId() + ", people: " + num, Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "table: " + table.getId(), Toast.LENGTH_SHORT).show();
 		OpenTableTask task = new OpenTableTask(this);
 		task.execute(turnover);
 	}

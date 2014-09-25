@@ -39,7 +39,7 @@ public class FragmentSetting extends Fragment {
 			public void onClick(View v) {
 				Editable text = userInput.getText();
 				String password = text.toString();
-				String pass = DodoroContext.getInstance().getString("password");
+				String pass = DodoroContext.getInstance().getConstant().getPassword();
 				if (StringUtils.equals(password, pass)) {
 					Intent intent = new Intent();
 					intent.setClass(FragmentSetting.this.getActivity(), SettingActivity.class);

@@ -5,7 +5,7 @@
     android:background="@drawable/activity_bg"
     tools:context="${packageName}.${activityClass}" >
 
-  <RelativeLayout
+    <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -41,18 +41,18 @@
             android:id="@+id/textView1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="#666"
+            android:gravity="center"
             android:text="@string/Title"
             android:textColor="#C69C6D"
-            android:textSize="30sp" 
-            android:textStyle="bold"
-            android:background="#666"
-            android:gravity="center"/>
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp" 
-            android:orientation="vertical">
+            android:layout_marginTop="20dp"
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/label_tblNum"
@@ -66,42 +66,8 @@
                 android:id="@+id/tblNum"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="1" 
-                android:textColor="#C69C6D"	
-                />
-            <TextView
-                android:id="@+id/label_perNum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_perNum"
-                android:textColor="#C69C6D"
-                android:textSize="30sp" />
-
-            <Spinner
-                android:id="@+id/perNum"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1" 
-                android:textColor="#C69C6D"	
-                android:entries="@array/perNumList"
-                />
-            
-            <TextView
-                android:id="@+id/label_language"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_language"
-                android:textColor="#C69C6D"
-                android:textSize="30sp" />
-
-            <Spinner
-                android:id="@+id/language"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1" 
-                android:textColor="#C69C6D"	
-                android:entries="@array/languages"
-                />
+                android:layout_weight="1"
+                android:textColor="#C69C6D" />
 
             <Button
                 android:id="@+id/activeTbl"
@@ -114,12 +80,7 @@
                 android:clickable="true"
                 android:onClick="activeTable"
                 android:text="@string/activeTbl" />
-
         </LinearLayout>
-        
-        
     </LinearLayout>
 
-    
-
-    </RelativeLayout>
+</RelativeLayout>

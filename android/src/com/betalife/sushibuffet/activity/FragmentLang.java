@@ -2,16 +2,15 @@ package com.betalife.sushibuffet.activity;
 
 import java.util.Locale;
 
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.betalife.sushibuffet.util.DodoroContext;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
@@ -33,27 +32,23 @@ public class FragmentLang extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				Resources resources = getResources();
-				Configuration config = resources.getConfiguration();
+				Locale locale = null;
 				switch (v.getId()) {
 				case R.id.lang_en:
-					config.locale = Locale.ENGLISH;
+					locale = Locale.ENGLISH;
 					break;
 				case R.id.lang_fr:
-					config.locale = Locale.FRENCH;
+					locale = Locale.FRENCH;
 					break;
 				case R.id.lang_nl:
-					config.locale = new Locale("nl");
+					locale = new Locale("nl");
 					break;
-
 				default:
-					config.locale = new Locale("nl");
+					locale = DodoroContext.DEFAULT_LOCALE;
 					break;
 				}
 
-				DisplayMetrics dm = resources.getDisplayMetrics();
-				resources.updateConfiguration(config, dm);
-				getActivity().recreate();
+				DodoroContext.locale(locale, getActivity());
 			}
 		};
 		Button lang_en = (Button) langFragment.findViewById(R.id.lang_en);
