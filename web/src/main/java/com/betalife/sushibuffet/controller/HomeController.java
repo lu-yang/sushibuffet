@@ -55,7 +55,7 @@ public class HomeController {
 	@RequestMapping(value = "availableTables", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Diningtable> fetchAllTables() {
-		List<Diningtable> allTables = customerManager.getAvailableTables();
+		List<Diningtable> allTables = customerManager.getTables();
 		return allTables;
 	}
 

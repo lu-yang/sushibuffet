@@ -6,17 +6,9 @@
 
   <cache />
 
-  <update id="updateDiningtable" parameterType="Diningtable">
-    UPDATE diningtable
-    SET available = #{available},
-     turnover_id = #{turnoverId}
-    WHERE id = #{id}
-  </update>
-  
-  	<select id="selectAvailableTables" resultType="Diningtable">
-		select *
-		from diningtable
-		where available = 0
+  	<select id="selectTables" resultType="Diningtable">
+		SELECT d.id, d.available, t.checkout
+		FROM diningtable d LEFT JOIN turnovers t ON d.id = t.table_id
 	</select>
 
 </mapper>

@@ -8,9 +8,9 @@
 
   <insert id="insertTurnovers" parameterType="Turnovers" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO turnovers
-      (table_id, customer_count)
+      (table_id, checkout)
     VALUES
-      (#{tableId}, #{customerCount})
+      (#{tableId}, #{checkout})
   </insert>
 
 </mapper>

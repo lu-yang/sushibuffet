@@ -8,7 +8,6 @@ public class Order extends BaseModel {
 	private int turnoverId;
 	private int productId;
 	private int count;
-	private int roundNo;
 
 	public int getTurnoverId() {
 		return turnoverId;
@@ -34,18 +33,10 @@ public class Order extends BaseModel {
 		this.count = count;
 	}
 
-	public int getRoundNo() {
-		return roundNo;
-	}
-
-	public void setRoundNo(int roundNo) {
-		this.roundNo = roundNo;
-	}
-
 	@Override
 	public String toString() {
-		return "Order [turnoverId=" + turnoverId + ", productId=" + productId + ", count=" + count
-				+ ", roundNo=" + roundNo + ", id=" + id + "]";
+		return "Order [turnoverId=" + turnoverId + ", productId=" + productId + ", count=" + count + ", id="
+				+ id + "]";
 	}
 
 }

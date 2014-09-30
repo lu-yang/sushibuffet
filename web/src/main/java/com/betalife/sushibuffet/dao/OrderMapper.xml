@@ -4,12 +4,6 @@
 
 <mapper namespace="com.betalife.sushibuffet.dao.OrderMapper">
 
-  <select id="selectByRoundNo" parameterType="int" resultType="Order">
-      select *
-      from order
-      where round_no=#{id}
-  </select>
-  
     <select id="selectByTurnoverId" parameterType="int" resultType="Order">
       select *
       from order
@@ -18,9 +12,9 @@
   
    <insert id="insertOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO order
-      (turnover_id, product_id, count, round_no)
+      (turnover_id, product_id, count)
     VALUES
-      (#{turnoverId}, #{productId}, #{count}, #{roundNo})
+      (#{turnoverId}, #{productId}, #{count})
   </insert>
 
 </mapper>

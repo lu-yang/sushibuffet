@@ -14,7 +14,7 @@
 			products c LEFT JOIN multilang m 
 				ON m.id = 'p'	+ c.id AND m.locale= #{locale}
 		WHERE 
-			c.category_id = #{id}
+			c.category_id = #{categoryId}
 	</select>
 
 	<select id="selectById" parameterType="Products" resultType="Products">

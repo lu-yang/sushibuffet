@@ -32,19 +32,14 @@ public class CustomerManager {
 	@Transactional
 	public void openTable(Turnovers turnovers) {
 		turnoversMapper.insertTurnovers(turnovers);
-		Diningtable table = new Diningtable();
-		table.setId(turnovers.getTableId());
-		table.setAvailable(false);
-		table.setTurnoverId(turnovers.getId());
-		tableMapper.updateDiningtable(table);
 	}
 
 	public List<Categories> getCategoriesByParentId(Categories categories) {
 		return categoriesMapper.selectByParentId(categories);
 	}
 
-	public List<Diningtable> getAvailableTables() {
-		return tableMapper.selectAvailableTables();
+	public List<Diningtable> getTables() {
+		return tableMapper.selectTables();
 	}
 
 	public List<Products> getProductsByCategoryId(Products products) {
