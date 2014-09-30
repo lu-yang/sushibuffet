@@ -13,6 +13,15 @@ public class Categories extends BaseModel {
 	private String description;
 	private String thumb;
 	private int view;
+	private String locale;
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
 
 	public boolean isActive() {
 		return active;
@@ -78,8 +87,11 @@ public class Categories extends BaseModel {
 		this.view = view;
 	}
 
+	@Override
 	public String toString() {
-		return name;
+		return "Categories [active=" + active + ", parentId=" + parentId + ", name=" + name + ", levelDepth="
+				+ levelDepth + ", position=" + position + ", description=" + description + ", thumb=" + thumb
+				+ ", view=" + view + ", id=" + id + "]";
 	}
 
 }

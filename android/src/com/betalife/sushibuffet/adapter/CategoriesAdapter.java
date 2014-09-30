@@ -1,52 +1,32 @@
-package com.betalife.sushibuffet.activity;
+package com.betalife.sushibuffet.adapter;
 
 import java.util.List;
 
-import android.content.Context;
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.betalife.sushibuffet.model.Products;
+import com.betalife.sushibuffet.activity.R;
+import com.betalife.sushibuffet.model.Categories;
 import com.betalife.sushibuffet.util.AsyncImageLoader;
 import com.betalife.sushibuffet.util.AsyncImageLoader.ImageCallback;
 
-public class ProductsAdapter extends BaseAdapter {
-	private List<Products> products;
-	private final LayoutInflater layoutInflater;
+public class CategoriesAdapter extends AAdapter<Categories> {
 
-	public ProductsAdapter(Context context, List<Products> products) {
-		super();
-		this.products = products;
-		this.layoutInflater = LayoutInflater.from(context);
-	}
-
-	@Override
-	public int getCount() {
-		return products.size();
-	}
-
-	@Override
-	public Products getItem(int position) {
-		return products.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return products.get(position).getId();
+	public CategoriesAdapter(Activity activity, List<Categories> categories) {
+		super(activity, categories);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView = this.layoutInflater.inflate(R.layout.product, parent, false);
+			convertView = this.layoutInflater.inflate(R.layout.category, parent, false);
 		}
 
-		Products result = getItem(position);
+		Categories result = getItem(position);
 		if (result != null) {
 			final ImageView thumb = (ImageView) convertView.findViewById(R.id.thumb);
 			String imageUrl = "http://www.baidu.com/img/bd_logo1.png";
@@ -59,7 +39,7 @@ public class ProductsAdapter extends BaseAdapter {
 			});
 
 			TextView name = (TextView) convertView.findViewById(R.id.name);
-			name.setText(result.getProductName());
+			name.setText(result.getName());
 
 			TextView desc = (TextView) convertView.findViewById(R.id.desc);
 			desc.setText(result.getDescription());

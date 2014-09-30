@@ -20,6 +20,8 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import com.betalife.sushibuffet.AbstractAsyncTask;
+import com.betalife.sushibuffet.adapter.CategoriesAdapter;
+import com.betalife.sushibuffet.adapter.ProductsAdapter;
 import com.betalife.sushibuffet.model.Categories;
 import com.betalife.sushibuffet.model.Products;
 import com.betalife.sushibuffet.util.DodoroContext;

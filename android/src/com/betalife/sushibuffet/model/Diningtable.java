@@ -6,7 +6,15 @@ public class Diningtable extends BaseModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private boolean available;
-	private int turnoverId;
+	private boolean checkout;
+
+	public boolean isCheckout() {
+		return checkout;
+	}
+
+	public void setCheckout(boolean checkout) {
+		this.checkout = checkout;
+	}
 
 	public boolean isAvailable() {
 		return available;
@@ -14,14 +22,6 @@ public class Diningtable extends BaseModel {
 
 	public void setAvailable(boolean available) {
 		this.available = available;
-	}
-
-	public int getTurnoverId() {
-		return turnoverId;
-	}
-
-	public void setTurnoverId(int turnoverId) {
-		this.turnoverId = turnoverId;
 	}
 
 	public String toString() {
