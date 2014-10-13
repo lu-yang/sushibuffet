@@ -1,6 +1,6 @@
 package com.betalife.sushibuffet.model;
 
-public class Turnovers extends BaseModel {
+public class Turnover extends BaseModel {
 
 	/**
 	 * 
@@ -27,7 +27,7 @@ public class Turnovers extends BaseModel {
 
 	@Override
 	public String toString() {
-		return "Turnovers [tableId=" + tableId + ", checkout=" + checkout + ", id=" + id + "]";
+		return "Turnover [tableId=" + tableId + ", checkout=" + checkout + ", id=" + id + "]";
 	}
 
 }

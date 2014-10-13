@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.betalife.sushibuffet.dao.CategoriesMapper;
+import com.betalife.sushibuffet.dao.CategoryMapper;
 import com.betalife.sushibuffet.dao.DiningtableMapper;
-import com.betalife.sushibuffet.dao.ProductsMapper;
-import com.betalife.sushibuffet.dao.TurnoversMapper;
-import com.betalife.sushibuffet.model.Categories;
+import com.betalife.sushibuffet.dao.ProductMapper;
+import com.betalife.sushibuffet.dao.TurnoverMapper;
+import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Diningtable;
-import com.betalife.sushibuffet.model.Products;
-import com.betalife.sushibuffet.model.Turnovers;
+import com.betalife.sushibuffet.model.Product;
+import com.betalife.sushibuffet.model.Turnover;
 
 @Service
 public class CustomerManager {
@@ -21,28 +21,28 @@ public class CustomerManager {
 	private DiningtableMapper tableMapper;
 
 	@Autowired
-	private TurnoversMapper turnoversMapper;
+	private TurnoverMapper turnoverMapper;
 
 	@Autowired
-	private CategoriesMapper categoriesMapper;
+	private CategoryMapper categoryMapper;
 
 	@Autowired
-	private ProductsMapper productsMapper;
+	private ProductMapper productMapper;
 
 	@Transactional
-	public void openTable(Turnovers turnovers) {
-		turnoversMapper.insertTurnovers(turnovers);
+	public void openTable(Turnover turnover) {
+		turnoverMapper.insertTurnover(turnover);
 	}
 
-	public List<Categories> getCategoriesByParentId(Categories categories) {
-		return categoriesMapper.selectByParentId(categories);
+	public List<Category> getCategoriesByParentId(Category category) {
+		return categoryMapper.selectByParentId(category);
 	}
 
 	public List<Diningtable> getTables() {
 		return tableMapper.selectTables();
 	}
 
-	public List<Products> getProductsByCategoryId(Products products) {
-		return productsMapper.selectByCategoryId(products);
+	public List<Product> getProductsByCategoryId(Product product) {
+		return productMapper.selectByCategoryId(product);
 	}
 }

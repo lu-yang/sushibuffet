@@ -29,10 +29,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.betalife.sushibuffet.manager.CustomerManager;
-import com.betalife.sushibuffet.model.Categories;
+import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Diningtable;
-import com.betalife.sushibuffet.model.Products;
-import com.betalife.sushibuffet.model.Turnovers;
+import com.betalife.sushibuffet.model.Product;
+import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.Constant;
 
 /**
@@ -59,19 +59,19 @@ public class HomeController {
 		return allTables;
 	}
 
-	@RequestMapping(value = "rootCategories/{locale}/{parentId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "categories/{locale}/{parentId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<Categories> fetchRootCategories(@PathVariable String locale, @PathVariable int parentId) {
-		Categories model = new Categories();
+	List<Category> fetchRootCategories(@PathVariable String locale, @PathVariable int parentId) {
+		Category model = new Category();
 		model.setParentId(parentId);
 		model.setLocale(locale);
-		List<Categories> all = customerManager.getCategoriesByParentId(model);
+		List<Category> all = customerManager.getCategoriesByParentId(model);
 		return all;
 	}
 
 	@RequestMapping(value = "openTable", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
-	Turnovers openTable(@RequestBody Turnovers turnover) {
+	Turnover openTable(@RequestBody Turnover turnover) {
 		customerManager.openTable(turnover);
 		return turnover;
 	}
@@ -84,11 +84,11 @@ public class HomeController {
 
 	@RequestMapping(value = "products/{locale}/{categoryId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<Products> fetchProductsByCategoryId(@PathVariable String locale, @PathVariable int categoryId) {
-		Products model = new Products();
+	List<Product> fetchProductsByCategoryId(@PathVariable String locale, @PathVariable int categoryId) {
+		Product model = new Product();
 		model.setCategoryId(categoryId);
 		model.setLocale(locale);
-		List<Products> all = customerManager.getProductsByCategoryId(model);
+		List<Product> all = customerManager.getProductsByCategoryId(model);
 		return all;
 	}
 }
