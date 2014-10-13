@@ -18,7 +18,7 @@ import com.betalife.sushibuffet.AbstractAsyncTask;
 import com.betalife.sushibuffet.activity.MainActivity;
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.model.Diningtable;
-import com.betalife.sushibuffet.model.Turnovers;
+import com.betalife.sushibuffet.model.Turnover;
 
 public class TableAdapter extends AAdapter<Diningtable> {
 
@@ -31,7 +31,7 @@ public class TableAdapter extends AAdapter<Diningtable> {
 		@Override
 		public void onClick(View v) {
 			Diningtable selected = (Diningtable) v.getTag();
-			Turnovers turnover = new Turnovers();
+			Turnover turnover = new Turnover();
 			turnover.setTableId(selected.getId());
 			Toast.makeText(activity, "table: " + selected.getId(), Toast.LENGTH_SHORT).show();
 			OpenTableTask task = new OpenTableTask(activity);
@@ -39,24 +39,24 @@ public class TableAdapter extends AAdapter<Diningtable> {
 		}
 	};
 
-	private class OpenTableTask extends AbstractAsyncTask<Turnovers, Turnovers> {
+	private class OpenTableTask extends AbstractAsyncTask<Turnover, Turnover> {
 
 		public OpenTableTask(Activity activity) {
 			super(activity);
 		}
 
 		@Override
-		protected Turnovers doInBackground(Turnovers... params) {
-			Turnovers tur = params[0];
+		protected Turnover doInBackground(Turnover... params) {
+			Turnover tur = params[0];
 			final String url = activity.getString(R.string.base_uri) + "/openTable";
-			HttpEntity<Turnovers> requestEntity = new HttpEntity<Turnovers>(tur, requestHeaders);
-			ResponseEntity<Turnovers> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
-					requestEntity, Turnovers.class);
+			HttpEntity<Turnover> requestEntity = new HttpEntity<Turnover>(tur, requestHeaders);
+			ResponseEntity<Turnover> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
+					requestEntity, Turnover.class);
 			return responseEntity.getBody();
 		}
 
 		@Override
-		public void postCallback(Turnovers result) {
+		public void postCallback(Turnover result) {
 			Intent intent = new Intent();
 			intent.setClass(activity, MainActivity.class);
 			activity.startActivity(intent);
@@ -76,7 +76,7 @@ public class TableAdapter extends AAdapter<Diningtable> {
 			name.setText(result.getId() + "");
 
 			TextView desc = (TextView) convertView.findViewById(R.id.status);
-			if (result.isAvailable() && result.isCheckout()) {
+			if (result.isAvailable() && result.getTurnover().isCheckout()) {
 				desc.setText("可以开桌");
 				convertView.setOnClickListener(onClickListener);
 			} else {

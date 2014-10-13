@@ -1,6 +1,6 @@
 package com.betalife.sushibuffet.model;
 
-public class Turnovers extends BaseModel {
+public class Turnover extends BaseModel {
 
 	/**
 	 * 

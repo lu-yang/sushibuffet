@@ -10,23 +10,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.betalife.sushibuffet.activity.R;
-import com.betalife.sushibuffet.model.Products;
+import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.util.AsyncImageLoader;
 import com.betalife.sushibuffet.util.AsyncImageLoader.ImageCallback;
 
-public class ProductsAdapter extends AAdapter<Products> {
+public class CategoryAdapter extends AAdapter<Category> {
 
-	public ProductsAdapter(Activity activity, List<Products> products) {
-		super(activity, products);
+	public CategoryAdapter(Activity activity, List<Category> categories) {
+		super(activity, categories);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView = this.layoutInflater.inflate(R.layout.product, parent, false);
+			convertView = this.layoutInflater.inflate(R.layout.category, parent, false);
 		}
 
-		Products result = getItem(position);
+		Category result = getItem(position);
 		if (result != null) {
 			final ImageView thumb = (ImageView) convertView.findViewById(R.id.thumb);
 			String imageUrl = "http://www.baidu.com/img/bd_logo1.png";
@@ -39,7 +39,7 @@ public class ProductsAdapter extends AAdapter<Products> {
 			});
 
 			TextView name = (TextView) convertView.findViewById(R.id.name);
-			name.setText(result.getProductName());
+			name.setText(result.getName());
 
 			TextView desc = (TextView) convertView.findViewById(R.id.desc);
 			desc.setText(result.getDescription());

@@ -1,6 +1,6 @@
 package com.betalife.sushibuffet.model;
 
-public class Categories extends BaseModel {
+public class Category extends BaseModel {
 	/**
 	 * 
 	 */
@@ -89,7 +89,7 @@ public class Categories extends BaseModel {
 
 	@Override
 	public String toString() {
-		return "Categories [active=" + active + ", parentId=" + parentId + ", name=" + name + ", levelDepth="
+		return "Category [active=" + active + ", parentId=" + parentId + ", name=" + name + ", levelDepth="
 				+ levelDepth + ", position=" + position + ", description=" + description + ", thumb=" + thumb
 				+ ", view=" + view + ", id=" + id + "]";
 	}

@@ -6,14 +6,14 @@ public class Diningtable extends BaseModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private boolean available;
-	private boolean checkout;
+	private Turnover turnover;
 
-	public boolean isCheckout() {
-		return checkout;
+	public Turnover getTurnover() {
+		return turnover;
 	}
 
-	public void setCheckout(boolean checkout) {
-		this.checkout = checkout;
+	public void setTurnover(Turnover turnover) {
+		this.turnover = turnover;
 	}
 
 	public boolean isAvailable() {

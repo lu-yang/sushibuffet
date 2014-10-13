@@ -20,10 +20,10 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import com.betalife.sushibuffet.AbstractAsyncTask;
-import com.betalife.sushibuffet.adapter.CategoriesAdapter;
-import com.betalife.sushibuffet.adapter.ProductsAdapter;
-import com.betalife.sushibuffet.model.Categories;
-import com.betalife.sushibuffet.model.Products;
+import com.betalife.sushibuffet.adapter.CategoryAdapter;
+import com.betalife.sushibuffet.adapter.ProductAdapter;
+import com.betalife.sushibuffet.model.Category;
+import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.util.DodoroContext;
 
 /**
@@ -42,76 +42,77 @@ public class FragmentOrderpage extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 
-		GetRootCategoriesAsyncTask task = new GetRootCategoriesAsyncTask(getActivity());
+		GetCategoriesAsyncTask task = new GetCategoriesAsyncTask(getActivity());
 		task.execute();
 		// TODO
-		ProductsAsyncTask task2 = new ProductsAsyncTask(getActivity(), 2);
+		GetProductsByCategoryIdAsyncTask task2 = new GetProductsByCategoryIdAsyncTask(getActivity(), 2);
 		task2.execute();
 		return inflater.inflate(R.layout.fragment_orderpage, container, false);
 	}
 
-	private class GetRootCategoriesAsyncTask extends AbstractAsyncTask<Void, List<Categories>> {
+	private class GetCategoriesAsyncTask extends AbstractAsyncTask<Void, List<Category>> {
 
-		public GetRootCategoriesAsyncTask(Activity activity) {
+		public GetCategoriesAsyncTask(Activity activity) {
 			super(activity);
 		}
 
 		@Override
-		public void postCallback(final List<Categories> result) {
+		public void postCallback(final List<Category> result) {
 			Log.i("FragmentOrderpage", "" + result.size());
-			CategoriesAdapter aa = new CategoriesAdapter(activity, result);
+			CategoryAdapter aa = new CategoryAdapter(activity, result);
 			ListView categories = (ListView) activity.findViewById(R.id.categories);
 			categories.setAdapter(aa);
 			categories.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					Categories selected = result.get(position);
+					Category selected = result.get(position);
 
-					ProductsAsyncTask task2 = new ProductsAsyncTask(getActivity(), selected.getId());
+					GetProductsByCategoryIdAsyncTask task2 = new GetProductsByCategoryIdAsyncTask(
+							getActivity(), selected.getId());
 					task2.execute();
 				}
 			});
 		}
 
 		@Override
-		protected List<Categories> doInBackground(Void... params) {
-			String url = getString(R.string.base_uri) + "/rootCategories/"
+		protected List<Category> doInBackground(Void... params) {
+			String url = getString(R.string.base_uri) + "/categories/"
 					+ DodoroContext.languageCode(getActivity()) + "/1";
 			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
-			ResponseEntity<Categories[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
-					requestEntity, Categories[].class);
-			List<Categories> rootCategories = Arrays.asList(responseEntity.getBody());
+			ResponseEntity<Category[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
+					requestEntity, Category[].class);
+			List<Category> categories = Arrays.asList(responseEntity.getBody());
 
-			return rootCategories;
+			return categories;
 		}
 	};
 
-	private class ProductsAsyncTask extends AbstractAsyncTask<Void, List<Products>> {
+	private class GetProductsByCategoryIdAsyncTask extends AbstractAsyncTask<Void, List<Product>> {
 
 		private int categoryId;
 
-		public ProductsAsyncTask(Activity activity, int categoryId) {
+		public GetProductsByCategoryIdAsyncTask(Activity activity, int categoryId) {
 			super(activity);
 			this.categoryId = categoryId;
 		}
 
 		@Override
-		public void postCallback(List<Products> result) {
+		public void postCallback(List<Product> result) {
 			Log.i("FragmentOrderpage", "" + result.size());
-			ProductsAdapter aa = new ProductsAdapter(activity, result);
+			ProductAdapter aa = new ProductAdapter(activity, result);
 			GridView products = (GridView) activity.findViewById(R.id.products);
 			products.setAdapter(aa);
 		}
 
 		@Override
-		protected List<Products> doInBackground(Void... params) {
+		protected List<Product> doInBackground(Void... params) {
 			String url = getString(R.string.base_uri) + "/products/"
 					+ DodoroContext.languageCode(getActivity()) + "/" + categoryId;
 			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
-			ResponseEntity<Products[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
-					requestEntity, Products[].class);
-			List<Products> products = Arrays.asList(responseEntity.getBody());
+			ResponseEntity<Product[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
+					requestEntity, Product[].class);
+			List<Product> products = Arrays.asList(responseEntity.getBody());
 
 			return products;
 		}
