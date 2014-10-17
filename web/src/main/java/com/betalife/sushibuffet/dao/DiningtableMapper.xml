@@ -9,7 +9,7 @@
 	<resultMap id="diningtableResult" type="Diningtable">
 		<id property="id"  column="id" />
 		<result property="available" column="available" />
-		<association property="turnover" column="turnover_id"  javaType="Turnover">
+		<association property="turnover"   javaType="Turnover" >
 			<id property="id" column="turnover_id" />
 			<result property="checkout" column="checkout" />
 			<result property="tableId" column="id" />
@@ -18,8 +18,19 @@
 
 
 	<select id="selectTables" resultMap="diningtableResult">
-		SELECT d.id, d.available, t.checkout, t.id as turnover_id
-		FROM diningtable d LEFT JOIN turnover t ON d.id = t.table_id
+		SELECT d.id, d.available, t.checkout, t.id AS turnover_id 
+		FROM diningtable d LEFT JOIN
+		  (
+		  	SELECT tn.checkout, tn.id, tn.table_id  
+		   	FROM turnover tn,
+		    (
+		     SELECT MAX(id) AS id 
+		     FROM turnover 
+		     GROUP BY table_id
+		     ) tm 
+		     WHERE tn.id = tm.id
+		  ) t 
+		  ON d.id = t.table_id 
 	</select>
 
 </mapper>

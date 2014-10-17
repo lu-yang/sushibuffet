@@ -76,11 +76,14 @@ public class TableAdapter extends AAdapter<Diningtable> {
 			name.setText(result.getId() + "");
 
 			TextView desc = (TextView) convertView.findViewById(R.id.status);
-			if (result.isAvailable() && result.getTurnover().isCheckout()) {
+			if (!result.isAvailable()) {
+				desc.setText("不可以开桌");
+			} else if (result.getTurnover().isCheckout()) {
 				desc.setText("可以开桌");
 				convertView.setOnClickListener(onClickListener);
 			} else {
-				desc.setText("不可以开桌");
+				desc.setText("加菜");
+				convertView.setOnClickListener(onClickListener);
 			}
 
 		}
