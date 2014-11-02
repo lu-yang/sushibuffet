@@ -4,8 +4,6 @@
 
 <mapper namespace="com.betalife.sushibuffet.dao.DiningtableMapper">
 
-	<cache />
-
 	<resultMap id="diningtableResult" type="Diningtable">
 		<id property="id"  column="id" />
 		<result property="available" column="available" />

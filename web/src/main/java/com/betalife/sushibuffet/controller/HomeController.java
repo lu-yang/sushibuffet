@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.betalife.sushibuffet.manager.CustomerManager;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Diningtable;
+import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.Constant;
@@ -90,5 +91,38 @@ public class HomeController {
 		model.setLocale(locale);
 		List<Product> all = customerManager.getProductsByCategoryId(model);
 		return all;
+	}
+
+	@RequestMapping(value = "takeOrder/{turnoverId}", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	public @ResponseBody
+	boolean takeOrder(@PathVariable int turnoverId, @RequestBody List<Order> orders) {
+		customerManager.takeOrders(orders);
+		return true;
+	}
+
+	@RequestMapping(value = "orders/{locale}/{turnoverId}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	List<Order> orders(@PathVariable String locale, @PathVariable int turnoverId) {
+		Order model = new Order();
+		model.setLocale(locale);
+		Turnover turnover = new Turnover();
+		turnover.setId(turnoverId);
+		model.setTurnover(turnover);
+		List<Order> orders = customerManager.getOrders(model);
+		return orders;
+	}
+
+	@RequestMapping(value = "checkout/{turnoverId}", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	boolean checkout(@PathVariable int turnoverId) {
+		customerManager.checkout(turnoverId);
+		return true;
+	}
+
+	@RequestMapping(value = "changeTable", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	public @ResponseBody
+	boolean changeTable(@RequestBody Turnover turnover) {
+		customerManager.changeTable(turnover);
+		return true;
 	}
 }

@@ -6,7 +6,7 @@ import com.betalife.sushibuffet.model.Order;
 
 public interface OrderMapper {
 
-	List<Order> selectByTurnoverId(int turnoverId);
+	List<Order> selectOrders(Order o);
 
 	void insertOrder(Order o);
 }

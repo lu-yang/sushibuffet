@@ -20,7 +20,7 @@ import com.betalife.sushibuffet.util.FragmentFactory;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify.IconValue;
 
-public class MainActivity extends FragmentActivity implements TabListener {
+public class MainActivity extends FragmentActivity {
 
 	private ViewPager viewPager;
 	private ActionBar actionBar;
@@ -31,7 +31,7 @@ public class MainActivity extends FragmentActivity implements TabListener {
 		setContentView(R.layout.activity_main);
 
 		viewPager = (ViewPager) findViewById(R.id.pager);
-		MyAdapter adapter = new MyAdapter(getSupportFragmentManager());
+		final FragmentsAdapter adapter = new FragmentsAdapter(getSupportFragmentManager());
 		viewPager.setAdapter(adapter);
 
 		viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -39,6 +39,11 @@ public class MainActivity extends FragmentActivity implements TabListener {
 			@Override
 			public void onPageSelected(int arg0) {
 				actionBar.setSelectedNavigationItem(arg0);
+
+				Fragment item = adapter.getItem(arg0);
+				if (item instanceof Refreshable) {
+					((Refreshable) item).refresh();
+				}
 			}
 
 		});
@@ -76,12 +81,27 @@ public class MainActivity extends FragmentActivity implements TabListener {
 			ActionBar.Tab tab = actionBar.newTab();
 			tab.setIcon(new IconDrawable(this, IconValue.valueOf(icon)).colorRes(R.color.gold)
 					.actionBarSize());
-			tab.setTabListener(this);
+			tab.setTabListener(new TabListener() {
+
+				@Override
+				public void onTabReselected(Tab tab, FragmentTransaction ft) {
+				}
+
+				@Override
+				public void onTabSelected(Tab tab, FragmentTransaction ft) {
+					int position = tab.getPosition();
+					viewPager.setCurrentItem(position);
+				}
+
+				@Override
+				public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+				}
+			});
 			actionBar.addTab(tab);
 			adapter.notifyDataSetChanged();// 通知界面更新
 		}
 
-		actionBar.getTabAt(0).select();
+		// actionBar.getTabAt(0).select();
 		viewPager.setOffscreenPageLimit(adapter.getCount());
 	}
 
@@ -91,26 +111,11 @@ public class MainActivity extends FragmentActivity implements TabListener {
 	// return true;
 	// }
 
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-
-	}
-
-	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		viewPager.setCurrentItem(tab.getPosition());
-	}
-
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-
-	}
-
-	private class MyAdapter extends FragmentPagerAdapter {
+	private class FragmentsAdapter extends FragmentPagerAdapter {
 
 		private List<Fragment> fragments;
 
-		public MyAdapter(FragmentManager fm) {
+		public FragmentsAdapter(FragmentManager fm) {
 			super(fm);
 			this.fragments = new ArrayList<Fragment>();
 		}

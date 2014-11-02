@@ -19,25 +19,13 @@ import com.betalife.sushibuffet.activity.MainActivity;
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Turnover;
+import com.betalife.sushibuffet.util.DodoroContext;
 
 public class TableAdapter extends AAdapter<Diningtable> {
 
 	public TableAdapter(Activity activity, List<Diningtable> tables) {
 		super(activity, tables);
 	}
-
-	private OnClickListener onClickListener = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			Diningtable selected = (Diningtable) v.getTag();
-			Turnover turnover = new Turnover();
-			turnover.setTableId(selected.getId());
-			Toast.makeText(activity, "table: " + selected.getId(), Toast.LENGTH_SHORT).show();
-			OpenTableTask task = new OpenTableTask(activity);
-			task.execute(turnover);
-		}
-	};
 
 	private class OpenTableTask extends AbstractAsyncTask<Turnover, Turnover> {
 
@@ -57,11 +45,17 @@ public class TableAdapter extends AAdapter<Diningtable> {
 
 		@Override
 		public void postCallback(Turnover result) {
-			Intent intent = new Intent();
-			intent.setClass(activity, MainActivity.class);
-			activity.startActivity(intent);
+			goToMainActivity(result);
 		}
 
+	}
+
+	private void goToMainActivity(Turnover turnover) {
+		DodoroContext.getInstance().setTurnover(turnover);
+
+		Intent intent = new Intent();
+		intent.setClass(activity, MainActivity.class);
+		activity.startActivity(intent);
 	}
 
 	@Override
@@ -78,12 +72,34 @@ public class TableAdapter extends AAdapter<Diningtable> {
 			TextView desc = (TextView) convertView.findViewById(R.id.status);
 			if (!result.isAvailable()) {
 				desc.setText("不可以开桌");
-			} else if (result.getTurnover().isCheckout()) {
-				desc.setText("可以开桌");
-				convertView.setOnClickListener(onClickListener);
 			} else {
-				desc.setText("加菜");
-				convertView.setOnClickListener(onClickListener);
+				final Turnover turnover = result.getTurnover();
+				if (turnover == null || turnover.isCheckout()) {
+					desc.setText("可以开桌");
+					convertView.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							Diningtable selected = (Diningtable) v.getTag();
+							Turnover turnover = new Turnover();
+							turnover.setTableId(selected.getId());
+							Toast.makeText(activity, "table: " + selected.getId(), Toast.LENGTH_SHORT).show();
+							OpenTableTask task = new OpenTableTask(activity);
+							task.execute(turnover);
+						}
+					});
+				} else {
+					desc.setText("加菜");
+					convertView.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							Diningtable selected = (Diningtable) v.getTag();
+							Toast.makeText(activity, "table: " + selected.getId(), Toast.LENGTH_SHORT).show();
+							goToMainActivity(turnover);
+						}
+					});
+				}
 			}
 
 		}

@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
 import com.betalife.sushibuffet.model.Constant;
+import com.betalife.sushibuffet.model.Turnover;
 
 public class DodoroContext {
 	private static DodoroContext instance;
@@ -16,7 +17,17 @@ public class DodoroContext {
 
 	private Constant constant;
 
+	private Turnover turnover;
+
 	private DodoroContext() {
+	}
+
+	public Turnover getTurnover() {
+		return turnover;
+	}
+
+	public void setTurnover(Turnover turnover) {
+		this.turnover = turnover;
 	}
 
 	public static DodoroContext getInstance() {
@@ -54,4 +65,5 @@ public class DodoroContext {
 		Configuration config = resources.getConfiguration();
 		return config.locale.getLanguage();
 	}
+
 }

@@ -9,50 +9,37 @@
 
 <!-- TODO: Update blank fragment layout -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-     android:background="@drawable/activity_bg">
+    android:layout_height="match_parent"
+    android:background="@drawable/activity_bg" >
 
     <TextView
         android:id="@+id/settingPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btn_ChangeTable"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="89dp"
-        android:text="Setting Page/ 此页需要加服务员验证" />
-
-    <Button
-        android:id="@+id/button1"
-        style="@style/button_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/settingPage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
-        android:text="加/减 用餐人数" />
+        android:text="@string/setting_activity_title" />
 
     <Button
         android:id="@+id/btn_ChangeTable"
         style="@style/button_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="59dp"
-        android:text="换桌" />
+        android:clickable="true"
+        android:onClick="changeTable"
+        android:text="@string/setting_activity_change_table" />
 
     <Button
         android:id="@+id/btn_Finished"
         style="@style/button_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
-        android:text="用餐结束" />
+        android:clickable="true"
+        android:onClick="checkout"
+        android:text="@string/setting_activity_checkout" />
 
-</RelativeLayout>
-<!-- </FrameLayout> -->
+</LinearLayout> <!-- </FrameLayout> -->

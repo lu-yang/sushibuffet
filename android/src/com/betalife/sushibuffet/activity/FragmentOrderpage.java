@@ -32,22 +32,17 @@ import com.betalife.sushibuffet.util.DodoroContext;
  */
 
 /* 菜单，点餐页面 */
-public class FragmentOrderpage extends Fragment {
-
-	public FragmentOrderpage() {
-		// Required empty public constructor
-	}
+public class FragmentOrderpage extends Fragment implements Refreshable {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// Inflate the layout for this fragment
-
-		GetCategoriesAsyncTask task = new GetCategoriesAsyncTask(getActivity());
-		task.execute();
-		// TODO
-		GetProductsByCategoryIdAsyncTask task2 = new GetProductsByCategoryIdAsyncTask(getActivity(), 2);
-		task2.execute();
 		return inflater.inflate(R.layout.fragment_orderpage, container, false);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		// refresh();
 	}
 
 	private class GetCategoriesAsyncTask extends AbstractAsyncTask<Void, List<Category>> {
@@ -86,7 +81,7 @@ public class FragmentOrderpage extends Fragment {
 
 			return categories;
 		}
-	};
+	}
 
 	private class GetProductsByCategoryIdAsyncTask extends AbstractAsyncTask<Void, List<Product>> {
 
@@ -116,5 +111,14 @@ public class FragmentOrderpage extends Fragment {
 
 			return products;
 		}
-	};
+	}
+
+	@Override
+	public void refresh() {
+		GetCategoriesAsyncTask task = new GetCategoriesAsyncTask(getActivity());
+		task.execute();
+		// TODO
+		GetProductsByCategoryIdAsyncTask task2 = new GetProductsByCategoryIdAsyncTask(getActivity(), 2);
+		task2.execute();
+	}
 }

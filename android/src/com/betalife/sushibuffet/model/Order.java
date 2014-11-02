@@ -5,30 +5,10 @@ public class Order extends BaseModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	// private int turnoverId;
-	// private int productId;
 	private int count;
-
+	private String locale;
 	private Product product;
 	private Turnover turnover;
-
-	private String locale;
-
-	// public int getTurnoverId() {
-	// return turnoverId;
-	// }
-	//
-	// public void setTurnoverId(int turnoverId) {
-	// this.turnoverId = turnoverId;
-	// }
-	//
-	// public int getProductId() {
-	// return productId;
-	// }
-	//
-	// public void setProductId(int productId) {
-	// this.productId = productId;
-	// }
 
 	public String getLocale() {
 		return locale;
@@ -65,7 +45,7 @@ public class Order extends BaseModel {
 	@Override
 	public String toString() {
 		return "Order [turnoverId=" + turnover.getId() + ", productId=" + product.getId() + ", count="
-				+ count + ", id=" + id + "]" + ", locale=" + locale;
+				+ count + ", id=" + id + "]";
 	}
 
 }

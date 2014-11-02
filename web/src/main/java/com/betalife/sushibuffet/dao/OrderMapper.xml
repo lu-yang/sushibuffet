@@ -4,17 +4,37 @@
 
 <mapper namespace="com.betalife.sushibuffet.dao.OrderMapper">
 
-    <select id="selectByTurnoverId" parameterType="int" resultType="Order">
-      select *
-      from order
-      where turnover_id=#{id}
+    <resultMap id="orderResult" type="Order">
+		<id property="id"  column="id" />
+		<result property="count" column="count" />
+		<association property="turnover"   javaType="Turnover" >
+			<id property="id" column="turnover_id" />
+			<result property="checkout" column="checkout" />
+			<result property="tableId" column="table_id" />
+		</association>
+		<association property="product"   javaType="Product" >
+			<id property="id" column="product_id" />
+			<result property="categoryId" column="category_id" />
+			<result property="productPrice" column="product_price" />
+			<result property="thumb" column="thumb" />
+			<result property="productName" column="product_name" />
+		</association>
+	</resultMap>
+	
+    <select id="selectOrders" parameterType="Order" resultMap="orderResult">
+		SELECT o.id, o.COUNT,  o.turnover_id, o.product_id, t.checkout, t.table_id, p.category_id,
+		  			p.product_price, p.thumb, m.NAME 
+		FROM `order` o, turnover t, product p LEFT JOIN multilang m ON m.id = 'p' + p.id AND m.locale = #{locale}
+		WHERE o.turnover_id = #{turnover.id}
+		  AND o.turnover_id = t.id 
+		  AND o.product_id = p.id
   </select>
   
    <insert id="insertOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO order
+    INSERT INTO `order`
       (turnover_id, product_id, count)
     VALUES
-      (#{turnoverId}, #{productId}, #{count})
+      (#{turnover.id}, #{product.id}, #{count})
   </insert>
 
 </mapper>

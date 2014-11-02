@@ -20,7 +20,9 @@
     <string name="head_introduction">{fa_info_circle} How it works</string>
     <string name="head_lang">{fa_globe} Language</string>
    	<string name="head_historical">{fa_history} Ordered historical</string>
-    
+    <string name="setting_activity_title">Setting Page</string>
+    <string name="setting_activity_change_table">Change Table</string>
+    <string name="setting_activity_checkout">Pay</string>
     
     <string name="introduction">(NL)Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
