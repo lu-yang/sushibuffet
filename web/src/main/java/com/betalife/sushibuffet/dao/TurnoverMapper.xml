@@ -6,9 +6,9 @@
 
   <insert id="insertTurnover" parameterType="Turnover" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO turnover
-      (table_id, checkout)
+      (table_id, checkout, first_table_id, created)
     VALUES
-      (#{tableId}, #{checkout})
+      (#{tableId}, #{checkout}, #{firstTableId}, now())
   </insert>
   
   <update id="checkout"  parameterType="int">

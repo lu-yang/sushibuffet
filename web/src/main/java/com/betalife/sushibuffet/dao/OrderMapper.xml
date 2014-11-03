@@ -32,9 +32,9 @@
   
    <insert id="insertOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO `order`
-      (turnover_id, product_id, count)
+      (turnover_id, product_id, count, created)
     VALUES
-      (#{turnover.id}, #{product.id}, #{count})
+      (#{turnover.id}, #{product.id}, #{count}, now())
   </insert>
 
 </mapper>

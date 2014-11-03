@@ -21,41 +21,34 @@ import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-public class TableAdapter extends AAdapter<Diningtable> {
+public class ChangeTableAdapter extends AAdapter<Diningtable> {
 
-	public TableAdapter(Activity activity, List<Diningtable> tables) {
+	public ChangeTableAdapter(Activity activity, List<Diningtable> tables) {
 		super(activity, tables);
 	}
 
-	private class OpenTableTask extends AbstractAsyncTask<Turnover, Turnover> {
+	private class ChangeTableTask extends AbstractAsyncTask<Turnover, Boolean> {
 
-		public OpenTableTask(Activity activity) {
+		public ChangeTableTask(Activity activity) {
 			super(activity);
 		}
 
 		@Override
-		protected Turnover doInBackground(Turnover... params) {
-			Turnover tur = params[0];
-			final String url = activity.getString(R.string.base_uri) + "/openTable";
-			HttpEntity<Turnover> requestEntity = new HttpEntity<Turnover>(tur, requestHeaders);
-			ResponseEntity<Turnover> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
-					requestEntity, Turnover.class);
+		protected Boolean doInBackground(Turnover... params) {
+			final String url = activity.getString(R.string.base_uri) + "/changeTable";
+			HttpEntity<Turnover> requestEntity = new HttpEntity<Turnover>(params[0], requestHeaders);
+			ResponseEntity<Boolean> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
+					requestEntity, Boolean.class);
 			return responseEntity.getBody();
 		}
 
 		@Override
-		public void postCallback(Turnover result) {
-			goToMainActivity(result);
+		public void postCallback(Boolean result) {
+			Intent intent = new Intent();
+			intent.setClass(activity, MainActivity.class);
+			activity.startActivity(intent);
 		}
 
-	}
-
-	private void goToMainActivity(Turnover turnover) {
-		DodoroContext.getInstance().setTurnover(turnover);
-
-		Intent intent = new Intent();
-		intent.setClass(activity, MainActivity.class);
-		activity.startActivity(intent);
 	}
 
 	@Override
@@ -71,35 +64,26 @@ public class TableAdapter extends AAdapter<Diningtable> {
 
 			TextView desc = (TextView) convertView.findViewById(R.id.status);
 			if (!result.isAvailable()) {
-				desc.setText("不可以开桌");
+				desc.setText("桌子坏了");
 			} else {
 				final Turnover turnover = result.getTurnover();
 				if (turnover == null || turnover.isCheckout()) {
-					desc.setText("可以开桌");
+					desc.setText("可以换桌");
 					convertView.setOnClickListener(new OnClickListener() {
 
 						@Override
 						public void onClick(View v) {
 							Diningtable selected = (Diningtable) v.getTag();
-							Turnover turnover = new Turnover();
+							Turnover turnover = DodoroContext.getInstance().getTurnover();
 							int tableId = selected.getId();
 							turnover.setTableId(tableId);
 							Toast.makeText(activity, "table: " + tableId, Toast.LENGTH_SHORT).show();
-							OpenTableTask task = new OpenTableTask(activity);
+							ChangeTableTask task = new ChangeTableTask(activity);
 							task.execute(turnover);
 						}
 					});
 				} else {
-					desc.setText("加菜");
-					convertView.setOnClickListener(new OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							Diningtable selected = (Diningtable) v.getTag();
-							Toast.makeText(activity, "table: " + selected.getId(), Toast.LENGTH_SHORT).show();
-							goToMainActivity(turnover);
-						}
-					});
+					desc.setText("正在使用中");
 				}
 			}
 

@@ -8,6 +8,15 @@ public class Turnover extends BaseModel {
 	private static final long serialVersionUID = 1L;
 	private int tableId;
 	private boolean checkout;
+	private int firstTableId;
+
+	public int getFirstTableId() {
+		return firstTableId;
+	}
+
+	public void setFirstTableId(int firstTableId) {
+		this.firstTableId = firstTableId;
+	}
 
 	public int getTableId() {
 		return tableId;

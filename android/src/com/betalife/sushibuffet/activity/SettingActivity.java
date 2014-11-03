@@ -72,11 +72,15 @@ public class SettingActivity extends Activity {
 	}
 
 	public void changeTable(View view) {
-		ChangeTableTask task = new ChangeTableTask(this);
-		Turnover turnover = DodoroContext.getInstance().getTurnover();
-		// TODO test
-		turnover.setTableId(turnover.getTableId() + 2);
-		task.execute(turnover);
+		// // TODO test
+		// ChangeTableTask task = new ChangeTableTask(this);
+		// Turnover turnover = DodoroContext.getInstance().getTurnover();
+		// turnover.setTableId(turnover.getTableId() + 2);
+		// task.execute(turnover);
+
+		Intent intent = new Intent();
+		intent.setClass(this, ChangeTableActivity.class);
+		startActivity(intent);
 	}
 
 	private class ChangeTableTask extends AbstractAsyncTask<Turnover, Boolean> {

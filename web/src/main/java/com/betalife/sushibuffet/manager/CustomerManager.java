@@ -36,6 +36,7 @@ public class CustomerManager {
 
 	@Transactional
 	public void openTable(Turnover turnover) {
+		turnover.setFirstTableId(turnover.getTableId());
 		turnoverMapper.insertTurnover(turnover);
 	}
 
