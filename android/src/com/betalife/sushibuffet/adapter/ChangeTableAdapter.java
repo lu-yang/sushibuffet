@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -64,11 +65,12 @@ public class ChangeTableAdapter extends AAdapter<Diningtable> {
 
 			TextView desc = (TextView) convertView.findViewById(R.id.status);
 			if (!result.isAvailable()) {
-				desc.setText("桌子坏了");
+				desc.setText("{fa-ban}");
 			} else {
 				final Turnover turnover = result.getTurnover();
 				if (turnover == null || turnover.isCheckout()) {
-					desc.setText("可以换桌");
+					desc.setText("{fa-check}");
+					desc.setTextColor(Color.parseColor("#00FF00"));
 					convertView.setOnClickListener(new OnClickListener() {
 
 						@Override
@@ -83,7 +85,8 @@ public class ChangeTableAdapter extends AAdapter<Diningtable> {
 						}
 					});
 				} else {
-					desc.setText("正在使用中");
+					desc.setText("{fa-cutlery}");
+					desc.setTextColor(Color.parseColor("#FF0000"));
 				}
 			}
 

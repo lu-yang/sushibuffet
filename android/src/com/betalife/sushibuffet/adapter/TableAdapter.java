@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.DodoroContext;
+
+
 
 public class TableAdapter extends AAdapter<Diningtable> {
 
@@ -71,11 +74,13 @@ public class TableAdapter extends AAdapter<Diningtable> {
 
 			TextView desc = (TextView) convertView.findViewById(R.id.status);
 			if (!result.isAvailable()) {
-				desc.setText("不可以开桌");
+				desc.setText("{fa-ban}");
+				
 			} else {
 				final Turnover turnover = result.getTurnover();
 				if (turnover == null || turnover.isCheckout()) {
-					desc.setText("可以开桌");
+					desc.setText("{fa-check}");
+					desc.setTextColor(Color.parseColor("#00FF00"));
 					convertView.setOnClickListener(new OnClickListener() {
 
 						@Override
@@ -90,7 +95,8 @@ public class TableAdapter extends AAdapter<Diningtable> {
 						}
 					});
 				} else {
-					desc.setText("加菜");
+					desc.setText("{fa-cutlery}");
+					desc.setTextColor(Color.parseColor("#FF0000"));
 					convertView.setOnClickListener(new OnClickListener() {
 
 						@Override
