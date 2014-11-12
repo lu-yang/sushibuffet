@@ -13,11 +13,15 @@ import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.util.AsyncImageLoader;
 import com.betalife.sushibuffet.util.AsyncImageLoader.ImageCallback;
+import com.betalife.sushibuffet.util.DodoroContext;
 
 public class ProductAdapter extends AAdapter<Product> {
 
+	private String productRootUrl;
+
 	public ProductAdapter(Activity activity, List<Product> products) {
 		super(activity, products);
+		productRootUrl = DodoroContext.getInstance().getConstant().getProductRootUrl();
 	}
 
 	@Override
@@ -29,7 +33,7 @@ public class ProductAdapter extends AAdapter<Product> {
 		Product result = getItem(position);
 		if (result != null) {
 			final ImageView thumb = (ImageView) convertView.findViewById(R.id.thumb);
-			String imageUrl = "http://www.baidu.com/img/bd_logo1.png";
+			String imageUrl = productRootUrl + result.getThumb();
 			AsyncImageLoader asyncImageLoader = AsyncImageLoader.getInstance();
 			asyncImageLoader.loadDrawable(imageUrl, new ImageCallback() {
 				@Override

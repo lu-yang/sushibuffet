@@ -21,7 +21,7 @@
         android:layout_weight="0.7"
         android:gravity="center"
         android:horizontalSpacing="1pt"
-        android:numColumns="4"
+        android:numColumns="auto_fit"
         android:verticalSpacing="1pt" />
 
 </LinearLayout>

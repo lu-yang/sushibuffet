@@ -5,8 +5,28 @@ public class Constant {
 
 	private int tables;
 
+	private String categoryRootUrl;
+
+	private String productRootUrl;
+
 	public int getTables() {
 		return tables;
+	}
+
+	public String getCategoryRootUrl() {
+		return categoryRootUrl;
+	}
+
+	public void setCategoryRootUrl(String categoryRootUrl) {
+		this.categoryRootUrl = categoryRootUrl;
+	}
+
+	public String getProductRootUrl() {
+		return productRootUrl;
+	}
+
+	public void setProductRootUrl(String productRootUrl) {
+		this.productRootUrl = productRootUrl;
 	}
 
 	public void setTables(int tables) {

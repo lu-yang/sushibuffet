@@ -13,11 +13,15 @@ import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.util.AsyncImageLoader;
 import com.betalife.sushibuffet.util.AsyncImageLoader.ImageCallback;
+import com.betalife.sushibuffet.util.DodoroContext;
 
 public class CategoryAdapter extends AAdapter<Category> {
 
+	private String categoryRootUrl;
+
 	public CategoryAdapter(Activity activity, List<Category> categories) {
 		super(activity, categories);
+		categoryRootUrl = DodoroContext.getInstance().getConstant().getCategoryRootUrl();
 	}
 
 	@Override
@@ -29,7 +33,7 @@ public class CategoryAdapter extends AAdapter<Category> {
 		Category result = getItem(position);
 		if (result != null) {
 			final ImageView thumb = (ImageView) convertView.findViewById(R.id.thumb);
-			String imageUrl = "http://www.baidu.com/img/bd_logo1.png";
+			String imageUrl = categoryRootUrl + result.getThumb();
 			AsyncImageLoader asyncImageLoader = AsyncImageLoader.getInstance();
 			asyncImageLoader.loadDrawable(imageUrl, new ImageCallback() {
 				@Override
