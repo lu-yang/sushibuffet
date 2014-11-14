@@ -31,14 +31,18 @@
         </activity>
         <activity
             android:name="com.betalife.sushibuffet.activity.ChangeTableActivity"
+            android:configChanges="locale"
             android:label="@string/title_activity_new_table" >
         </activity>
         <activity
             android:name="com.betalife.sushibuffet.activity.MainActivity"
+            android:configChanges="locale|orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:label="@string/title_activity_main" >
         </activity>
-         <activity
+        <activity
             android:name="com.betalife.sushibuffet.activity.SettingActivity"
+            android:configChanges="locale"
             android:label="@string/title_activity_setting" >
         </activity>
     </application>

@@ -3,10 +3,12 @@ package com.betalife.sushibuffet.util;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
+import com.betalife.sushibuffet.activity.MainActivity;
 import com.betalife.sushibuffet.model.Constant;
 import com.betalife.sushibuffet.model.Turnover;
 
@@ -52,6 +54,10 @@ public class DodoroContext {
 		DisplayMetrics dm = resources.getDisplayMetrics();
 		resources.updateConfiguration(config, dm);
 		activity.recreate();
+
+		Intent intent = new Intent();
+		intent.setClass(activity, MainActivity.class);
+		activity.startActivity(intent);
 	}
 
 	public static Locale locale(Activity activity) {

@@ -7,6 +7,8 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +24,7 @@ import com.joanzapata.android.iconify.Iconify.IconValue;
 
 public class MainActivity extends FragmentActivity {
 
+	private static final String SELECTED_NAVIGATION_INDEX = "SelectedNavigationIndex";
 	private ViewPager viewPager;
 	private ActionBar actionBar;
 
@@ -100,16 +103,22 @@ public class MainActivity extends FragmentActivity {
 			actionBar.addTab(tab);
 			adapter.notifyDataSetChanged();// 通知界面更新
 		}
-
-		// actionBar.getTabAt(0).select();
+		int index = 0;
+		if (arg0 != null) {
+			index = arg0.getInt(SELECTED_NAVIGATION_INDEX, 0);
+		}
+		actionBar.getTabAt(index).select();
 		viewPager.setOffscreenPageLimit(adapter.getCount());
 	}
 
-	// @Override
-	// public boolean onCreateOptionsMenu(Menu menu) {
-	// getMenuInflater().inflate(R.menu.menu, menu);
-	// return true;
-	// }
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		Intent intent = new Intent();
+		intent.putExtra(SELECTED_NAVIGATION_INDEX, actionBar.getSelectedNavigationIndex());
+		intent.setClass(this, MainActivity.class);
+		startActivity(intent);
+	}
 
 	private class FragmentsAdapter extends FragmentPagerAdapter {
 
