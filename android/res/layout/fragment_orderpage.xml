@@ -9,7 +9,7 @@
         android:id="@+id/categories"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.3"
+        android:layout_weight="0.2"
         android:choiceMode="singleChoice"
         android:drawSelectorOnTop="false"
         android:scrollbars="vertical" />
@@ -18,10 +18,19 @@
         android:id="@+id/products"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.7"
+        android:layout_weight="0.6"
         android:gravity="center"
         android:horizontalSpacing="1pt"
         android:numColumns="auto_fit"
         android:verticalSpacing="1pt" />
 
+     <ListView
+        android:id="@+id/list"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.2"
+        android:choiceMode="none"
+        android:drawSelectorOnTop="false"
+        android:scrollbars="vertical" />
+    
 </LinearLayout>

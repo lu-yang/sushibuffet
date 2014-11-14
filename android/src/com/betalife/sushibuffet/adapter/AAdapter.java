@@ -35,4 +35,8 @@ public abstract class AAdapter<E extends BaseModel> extends BaseAdapter {
 		return list.get(position).getId();
 	}
 
+	public List<E> getList() {
+		return list;
+	}
+
 }

@@ -1,6 +1,7 @@
 package com.betalife.sushibuffet.activity;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
@@ -21,8 +22,10 @@ import android.widget.ListView;
 
 import com.betalife.sushibuffet.AbstractAsyncTask;
 import com.betalife.sushibuffet.adapter.CategoryAdapter;
+import com.betalife.sushibuffet.adapter.OrderAdapter;
 import com.betalife.sushibuffet.adapter.ProductAdapter;
 import com.betalife.sushibuffet.model.Category;
+import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.util.DodoroContext;
 
@@ -120,5 +123,9 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 		// TODO
 		GetProductsByCategoryIdAsyncTask task2 = new GetProductsByCategoryIdAsyncTask(getActivity(), 2);
 		task2.execute();
+
+		OrderAdapter oa = new OrderAdapter(getActivity(), new LinkedList<Order>());
+		ListView orders = (ListView) getActivity().findViewById(R.id.list);
+		orders.setAdapter(oa);
 	}
 }
