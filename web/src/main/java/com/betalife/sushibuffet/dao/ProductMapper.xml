@@ -9,10 +9,10 @@
 	<select id="selectByCategoryId" parameterType="Product" resultType="Product">
 		SELECT
 			c.id, c.category_id, c.product_price, c.active, c.position,  c.thumb, 
-			m.name, m.desc
+			m.name as productName, m.desc as description
 		FROM
 			product c LEFT JOIN multilang m 
-				ON m.id = 'p'	+ c.id AND m.locale= #{locale}
+				ON m.id = CONCAT('p',c.id) AND m.locale= #{locale}
 		WHERE 
 			c.category_id = #{categoryId}
 	</select>
@@ -20,10 +20,10 @@
 	<select id="selectById" parameterType="Product" resultType="Product">
 		SELECT
 			c.id, c.category_id, c.product_price, c.active, c.position,  c.thumb, 
-			m.name, m.desc
+			m.name as productName, m.desc as description
 		FROM
 			product c LEFT JOIN multilang m 
-				ON m.id = 'p'	+ c.id AND m.locale= #{locale}
+				ON m.id = CONCAT('p',c.id) AND m.locale= #{locale}
 		WHERE 
 			c.id = #{id}
 	</select>
@@ -31,10 +31,10 @@
 	<select id="selectAll"  parameterType="String" resultType="Product">
 		SELECT
 			c.id, c.category_id, c.product_price, c.active, c.position,  c.thumb, 
-			m.name, m.desc
+			m.name as productName, m.desc as description
 		FROM
 			product c LEFT JOIN multilang m 
-				ON m.id = 'p'	+ c.id AND m.locale= #{locale}
+				ON m.id = CONCAT('p',c.id) AND m.locale= #{locale}
 	</select>
 
 </mapper>
