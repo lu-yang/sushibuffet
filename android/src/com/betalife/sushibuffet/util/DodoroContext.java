@@ -1,5 +1,6 @@
 package com.betalife.sushibuffet.util;
 
+import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -10,6 +11,7 @@ import android.util.DisplayMetrics;
 
 import com.betalife.sushibuffet.activity.MainActivity;
 import com.betalife.sushibuffet.model.Constant;
+import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Turnover;
 
 public class DodoroContext {
@@ -21,7 +23,17 @@ public class DodoroContext {
 
 	private Turnover turnover;
 
+	private List<Order> ordersCache;
+
 	private DodoroContext() {
+	}
+
+	public List<Order> getOrdersCache() {
+		return ordersCache;
+	}
+
+	public void setOrdersCache(List<Order> ordersCache) {
+		this.ordersCache = ordersCache;
 	}
 
 	public Turnover getTurnover() {

@@ -38,6 +38,13 @@ import com.betalife.sushibuffet.util.DodoroContext;
 public class FragmentOrderpage extends Fragment implements Refreshable {
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		LinkedList<Order> linkedList = new LinkedList<Order>();
+		DodoroContext.getInstance().setOrdersCache(linkedList);
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_orderpage, container, false);
 	}
@@ -124,7 +131,8 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 		GetProductsByCategoryIdAsyncTask task2 = new GetProductsByCategoryIdAsyncTask(getActivity(), 2);
 		task2.execute();
 
-		OrderAdapter oa = new OrderAdapter(getActivity(), new LinkedList<Order>());
+		List<Order> ordersCache = DodoroContext.getInstance().getOrdersCache();
+		OrderAdapter oa = new OrderAdapter(getActivity(), ordersCache);
 		ListView orders = (ListView) getActivity().findViewById(R.id.list);
 		orders.setAdapter(oa);
 	}
