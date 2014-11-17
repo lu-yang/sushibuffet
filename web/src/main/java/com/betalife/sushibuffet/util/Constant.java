@@ -8,14 +8,22 @@ public class Constant {
 	@Value("#{constants['waiter.password']}")
 	private String password;
 
-	@Value("#{constants['tables.count']}")
-	private int tables;
+	@Value("#{constants['default.thumb']}")
+	private String defaultThumb;
 
 	@Value("#{constants['category.root.url']}")
 	private String categoryRootUrl;
 
 	@Value("#{constants['product.root.url']}")
 	private String productRootUrl;
+
+	public String getDefaultThumb() {
+		return defaultThumb;
+	}
+
+	public void setDefaultThumb(String defaultThumb) {
+		this.defaultThumb = defaultThumb;
+	}
 
 	public String getCategoryRootUrl() {
 		return categoryRootUrl;
@@ -31,14 +39,6 @@ public class Constant {
 
 	public void setProductRootUrl(String productRootUrl) {
 		this.productRootUrl = productRootUrl;
-	}
-
-	public int getTables() {
-		return tables;
-	}
-
-	public void setTables(int tables) {
-		this.tables = tables;
 	}
 
 	public String getPassword() {

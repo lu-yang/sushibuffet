@@ -10,14 +10,14 @@
 		<association property="turnover"   javaType="Turnover" >
 			<id property="id" column="turnover_id" />
 			<result property="checkout" column="checkout" />
-			<result property="tableId" column="id" />
+			<result property="tableId" column="table_id" />
 			<result property="firstTableId" column="first_table_id" />
 		</association>
 	</resultMap>
 
 
 	<select id="selectTables" resultMap="diningtableResult">
-		SELECT d.id, d.available, t.checkout, t.id AS turnover_id,  t.first_table_id 
+		SELECT d.id, d.available, t.checkout, t.id AS turnover_id,  t.first_table_id, t.table_id 
 		FROM diningtable d LEFT JOIN
 		  (
 		  	SELECT tn.checkout, tn.id, tn.table_id, tn.first_table_id  

@@ -103,13 +103,25 @@ public class HomeController {
 	@RequestMapping(value = "orders/{locale}/{turnoverId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Order> orders(@PathVariable String locale, @PathVariable int turnoverId) {
+		Order model = buildOrder(locale, turnoverId);
+		List<Order> orders = customerManager.getOrders(model);
+		return orders;
+	}
+
+	private Order buildOrder(String locale, int turnoverId) {
 		Order model = new Order();
 		model.setLocale(locale);
 		Turnover turnover = new Turnover();
 		turnover.setId(turnoverId);
 		model.setTurnover(turnover);
-		List<Order> orders = customerManager.getOrders(model);
-		return orders;
+		return model;
+	}
+
+	@RequestMapping(value = "printOrders/{locale}/{turnoverId}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	boolean printOrders(@PathVariable String locale, @PathVariable int turnoverId) {
+		Order model = buildOrder(locale, turnoverId);
+		return customerManager.printOrders(model);
 	}
 
 	@RequestMapping(value = "checkout/{turnoverId}", method = RequestMethod.POST, produces = "application/json")

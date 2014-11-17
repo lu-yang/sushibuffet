@@ -18,7 +18,7 @@ import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.model.Turnover;
 
 @Service
-public class CustomerManager {
+public class PrintManager {
 	@Autowired
 	private DiningtableMapper tableMapper;
 
@@ -71,16 +71,6 @@ public class CustomerManager {
 	@Transactional
 	public void changeTable(Turnover t) {
 		turnoverMapper.changeTable(t);
-	}
-
-	public boolean printOrders(Order model) {
-		List<Order> orders = getOrders(model);
-		return print(orders);
-	}
-
-	private boolean print(List<Order> orders) {
-		// TODO Auto-generated method stub
-		return true;
 	}
 
 }
