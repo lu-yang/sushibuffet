@@ -17,11 +17,8 @@ import com.betalife.sushibuffet.util.DodoroContext;
 
 public class CategoryAdapter extends AAdapter<Category> {
 
-	private String categoryRootUrl;
-
 	public CategoryAdapter(Activity activity, List<Category> categories) {
 		super(activity, categories);
-		categoryRootUrl = DodoroContext.getInstance().getConstant().getCategoryRootUrl();
 	}
 
 	@Override
@@ -33,7 +30,7 @@ public class CategoryAdapter extends AAdapter<Category> {
 		Category result = getItem(position);
 		if (result != null) {
 			final ImageView thumb = (ImageView) convertView.findViewById(R.id.thumb);
-			String imageUrl = categoryRootUrl + result.getThumb();
+			String imageUrl = DodoroContext.getCategoryThumbUrl(result.getThumb());
 			AsyncImageLoader asyncImageLoader = AsyncImageLoader.getInstance();
 			asyncImageLoader.loadDrawable(imageUrl, new ImageCallback() {
 				@Override

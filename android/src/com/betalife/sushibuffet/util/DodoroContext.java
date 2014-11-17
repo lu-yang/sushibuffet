@@ -3,6 +3,8 @@ package com.betalife.sushibuffet.util;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang.StringUtils;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -84,4 +86,17 @@ public class DodoroContext {
 		return config.locale.getLanguage();
 	}
 
+	public static String getProductThumbUrl(String thumb) {
+		if (StringUtils.isEmpty(thumb)) {
+			thumb = instance.constant.getDefaultThumb();
+		}
+		return instance.constant.getProductRootUrl() + thumb;
+	}
+
+	public static String getCategoryThumbUrl(String thumb) {
+		if (StringUtils.isEmpty(thumb)) {
+			thumb = instance.constant.getDefaultThumb();
+		}
+		return instance.constant.getCategoryRootUrl() + thumb;
+	}
 }

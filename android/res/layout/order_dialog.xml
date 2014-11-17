@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#222"
+    android:background="#111"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -16,6 +16,13 @@
             android:layout_height="220dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/app_name" />
+
+        <NumberPicker
+            android:id="@+id/num"
+            android:layout_width="wrap_content"
+            android:layout_height="220dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
     </LinearLayout>
 
     <LinearLayout
@@ -44,6 +51,32 @@
             android:layout_height="wrap_content"
             android:textColor="@color/dodoro"
             android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/order_dialog_ok"
+            style="@style/button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:clickable="true"
+            android:onClick="confirm"
+            android:text="@string/order_dialog_ok" />
+
+        <Button
+            android:id="@+id/order_dialog_cancel"
+            style="@style/button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:clickable="true"
+            android:onClick="cancel"
+            android:text="@string/order_dialog_cancel" />
     </LinearLayout>
 
 </LinearLayout>

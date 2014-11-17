@@ -42,4 +42,14 @@
         android:onClick="checkout"
         android:text="@string/setting_activity_checkout" />
 
+    <Button
+        android:id="@+id/btn_printOrders"
+        style="@style/button_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:clickable="true"
+        android:onClick="printOrders"
+        android:text="@string/setting_activity_printOrders" />
+
 </LinearLayout> <!-- </FrameLayout> -->

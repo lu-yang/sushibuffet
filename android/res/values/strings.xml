@@ -23,6 +23,10 @@
     <string name="setting_activity_title">Setting Page</string>
     <string name="setting_activity_change_table">Change Table</string>
     <string name="setting_activity_checkout">Pay</string>
+    <string name="setting_activity_printOrders">Print Orders</string>
+    <string name="setting_activity_printOrders_mes">Orders has been printed.</string>
+    <string name="order_dialog_ok">OK</string>
+    <string name="order_dialog_cancel">Cancel</string>
     
     <string name="introduction">Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 

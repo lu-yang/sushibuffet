@@ -30,7 +30,6 @@ public class FragmentHistory extends Fragment implements Refreshable {
 	@Override
 	public void onResume() {
 		super.onResume();
-		// refresh();
 	}
 
 	private class OrdersAsyncTask extends AbstractAsyncTask<Void, List<Order>> {

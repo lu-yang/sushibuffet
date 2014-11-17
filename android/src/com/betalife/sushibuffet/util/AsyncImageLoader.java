@@ -17,7 +17,6 @@ public class AsyncImageLoader {
 
 	private AsyncImageLoader() {
 		imageCache = new Hashtable<String, SoftReference<Drawable>>();
-
 	}
 
 	public static AsyncImageLoader getInstance() {

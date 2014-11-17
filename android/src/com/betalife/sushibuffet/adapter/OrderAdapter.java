@@ -16,11 +16,9 @@ import com.betalife.sushibuffet.util.AsyncImageLoader.ImageCallback;
 import com.betalife.sushibuffet.util.DodoroContext;
 
 public class OrderAdapter extends AAdapter<Order> {
-	private String productRootUrl;
 
 	public OrderAdapter(Activity activity, List<Order> orders) {
 		super(activity, orders);
-		productRootUrl = DodoroContext.getInstance().getConstant().getProductRootUrl();
 	}
 
 	@Override
@@ -32,7 +30,7 @@ public class OrderAdapter extends AAdapter<Order> {
 		Order result = getItem(position);
 		if (result != null) {
 			final ImageView thumb = (ImageView) convertView.findViewById(R.id.thumb);
-			String imageUrl = productRootUrl + result.getProduct().getThumb();
+			String imageUrl = DodoroContext.getProductThumbUrl(result.getProduct().getThumb());
 			AsyncImageLoader asyncImageLoader = AsyncImageLoader.getInstance();
 			asyncImageLoader.loadDrawable(imageUrl, new ImageCallback() {
 				@Override

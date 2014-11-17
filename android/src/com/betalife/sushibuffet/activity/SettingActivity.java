@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.betalife.sushibuffet.AbstractAsyncTask;
 import com.betalife.sushibuffet.model.Turnover;
@@ -53,8 +54,8 @@ public class SettingActivity extends Activity {
 
 		@Override
 		protected Boolean doInBackground(Turnover... params) {
-			Turnover tur = params[0];
-			final String url = activity.getString(R.string.base_uri) + "/checkout/" + tur.getId();
+			Turnover turnover = params[0];
+			final String url = activity.getString(R.string.base_uri) + "/checkout/" + turnover.getId();
 			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 			ResponseEntity<Boolean> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
 					requestEntity, Boolean.class);
@@ -72,42 +73,38 @@ public class SettingActivity extends Activity {
 	}
 
 	public void changeTable(View view) {
-		// // TODO test
-		// ChangeTableTask task = new ChangeTableTask(this);
-		// Turnover turnover = DodoroContext.getInstance().getTurnover();
-		// turnover.setTableId(turnover.getTableId() + 2);
-		// task.execute(turnover);
-
 		Intent intent = new Intent();
 		intent.setClass(this, ChangeTableActivity.class);
 		startActivity(intent);
 	}
 
-	private class ChangeTableTask extends AbstractAsyncTask<Turnover, Boolean> {
+	public void printOrders(View view) {
+		PrintOrdersTask task = new PrintOrdersTask(this);
+		task.execute();
+	}
 
-		private Turnover turnover;
+	private class PrintOrdersTask extends AbstractAsyncTask<Void, Boolean> {
 
-		public ChangeTableTask(Activity activity) {
+		public PrintOrdersTask(Activity activity) {
 			super(activity);
 		}
 
 		@Override
-		protected Boolean doInBackground(Turnover... params) {
-			final String url = activity.getString(R.string.base_uri) + "/changeTable";
-			turnover = params[0];
-			HttpEntity<Turnover> requestEntity = new HttpEntity<Turnover>(turnover, requestHeaders);
-			ResponseEntity<Boolean> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
+		protected Boolean doInBackground(Void... params) {
+			final String url = activity.getString(R.string.base_uri) + "/printOrders/"
+					+ DodoroContext.languageCode(activity) + "/"
+					+ DodoroContext.getInstance().getTurnover().getId();
+			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
+			ResponseEntity<Boolean> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
 					requestEntity, Boolean.class);
 			return responseEntity.getBody();
 		}
 
 		@Override
 		public void postCallback(Boolean result) {
-			DodoroContext.getInstance().setTurnover(turnover);
-
-			Intent intent = new Intent();
-			intent.setClass(activity, MainActivity.class);
-			activity.startActivity(intent);
+			Toast.makeText(activity, activity.getString(R.string.setting_activity_printOrders_mes),
+					Toast.LENGTH_SHORT).show();
 		}
 	}
+
 }
