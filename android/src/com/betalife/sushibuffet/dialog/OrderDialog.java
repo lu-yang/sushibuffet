@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.NumberPicker;
@@ -36,16 +37,27 @@ public class OrderDialog extends Dialog {
 		final NumberPicker num = (NumberPicker) findViewById(R.id.num);
 		num.setMaxValue(20);
 		num.setMinValue(0);
-		num.setValue(0);
-		// num.setOnValueChangedListener(new OnValueChangeListener() {
-		//
-		// @Override
-		// public void onValueChange(NumberPicker picker, int oldVal, int
-		// newVal) {
-		// num.setValue(newVal);
-		// changeCount(result, num);
-		// }
-		// });
+		num.setValue(getCount(product, num));
+
+		Button ok = (Button) findViewById(R.id.order_dialog_ok);
+		ok.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				NumberPicker num = (NumberPicker) findViewById(R.id.num);
+				changeCount(product, num);
+				dismiss();
+			}
+		});
+
+		Button cancel = (Button) findViewById(R.id.order_dialog_cancel);
+		cancel.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dismiss();
+			}
+		});
 
 		String imageUrl = DodoroContext.getProductThumbUrl(product.getThumb());
 		ImageViewUtil.setImage(imageUrl, (ImageView) findViewById(R.id.thumb));
@@ -59,6 +71,21 @@ public class OrderDialog extends Dialog {
 		TextView price = (TextView) findViewById(R.id.price);
 		price.setText("" + product.getProductPrice());
 
+	}
+
+	private int getCount(Product result, NumberPicker num) {
+		ListView orders = (ListView) parent.findViewById(R.id.list);
+		OrderAdapter adapter = (OrderAdapter) orders.getAdapter();
+		List<Order> list = adapter.getList();
+		int count = 0;
+		for (int i = 0; i < list.size(); i++) {
+			Order order = list.get(i);
+			if (order.getProduct().getId() == result.getId()) {
+				count = order.getCount();
+				break;
+			}
+		}
+		return count;
 	}
 
 	private void changeCount(Product result, NumberPicker num) {
@@ -87,13 +114,4 @@ public class OrderDialog extends Dialog {
 		adapter.notifyDataSetChanged();
 	}
 
-	public void confirm(View view) {
-		NumberPicker num = (NumberPicker) findViewById(R.id.num);
-		changeCount(product, num);
-		dismiss();
-	}
-
-	public void cancel(View view) {
-		dismiss();
-	}
 }

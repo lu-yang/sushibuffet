@@ -64,8 +64,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:clickable="true"
-            android:onClick="confirm"
             android:text="@string/order_dialog_ok" />
 
         <Button
@@ -74,8 +72,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:clickable="true"
-            android:onClick="cancel"
             android:text="@string/order_dialog_cancel" />
     </LinearLayout>
 

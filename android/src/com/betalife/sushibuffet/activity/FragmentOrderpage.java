@@ -22,7 +22,7 @@ import android.widget.ListView;
 
 import com.betalife.sushibuffet.AbstractAsyncTask;
 import com.betalife.sushibuffet.adapter.CategoryAdapter;
-import com.betalife.sushibuffet.adapter.OrderAdapter;
+import com.betalife.sushibuffet.adapter.CurrentOrderAdapter;
 import com.betalife.sushibuffet.adapter.ProductAdapter;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Order;
@@ -132,7 +132,7 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 		task2.execute();
 
 		List<Order> ordersCache = DodoroContext.getInstance().getOrdersCache();
-		OrderAdapter oa = new OrderAdapter(getActivity(), ordersCache);
+		CurrentOrderAdapter oa = new CurrentOrderAdapter(getActivity(), ordersCache);
 		ListView orders = (ListView) getActivity().findViewById(R.id.list);
 		orders.setAdapter(oa);
 	}
