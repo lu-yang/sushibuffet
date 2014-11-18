@@ -53,10 +53,11 @@ public class CustomerManager {
 	}
 
 	@Transactional
-	public void takeOrders(List<Order> orders) {
+	public boolean takeOrders(List<Order> orders) {
 		for (Order o : orders) {
 			orderMapper.insertOrder(o);
 		}
+		return print(orders);
 	}
 
 	public List<Order> getOrders(Order order) {
