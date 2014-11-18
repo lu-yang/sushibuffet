@@ -3,7 +3,6 @@ package com.betalife.sushibuffet.adapter;
 import java.util.List;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,9 +10,8 @@ import android.widget.TextView;
 
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.model.Order;
-import com.betalife.sushibuffet.util.AsyncImageLoader;
-import com.betalife.sushibuffet.util.AsyncImageLoader.ImageCallback;
 import com.betalife.sushibuffet.util.DodoroContext;
+import com.betalife.sushibuffet.util.ImageViewUtil;
 
 public class OrderAdapter extends AAdapter<Order> {
 
@@ -29,15 +27,8 @@ public class OrderAdapter extends AAdapter<Order> {
 
 		Order result = getItem(position);
 		if (result != null) {
-			final ImageView thumb = (ImageView) convertView.findViewById(R.id.thumb);
 			String imageUrl = DodoroContext.getProductThumbUrl(result.getProduct().getThumb());
-			AsyncImageLoader asyncImageLoader = AsyncImageLoader.getInstance();
-			asyncImageLoader.loadDrawable(imageUrl, new ImageCallback() {
-				@Override
-				public void imageLoaded(Drawable imageDrawable, String imageUrl) {
-					thumb.setImageDrawable(imageDrawable);
-				}
-			});
+			ImageViewUtil.setImage(imageUrl, (ImageView) convertView.findViewById(R.id.thumb));
 
 			TextView name = (TextView) convertView.findViewById(R.id.name);
 			name.setText(result.getProduct().getProductName());

@@ -25,17 +25,17 @@ public class DodoroContext {
 
 	private Turnover turnover;
 
-	private List<Order> ordersCache;
+	private List<Order> currentOrdersCache;
 
 	private DodoroContext() {
 	}
 
-	public List<Order> getOrdersCache() {
-		return ordersCache;
+	public List<Order> getCurrentOrdersCache() {
+		return currentOrdersCache;
 	}
 
-	public void setOrdersCache(List<Order> ordersCache) {
-		this.ordersCache = ordersCache;
+	public void setCurrentOrdersCache(List<Order> currentOrdersCache) {
+		this.currentOrdersCache = currentOrdersCache;
 	}
 
 	public Turnover getTurnover() {

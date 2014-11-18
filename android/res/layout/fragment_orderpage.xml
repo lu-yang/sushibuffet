@@ -24,13 +24,27 @@
         android:numColumns="auto_fit"
         android:verticalSpacing="1pt" />
 
-     <ListView
-        android:id="@+id/list"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="0.2"
-        android:choiceMode="none"
-        android:drawSelectorOnTop="false"
-        android:scrollbars="vertical" />
-    
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/current_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:choiceMode="none"
+            android:drawSelectorOnTop="false"
+            android:scrollbars="vertical" />
+
+        <Button
+            android:id="@+id/btn_take_orders"
+            style="@style/button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="@string/btn_take_orders" />
+    </LinearLayout>
+
 </LinearLayout>

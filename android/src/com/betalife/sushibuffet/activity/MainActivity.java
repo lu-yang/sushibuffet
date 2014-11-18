@@ -107,8 +107,16 @@ public class MainActivity extends FragmentActivity {
 		if (arg0 != null) {
 			index = arg0.getInt(SELECTED_NAVIGATION_INDEX, 0);
 		}
-		actionBar.getTabAt(index).select();
+		changeTab(index);
 		viewPager.setOffscreenPageLimit(adapter.getCount());
+	}
+
+	public void changeTab(int index) {
+		actionBar.getTabAt(index).select();
+	}
+
+	public int getTabIndex() {
+		return actionBar.getSelectedNavigationIndex();
 	}
 
 	@Override

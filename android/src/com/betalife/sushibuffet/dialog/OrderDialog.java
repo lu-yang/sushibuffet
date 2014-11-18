@@ -13,7 +13,8 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.betalife.sushibuffet.activity.R;
-import com.betalife.sushibuffet.adapter.OrderAdapter;
+import com.betalife.sushibuffet.adapter.CategoryAdapter;
+import com.betalife.sushibuffet.adapter.CurrentOrderAdapter;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.util.DodoroContext;
@@ -74,8 +75,8 @@ public class OrderDialog extends Dialog {
 	}
 
 	private int getCount(Product result, NumberPicker num) {
-		ListView orders = (ListView) parent.findViewById(R.id.list);
-		OrderAdapter adapter = (OrderAdapter) orders.getAdapter();
+		ListView orders = (ListView) parent.findViewById(R.id.current_orders);
+		CurrentOrderAdapter adapter = (CurrentOrderAdapter) orders.getAdapter();
 		List<Order> list = adapter.getList();
 		int count = 0;
 		for (int i = 0; i < list.size(); i++) {
@@ -89,8 +90,22 @@ public class OrderDialog extends Dialog {
 	}
 
 	private void changeCount(Product result, NumberPicker num) {
-		ListView orders = (ListView) parent.findViewById(R.id.list);
-		OrderAdapter adapter = (OrderAdapter) orders.getAdapter();
+
+		changeOrderCount(result, num);
+
+		changeCategoryCount();
+
+	}
+
+	private void changeCategoryCount() {
+		ListView categories = (ListView) parent.findViewById(R.id.categories);
+		CategoryAdapter adapter = (CategoryAdapter) categories.getAdapter();
+		adapter.notifyDataSetChanged();
+	}
+
+	private void changeOrderCount(Product result, NumberPicker num) {
+		ListView currentOrders = (ListView) parent.findViewById(R.id.current_orders);
+		CurrentOrderAdapter adapter = (CurrentOrderAdapter) currentOrders.getAdapter();
 		List<Order> list = adapter.getList();
 		int index = -1;
 		for (int i = 0; i < list.size(); i++) {

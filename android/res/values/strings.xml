@@ -27,6 +27,9 @@
     <string name="setting_activity_printOrders_mes">Orders has been printed.</string>
     <string name="order_dialog_ok">OK</string>
     <string name="order_dialog_cancel">Cancel</string>
+    <string name="btn_take_orders">Take Orders</string>
+    <string name="err_take_orders">There is an error when taking orders.</string>
+    
     
     <string name="introduction">Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
