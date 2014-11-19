@@ -35,7 +35,6 @@
             android:id="@+id/current_order_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ENGLISH"
             android:textColor="@color/dodoro"
             android:textSize="16sp" />
     </LinearLayout>

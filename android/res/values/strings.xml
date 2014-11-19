@@ -29,6 +29,9 @@
     <string name="order_dialog_cancel">Cancel</string>
     <string name="btn_take_orders">Take Orders</string>
     <string name="err_take_orders">There is an error when taking orders.</string>
+    <string name="msg_take_orders">Confirm taking orders?</string>
+    <string name="btn_take_orders_yes">Yes</string>
+    <string name="btn_take_orders_no">No</string>
     
     
     <string name="introduction">Lorem ipsum dolor sit amet, consectetur adipisicing elit, 

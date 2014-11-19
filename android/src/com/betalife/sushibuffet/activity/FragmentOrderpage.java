@@ -9,7 +9,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
 import android.app.Activity;
-import android.app.Dialog;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -27,7 +28,7 @@ import com.betalife.sushibuffet.AbstractAsyncTask;
 import com.betalife.sushibuffet.adapter.CategoryAdapter;
 import com.betalife.sushibuffet.adapter.CurrentOrderAdapter;
 import com.betalife.sushibuffet.adapter.ProductAdapter;
-import com.betalife.sushibuffet.dialog.OrderDialog;
+import com.betalife.sushibuffet.dialog.OrderAlertDialog;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
@@ -58,8 +59,26 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 
 			@Override
 			public void onClick(View v) {
-				TakeOrdersAsyncTask task = new TakeOrdersAsyncTask(getActivity());
-				task.execute();
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setMessage(R.string.msg_take_orders);
+				builder.setPositiveButton(R.string.btn_take_orders_yes,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								TakeOrdersAsyncTask task = new TakeOrdersAsyncTask(getActivity());
+								task.execute();
+							}
+						});
+
+				builder.setNegativeButton(R.string.btn_take_orders_no, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				});
+
+				builder.create().show();
 			}
 		});
 
@@ -166,7 +185,7 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					Product selected = result.get(position);
 
-					Dialog dialog = new OrderDialog(activity, selected);
+					OrderAlertDialog dialog = new OrderAlertDialog(activity, selected);
 					dialog.show();
 				}
 			});
@@ -205,7 +224,7 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Order selected = currentOrdersCache.get(position);
 
-				Dialog dialog = new OrderDialog(getActivity(), selected.getProduct());
+				OrderAlertDialog dialog = new OrderAlertDialog(getActivity(), selected.getProduct());
 				dialog.show();
 			}
 		});
