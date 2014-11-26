@@ -25,12 +25,18 @@
 
         <TextView
             android:id="@+id/password"
-            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLength="4" />
+            android:maxLength="4" 
+            android:textColor="@color/dodoro"
+            android:textSize="22sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
 
         <TextView
             android:id="@+id/mes_password_wrong"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mes_password_wrong"
@@ -42,64 +48,90 @@
             android:layout_height="wrap_content"
             android:columnCount="3"
             android:orientation="horizontal"
+            android:layout_gravity="center"
             android:rowCount="4" >
 
             <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/one"
                 style="@style/button_text"
                 android:text="@string/one" />
 
             <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/two"
                 style="@style/button_text"
                 android:text="@string/two" />
 
             <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/three"
                 style="@style/button_text"
                 android:text="@string/three" />
 
             <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/four"
                 style="@style/button_text"
                 android:text="@string/four" />
 
             <Button
+
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/five"
                 style="@style/button_text"
                 android:text="@string/five" />
 
             <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/six"
                 style="@style/button_text"
                 android:text="@string/six" />
 
             <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/seven"
                 style="@style/button_text"
                 android:text="@string/seven" />
 
             <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/eight"
                 style="@style/button_text"
                 android:text="@string/eight" />
 
             <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/nine"
                 style="@style/button_text"
                 android:text="@string/nine" />
 
             <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/zero"
                 style="@style/button_text"
                 android:text="@string/zero" />
 
             <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/backspace"
                 style="@style/button_text"
                 android:text="@string/backspace" />
 
             <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/passwordConfirmButton"
                 style="@style/button_text"
                 android:text="@string/label_passwordConfirmButton" />

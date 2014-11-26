@@ -38,18 +38,18 @@ public class CurrentOrderAdapter extends AAdapter<Order> {
 
 		TextView count = (TextView) convertView.findViewById(R.id.count);
 		int productCount = result.getCount();
-		count.setText("" + productCount);
+		count.setText("qty: " + productCount);
 
 		TextView price = (TextView) convertView.findViewById(R.id.price);
 		float productPrice = result.getProduct().getProductPrice();
-		price.setText("" + productPrice);
+		price.setText("prix: " + productPrice+"€");
 
 		TextView totalPrice = (TextView) convertView.findViewById(R.id.totalPrice);
 		float total = 0;
 		for (int i = 0; i < productCount; i++) {
 			total += productPrice;
 		}
-		totalPrice.setText("" + total);
+		totalPrice.setText("subtotal: " + total+"€");
 
 		return convertView;
 	}

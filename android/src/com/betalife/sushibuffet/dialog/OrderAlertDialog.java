@@ -43,10 +43,10 @@ public class OrderAlertDialog {
 		name.setText(product.getProductName());
 
 		TextView desc = (TextView) layout.findViewById(R.id.desc);
-		desc.setText(product.getDescription());
+		desc.setText("Description: "+product.getDescription());
 
 		TextView price = (TextView) layout.findViewById(R.id.price);
-		price.setText("" + product.getProductPrice());
+		price.setText("" + product.getProductPrice()+" € / "+ product.getNum()+"P");
 
 		builder = new AlertDialog.Builder(parent);
 		builder.setView(layout);

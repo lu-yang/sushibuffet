@@ -41,10 +41,12 @@
         <Button
             android:id="@+id/btn_take_orders"
             style="@style/button_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:text="@string/btn_take_orders" />
+            android:text="@string/btn_take_orders" 
+            android:textSize="14sp"
+            android:textColor="@color/beige"/>
     </LinearLayout>
 
 </LinearLayout>

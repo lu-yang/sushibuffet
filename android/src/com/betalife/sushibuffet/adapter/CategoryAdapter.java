@@ -37,8 +37,8 @@ public class CategoryAdapter extends AAdapter<Category> {
 			TextView name = (TextView) convertView.findViewById(R.id.name);
 			name.setText(result.getName());
 
-			TextView desc = (TextView) convertView.findViewById(R.id.desc);
-			desc.setText(result.getDescription());
+			//TextView desc = (TextView) convertView.findViewById(R.id.desc);
+			//desc.setText(result.getDescription());
 
 			List<Order> currentOrdersCache = DodoroContext.getInstance().getCurrentOrdersCache();
 			if (!CollectionUtils.isEmpty(currentOrdersCache)) {

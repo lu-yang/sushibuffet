@@ -208,32 +208,49 @@ public final class R {
     }
     public static final class id {
         public static final int FragmentHeader=0x7f090000;
+        public static final int backspace=0x7f090024;
         public static final int btn_ChangeTable=0x7f090006;
         public static final int btn_Finished=0x7f090007;
-        public static final int categories=0x7f09000f;
-        public static final int count=0x7f090015;
-        public static final int desc=0x7f09000a;
+        public static final int btn_printOrders=0x7f090008;
+        public static final int btn_take_orders=0x7f090016;
+        public static final int categories=0x7f090013;
+        public static final int count=0x7f09000c;
+        public static final int current_order_count=0x7f09000b;
+        public static final int current_orders=0x7f090015;
+        public static final int desc=0x7f090028;
         public static final int diningtables=0x7f090004;
+        public static final int eight=0x7f090021;
+        public static final int five=0x7f09001e;
+        public static final int four=0x7f09001d;
         public static final int imageView1=0x7f090001;
         public static final int imageView2=0x7f090002;
-        public static final int lang_en=0x7f09000e;
-        public static final int lang_fr=0x7f09000c;
-        public static final int lang_nl=0x7f09000d;
-        public static final int layout_root=0x7f090011;
-        public static final int menu_collected=0x7f09001a;
-        public static final int mes_password_wrong=0x7f090013;
-        public static final int name=0x7f090009;
-        public static final int no=0x7f090018;
-        public static final int orders=0x7f09000b;
+        public static final int lang_en=0x7f090012;
+        public static final int lang_fr=0x7f090010;
+        public static final int lang_nl=0x7f090011;
+        public static final int layout_root=0x7f090017;
+        public static final int linearLayout1=0x7f090026;
+        public static final int menu_collected=0x7f09002b;
+        public static final int mes_password_wrong=0x7f090019;
+        public static final int name=0x7f09000a;
+        public static final int nine=0x7f090022;
+        public static final int no=0x7f090029;
+        public static final int num=0x7f090027;
+        public static final int one=0x7f09001a;
+        public static final int orders=0x7f09000f;
         public static final int pager=0x7f090003;
-        public static final int password=0x7f090012;
-        public static final int passwordConfirmButton=0x7f090014;
-        public static final int price=0x7f090016;
-        public static final int products=0x7f090010;
+        public static final int password=0x7f090018;
+        public static final int passwordConfirmButton=0x7f090025;
+        public static final int price=0x7f09000d;
+        public static final int products=0x7f090014;
         public static final int settingPage=0x7f090005;
-        public static final int status=0x7f090019;
-        public static final int thumb=0x7f090008;
-        public static final int totalPrice=0x7f090017;
+        public static final int seven=0x7f090020;
+        public static final int six=0x7f09001f;
+        public static final int status=0x7f09002a;
+        public static final int three=0x7f09001c;
+        public static final int thumb=0x7f090009;
+        public static final int totalPrice=0x7f09000e;
+        public static final int two=0x7f09001b;
+        public static final int zero=0x7f090023;
     }
     public static final class layout {
         public static final int abs_layout=0x7f030000;
@@ -242,14 +259,16 @@ public final class R {
         public static final int activity_new_table=0x7f030003;
         public static final int activity_setting=0x7f030004;
         public static final int category=0x7f030005;
-        public static final int fragment_history=0x7f030006;
-        public static final int fragment_introduction=0x7f030007;
-        public static final int fragment_lang=0x7f030008;
-        public static final int fragment_orderpage=0x7f030009;
-        public static final int fragment_setting=0x7f03000a;
-        public static final int order=0x7f03000b;
-        public static final int product=0x7f03000c;
-        public static final int table=0x7f03000d;
+        public static final int current_order=0x7f030006;
+        public static final int fragment_history=0x7f030007;
+        public static final int fragment_introduction=0x7f030008;
+        public static final int fragment_lang=0x7f030009;
+        public static final int fragment_orderpage=0x7f03000a;
+        public static final int fragment_setting=0x7f03000b;
+        public static final int order=0x7f03000c;
+        public static final int order_dialog=0x7f03000d;
+        public static final int product=0x7f03000e;
+        public static final int table=0x7f03000f;
     }
     public static final class menu {
         public static final int menu=0x7f080000;
@@ -261,11 +280,19 @@ public final class R {
         public static final int Title=0x7f050009;
         public static final int activeTbl=0x7f05000c;
         public static final int app_name=0x7f050002;
-        public static final int base_uri=0x7f05001d;
+        public static final int backspace=0x7f05002f;
+        public static final int base_uri=0x7f050031;
+        public static final int btn_take_orders=0x7f050020;
+        public static final int btn_take_orders_no=0x7f050024;
+        public static final int btn_take_orders_yes=0x7f050023;
+        public static final int eight=0x7f05002c;
+        public static final int err_take_orders=0x7f050021;
+        public static final int five=0x7f050029;
+        public static final int four=0x7f050028;
         public static final int head_historical=0x7f050018;
         public static final int head_introduction=0x7f050016;
         public static final int head_lang=0x7f050017;
-        public static final int introduction=0x7f05001c;
+        public static final int introduction=0x7f050030;
         public static final int label_categories=0x7f050010;
         public static final int label_language=0x7f05000e;
         public static final int label_password=0x7f050011;
@@ -275,16 +302,28 @@ public final class R {
         public static final int logo=0x7f050006;
         public static final int logoLayout=0x7f050008;
         public static final int mes_password_wrong=0x7f050015;
+        public static final int msg_take_orders=0x7f050022;
+        public static final int nine=0x7f05002d;
+        public static final int one=0x7f050025;
+        public static final int order_dialog_cancel=0x7f05001f;
+        public static final int order_dialog_ok=0x7f05001e;
         public static final int password=0x7f050001;
         public static final int setting_activity_change_table=0x7f05001a;
         public static final int setting_activity_checkout=0x7f05001b;
+        public static final int setting_activity_printOrders=0x7f05001c;
+        public static final int setting_activity_printOrders_mes=0x7f05001d;
         public static final int setting_activity_title=0x7f050019;
+        public static final int seven=0x7f05002b;
+        public static final int six=0x7f05002a;
         public static final int slogan=0x7f050007;
+        public static final int three=0x7f050027;
         public static final int title_activity_main=0x7f05000f;
         public static final int title_activity_new_table=0x7f05000d;
         public static final int title_activity_setting=0x7f050014;
         public static final int title_password=0x7f050012;
+        public static final int two=0x7f050026;
         public static final int username=0x7f050000;
+        public static final int zero=0x7f05002e;
     }
     public static final class style {
         public static final int ActionBar_Solid_Dodoro=0x7f070002;
@@ -300,6 +339,12 @@ public final class R {
         /**  Tab选项标签字体的样式 
          */
         public static final int MyActionBarTabTextStyle=0x7f07000c;
+        /** 
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        
+         */
+        public static final int OrderDialog=0x7f07000e;
         public static final int PopupMenu_Dodoro=0x7f070004;
         public static final int ProgressBar_Dodoro=0x7f070008;
         /**  将自定义的style取名为CustomTheme，父类为Theme.Holo.Light，也就是说默认背景是白底黑字（如果是Theme.Holo，则默认是黑底白字） 
