@@ -34,11 +34,11 @@ public class ProductAdapter extends AAdapter<Product> {
 			TextView name = (TextView) convertView.findViewById(R.id.name);
 			name.setText(result.getProductName());
 
-			//TextView desc = (TextView) convertView.findViewById(R.id.desc);
-			//desc.setText(result.getDescription());
+			// TextView desc = (TextView) convertView.findViewById(R.id.desc);
+			// desc.setText(result.getDescription());
 
 			TextView price = (TextView) convertView.findViewById(R.id.price);
-			price.setText("" + result.getProductPrice() + " €/ " + result.getNum()+"P");
+			price.setText("" + result.getDisplayPrice() + " €/ " + result.getNum() + "P");
 
 			// thumb.setOnClickListener(new OnClickListener() {
 			//

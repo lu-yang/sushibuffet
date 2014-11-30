@@ -44,9 +44,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:text="@string/btn_take_orders" 
-            android:textSize="14sp"
-            android:textColor="@color/beige"/>
+            android:text="@string/btn_take_orders"
+            android:textColor="@color/beige"
+            android:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>

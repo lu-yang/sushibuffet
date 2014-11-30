@@ -15,7 +15,7 @@ public class Product extends BaseModel {
 	private int minNum;
 	private int num;
 	private int taxgroupId;
-	private float productPrice;
+	private int productPrice;
 	private String locale;
 
 	public String getLocale() {
@@ -106,12 +106,29 @@ public class Product extends BaseModel {
 		this.taxgroupId = taxgroupId;
 	}
 
-	public float getProductPrice() {
+	public int getProductPrice() {
 		return productPrice;
 	}
 
-	public void setProductPrice(float productPrice) {
+	public void setProductPrice(int productPrice) {
 		this.productPrice = productPrice;
+	}
+
+	public String getDisplayPrice() {
+		String price = null;
+		if (productPrice < 10 && productPrice >= 0) {
+			price = "0.0" + productPrice;
+		} else if (productPrice < 100 && productPrice >= 10) {
+			price = "0." + productPrice;
+		} else if (productPrice >= 100) {
+			String s = "" + productPrice;
+			String last2 = s.substring(s.length() - 2);
+			price = s.substring(0, s.length() - 2) + "." + last2;
+		} else {
+			price = "-";
+		}
+
+		return price;
 	}
 
 	@Override

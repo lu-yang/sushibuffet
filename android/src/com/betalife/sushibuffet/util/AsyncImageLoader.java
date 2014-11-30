@@ -1,22 +1,21 @@
 package com.betalife.sushibuffet.util;
 
 import java.io.IOException;
-import java.lang.ref.SoftReference;
 import java.net.URL;
-import java.util.Hashtable;
-import java.util.Map;
 
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.util.LruCache;
 
 public class AsyncImageLoader {
 
-	private Map<String, SoftReference<Drawable>> imageCache;
+	private LruCache<String, Drawable> imageCache;
 	private static AsyncImageLoader instance;
 
 	private AsyncImageLoader() {
-		imageCache = new Hashtable<String, SoftReference<Drawable>>();
+		imageCache = new LruCache<String, Drawable>(100);
 	}
 
 	public static AsyncImageLoader getInstance() {
@@ -31,12 +30,9 @@ public class AsyncImageLoader {
 		/**
 		 * 首先判断图片是否已经在内存中存在 如果存在，直接获取图片的Drawable对象
 		 */
-		if (imageCache.containsKey(imageUrl)) {
-			SoftReference<Drawable> softReference = imageCache.get(imageUrl);
-			Drawable drawable = softReference.get();
-			if (drawable != null) {
-				imageCallback.imageLoaded(drawable, imageUrl);
-			}
+		Drawable drawable = imageCache.get(imageUrl);
+		if (drawable != null) {
+			imageCallback.imageLoaded(drawable, imageUrl);
 		}
 
 		/**
@@ -61,7 +57,7 @@ public class AsyncImageLoader {
 				Drawable drawable = loadImageFromUrl(imageUrl);
 
 				// 缓存图片
-				imageCache.put(imageUrl, new SoftReference<Drawable>(drawable));
+				imageCache.put(imageUrl, drawable);
 
 				// 获取Message对象，通知Handler
 				Message message = handler.obtainMessage(0, drawable);
@@ -77,6 +73,7 @@ public class AsyncImageLoader {
 			drawable = Drawable.createFromStream(new URL(url).openStream(), "");
 		} catch (IOException e) {
 			e.printStackTrace();
+			Log.e("Dodoro.AsyncImageLoader", e.getMessage(), e);
 		}
 
 		return drawable;

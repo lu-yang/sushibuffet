@@ -43,6 +43,8 @@
     <string name="nine">9</string>
     <string name="zero">0</string>
     <string name="backspace">C</string>
+    <string name="add">+</string>
+    <string name="subtract">-</string>
     
     
     <string name="introduction">Lorem ipsum dolor sit amet, consectetur adipisicing elit, 

@@ -7,9 +7,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.betalife.sushibuffet.activity.R;
@@ -31,10 +31,34 @@ public class OrderAlertDialog {
 		LayoutInflater layoutInflater = parent.getLayoutInflater();
 		View layout = layoutInflater.inflate(R.layout.order_dialog, null);
 
-		final NumberPicker num = (NumberPicker) layout.findViewById(R.id.num);
-		num.setMaxValue(20);
-		num.setMinValue(0);
-		num.setValue(getCount(product, num));
+		final TextView num = (TextView) layout.findViewById(R.id.num);
+		int count = getCount(product);
+		setCount(num, count);
+
+		Button add = (Button) layout.findViewById(R.id.add);
+		add.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				int count = (Integer) num.getTag() + 1;
+				setCount(num, count);
+				changeCount(product, num);
+			}
+		});
+
+		Button subtract = (Button) layout.findViewById(R.id.subtract);
+		subtract.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				int count = (Integer) num.getTag() - 1;
+				if (count < 0) {
+					count = 0;
+				}
+				setCount(num, count);
+				changeCount(product, num);
+			}
+		});
 
 		String imageUrl = DodoroContext.getProductThumbUrl(product.getThumb());
 		ImageViewUtil.setImage(imageUrl, (ImageView) layout.findViewById(R.id.thumb));
@@ -43,10 +67,10 @@ public class OrderAlertDialog {
 		name.setText(product.getProductName());
 
 		TextView desc = (TextView) layout.findViewById(R.id.desc);
-		desc.setText("Description: "+product.getDescription());
+		desc.setText("Description: " + product.getDescription());
 
 		TextView price = (TextView) layout.findViewById(R.id.price);
-		price.setText("" + product.getProductPrice()+" € / "+ product.getNum()+"P");
+		price.setText("" + product.getDisplayPrice() + " € / " + product.getNum() + "P");
 
 		builder = new AlertDialog.Builder(parent);
 		builder.setView(layout);
@@ -85,7 +109,12 @@ public class OrderAlertDialog {
 
 	}
 
-	private int getCount(Product result, NumberPicker num) {
+	private void setCount(final TextView num, int count) {
+		num.setText("" + count);
+		num.setTag(num);
+	}
+
+	private int getCount(Product result) {
 		ListView orders = (ListView) parent.findViewById(R.id.current_orders);
 		CurrentOrderAdapter adapter = (CurrentOrderAdapter) orders.getAdapter();
 		List<Order> list = adapter.getList();
@@ -100,7 +129,7 @@ public class OrderAlertDialog {
 		return count;
 	}
 
-	private void changeCount(Product result, NumberPicker num) {
+	private void changeCount(Product result, TextView num) {
 		changeOrderCount(result, num);
 		changeCategoryCount();
 	}
@@ -111,7 +140,7 @@ public class OrderAlertDialog {
 		adapter.notifyDataSetChanged();
 	}
 
-	private void changeOrderCount(Product result, NumberPicker num) {
+	private void changeOrderCount(Product result, TextView num) {
 		ListView currentOrders = (ListView) parent.findViewById(R.id.current_orders);
 		CurrentOrderAdapter adapter = (CurrentOrderAdapter) currentOrders.getAdapter();
 		List<Order> list = adapter.getList();
@@ -122,7 +151,7 @@ public class OrderAlertDialog {
 				break;
 			}
 		}
-		int count = num.getValue();
+		int count = (Integer) num.getTag();
 		if (index == -1 && count != 0) {
 			Order o = new Order();
 			o.setCount(count);
