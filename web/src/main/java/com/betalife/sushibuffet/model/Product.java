@@ -15,7 +15,7 @@ public class Product extends BaseModel {
 	private int minNum;
 	private int num;
 	private int taxgroupId;
-	private float productPrice;
+	private int productPrice;
 	private String locale;
 
 	public String getLocale() {
@@ -106,11 +106,11 @@ public class Product extends BaseModel {
 		this.taxgroupId = taxgroupId;
 	}
 
-	public float getProductPrice() {
+	public int getProductPrice() {
 		return productPrice;
 	}
 
-	public void setProductPrice(float productPrice) {
+	public void setProductPrice(int productPrice) {
 		this.productPrice = productPrice;
 	}
 
