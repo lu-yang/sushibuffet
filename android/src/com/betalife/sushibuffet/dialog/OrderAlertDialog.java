@@ -70,7 +70,8 @@ public class OrderAlertDialog {
 		desc.setText("Description: " + product.getDescription());
 
 		TextView price = (TextView) layout.findViewById(R.id.price);
-		price.setText("" + product.getDisplayPrice() + " € / " + product.getNum() + "P");
+		price.setText("" + DodoroContext.getDisplayPrice(product.getProductPrice()) + " € / "
+				+ product.getNum() + "P");
 
 		builder = new AlertDialog.Builder(parent);
 		builder.setView(layout);
@@ -111,7 +112,7 @@ public class OrderAlertDialog {
 
 	private void setCount(final TextView num, int count) {
 		num.setText("" + count);
-		num.setTag(num);
+		num.setTag(count);
 	}
 
 	private int getCount(Product result) {
