@@ -1,5 +1,7 @@
 package com.betalife.sushibuffet.model;
 
+import org.apache.commons.lang.StringUtils;
+
 public class Product extends BaseModel {
 	/**
 	 * 
@@ -13,7 +15,7 @@ public class Product extends BaseModel {
 	private String productName;
 	private String productNum;
 	private int minNum;
-	private int num;
+	private Integer num;
 	private int taxgroupId;
 	private int productPrice;
 	private String locale;
@@ -35,7 +37,7 @@ public class Product extends BaseModel {
 	}
 
 	public String getDescription() {
-		return description;
+		return StringUtils.isEmpty(description) ? "" : description;
 	}
 
 	public void setDescription(String description) {
@@ -90,11 +92,11 @@ public class Product extends BaseModel {
 		this.minNum = minNum;
 	}
 
-	public int getNum() {
+	public Integer getNum() {
 		return num;
 	}
 
-	public void setNum(int num) {
+	public void setNum(Integer num) {
 		this.num = num;
 	}
 

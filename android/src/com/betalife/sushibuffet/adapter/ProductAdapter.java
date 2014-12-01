@@ -34,12 +34,9 @@ public class ProductAdapter extends AAdapter<Product> {
 			TextView name = (TextView) convertView.findViewById(R.id.name);
 			name.setText(result.getProductName());
 
-			// TextView desc = (TextView) convertView.findViewById(R.id.desc);
-			// desc.setText(result.getDescription());
-
 			TextView price = (TextView) convertView.findViewById(R.id.price);
-			price.setText("" + DodoroContext.getDisplayPrice(result.getProductPrice()) + " €/ "
-					+ result.getNum() + "P");
+			price.setText("" + DodoroContext.getDisplayPrice(result.getProductPrice()) + " €"
+					+ DodoroContext.getNum(result.getNum()));
 
 			// thumb.setOnClickListener(new OnClickListener() {
 			//

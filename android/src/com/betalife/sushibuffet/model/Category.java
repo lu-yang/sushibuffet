@@ -1,5 +1,7 @@
 package com.betalife.sushibuffet.model;
 
+import org.apache.commons.lang.StringUtils;
+
 public class Category extends BaseModel {
 	/**
 	 * 
@@ -64,7 +66,7 @@ public class Category extends BaseModel {
 	}
 
 	public String getDescription() {
-		return description;
+		return StringUtils.isEmpty(description) ? "" : description;
 	}
 
 	public void setDescription(String description) {

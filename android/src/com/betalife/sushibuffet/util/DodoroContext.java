@@ -116,4 +116,14 @@ public class DodoroContext {
 
 		return price;
 	}
+
+	public static String getNum(Integer num) {
+		if (num == 1) {
+			return "/ P";
+		} else if (num > 1) {
+			return "/ " + num + " P";
+		} else {
+			return "";
+		}
+	}
 }
