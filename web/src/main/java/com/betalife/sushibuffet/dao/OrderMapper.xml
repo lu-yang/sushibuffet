@@ -18,11 +18,12 @@
 			<result property="productPrice" column="product_price" />
 			<result property="thumb" column="thumb" />
 			<result property="productName" column="name" />
+			<result property="num" column="num" />
 		</association>
 	</resultMap>
 	
     <select id="selectOrders" parameterType="Order" resultMap="orderResult">
-		SELECT o.id, o.COUNT,  o.turnover_id, o.product_id, t.checkout, t.table_id, p.category_id,
+		SELECT o.id, o.COUNT,  o.turnover_id, o.product_id, t.checkout, t.table_id, p.category_id, p.num,
 		  			p.product_price, p.thumb, m.NAME 
 		FROM `order` o, turnover t, product p LEFT JOIN multilang m ON m.id = CONCAT('p', p.id) AND m.locale = #{locale}
 		WHERE o.turnover_id = #{turnover.id}

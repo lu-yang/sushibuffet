@@ -4,37 +4,35 @@
 
 <mapper namespace="com.betalife.sushibuffet.dao.ProductMapper">
 
-	<cache />
-
 	<select id="selectByCategoryId" parameterType="Product" resultType="Product">
 		SELECT
-			c.id, c.category_id, c.product_price, c.active, c.position,  c.thumb, 
+			p.id, p.category_id, p.product_price, p.active, p.position,  p.thumb, p.num,
 			m.name as productName, m.desc as description
 		FROM
-			product c LEFT JOIN multilang m 
-				ON m.id = CONCAT('p',c.id) AND m.locale= #{locale}
+			product p LEFT JOIN multilang m 
+				ON m.id = CONCAT('p', p.id) AND m.locale= #{locale}
 		WHERE 
-			c.category_id = #{categoryId}
+			p.category_id = #{categoryId}
 	</select>
 
 	<select id="selectById" parameterType="Product" resultType="Product">
 		SELECT
-			c.id, c.category_id, c.product_price, c.active, c.position,  c.thumb, 
+			p.id, p.category_id, p.product_price, p.active, p.position,  p.thumb, p.num,
 			m.name as productName, m.desc as description
 		FROM
-			product c LEFT JOIN multilang m 
-				ON m.id = CONCAT('p',c.id) AND m.locale= #{locale}
+			product p LEFT JOIN multilang m 
+				ON m.id = CONCAT('p',p.id) AND m.locale= #{locale}
 		WHERE 
-			c.id = #{id}
+			p.id = #{id}
 	</select>
 
 	<select id="selectAll"  parameterType="String" resultType="Product">
 		SELECT
-			c.id, c.category_id, c.product_price, c.active, c.position,  c.thumb, 
+			p.id, p.category_id, p.product_price, p.active, p.position, p.thumb, p.num,
 			m.name as productName, m.desc as description
 		FROM
-			product c LEFT JOIN multilang m 
-				ON m.id = CONCAT('p',c.id) AND m.locale= #{locale}
+			product p LEFT JOIN multilang m 
+				ON m.id = CONCAT('p', p.id) AND m.locale= #{locale}
 	</select>
 
 </mapper>

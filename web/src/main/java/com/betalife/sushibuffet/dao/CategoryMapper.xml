@@ -4,8 +4,6 @@
 
 <mapper namespace="com.betalife.sushibuffet.dao.CategoryMapper">
 
-	<cache />
-
 	<select id="selectByParentId" parameterType="Category" resultType="Category">
 		SELECT
 			c.id, c.active, c.position, c.thumb, m.name, m.desc as description
