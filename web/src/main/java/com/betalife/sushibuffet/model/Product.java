@@ -1,6 +1,5 @@
 package com.betalife.sushibuffet.model;
 
-import com.betalife.sushibuffet.util.DodoroUtil;
 
 public class Product extends BaseModel {
 	/**
@@ -116,9 +115,9 @@ public class Product extends BaseModel {
 		this.productPrice = productPrice;
 	}
 
-	public String getDisplayPrice() {
-		return DodoroUtil.getDisplayPrice(productPrice);
-	}
+	// public String getDisplayPrice() {
+	// return DodoroUtil.getDisplayPrice(productPrice);
+	// }
 
 	@Override
 	public String toString() {

@@ -68,8 +68,10 @@ public class ReceiptTempleteUtil {
 
 			if (line.startsWith("$Loop ")) {
 				for (Order order : orders) {
-					String formated = MessageFormat.format(pattern, order.getProduct().getProductName(),
-							order.getProduct().getDisplayPrice(), order.getCount());
+					Product product = order.getProduct();
+					String formated = MessageFormat.format(pattern, product.getProductName(),
+							DodoroUtil.getDisplayPrice(order.getProduct().getProductPrice()),
+							order.getCount());
 					list.add(formated);
 				}
 				continue;
