@@ -22,6 +22,7 @@ import com.betalife.sushibuffet.model.Diningtable;
 public class FragmentTables extends Fragment {
 
 	private AAdapter<Diningtable> adapter;
+	private GridView tables;
 
 	public FragmentTables(AAdapter<Diningtable> adapter) {
 		super();
@@ -31,7 +32,7 @@ public class FragmentTables extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View view = inflater.inflate(R.layout.fragment_tables, container, false);
-
+		tables = (GridView) view.findViewById(R.id.diningtables);
 		return view;
 	}
 
@@ -51,8 +52,6 @@ public class FragmentTables extends Fragment {
 		@Override
 		public void postCallback(final List<Diningtable> result) {
 			adapter.setList(result);
-			View fragmentTablesView = FragmentTables.this.getView();
-			GridView tables = (GridView) fragmentTablesView.findViewById(R.id.diningtables);
 			tables.setAdapter(adapter);
 		}
 
