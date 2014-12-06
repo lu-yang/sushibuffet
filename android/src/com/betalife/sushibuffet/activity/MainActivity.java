@@ -18,11 +18,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.betalife.sushibuffet.util.FragmentFactory;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify.IconValue;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements Callback {
 
 	private static final String SELECTED_NAVIGATION_INDEX = "SelectedNavigationIndex";
 	private ViewPager viewPager;
@@ -76,8 +75,9 @@ public class MainActivity extends FragmentActivity {
 		// View homeIcon = findViewById(android.R.id.home);
 		// ((View) homeIcon.getParent()).setVisibility(View.GONE);
 		String[] tabIcons = getResources().getStringArray(R.array.tabs);
+		String[] fragments = getResources().getStringArray(R.array.fragments);
 		for (int i = 0; i < tabIcons.length; i++) {
-			Fragment fragment = FragmentFactory.create(i, this);
+			Fragment fragment = Fragment.instantiate(this, fragments[i]);
 			adapter.addFragment(fragment);
 
 			String icon = tabIcons[i];
@@ -151,5 +151,12 @@ public class MainActivity extends FragmentActivity {
 			return fragments.size();
 		}
 
+	}
+
+	@Override
+	public void callback() {
+		Intent intent = new Intent();
+		intent.setClass(this, SettingActivity.class);
+		startActivity(intent);
 	}
 }

@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +24,6 @@ import com.betalife.sushibuffet.util.DodoroContext;
 public class FragmentSetting extends Fragment {
 
 	public FragmentSetting() {
-		// Required empty public constructor
 	}
 
 	@Override
@@ -43,9 +42,10 @@ public class FragmentSetting extends Fragment {
 				String pass = DodoroContext.getInstance().getConstant().getPassword();
 				if (StringUtils.equals(tag, pass)) {
 					mes.setVisibility(View.INVISIBLE);
-					Intent intent = new Intent();
-					intent.setClass(FragmentSetting.this.getActivity(), SettingActivity.class);
-					startActivity(intent);
+					FragmentActivity activity = FragmentSetting.this.getActivity();
+					if (activity instanceof Callback) {
+						((Callback) activity).callback();
+					}
 				} else {
 					mes.setVisibility(View.VISIBLE);
 				}

@@ -14,8 +14,6 @@ import com.betalife.sushibuffet.util.DodoroContext;
 
 public class AccessActivity extends Activity {
 
-	// 意图
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getActionBar().hide();
