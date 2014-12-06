@@ -9,14 +9,31 @@ import android.widget.BaseAdapter;
 import com.betalife.sushibuffet.model.BaseModel;
 
 public abstract class AAdapter<E extends BaseModel> extends BaseAdapter {
+
 	private List<E> list;
-	protected final LayoutInflater layoutInflater;
+	protected LayoutInflater layoutInflater;
 	protected Activity activity;
 
-	public AAdapter(Activity activity, List<E> tables) {
+	public AAdapter() {
 		super();
-		this.activity = activity;
+	}
+
+	public AAdapter(Activity activity) {
+		this();
+		setActivity(activity);
+	}
+
+	public AAdapter(Activity activity, List<E> tables) {
+		this(activity);
 		this.list = tables;
+	}
+
+	public Activity getActivity() {
+		return activity;
+	}
+
+	public void setActivity(Activity activity) {
+		this.activity = activity;
 		this.layoutInflater = LayoutInflater.from(activity);
 	}
 
@@ -39,4 +56,7 @@ public abstract class AAdapter<E extends BaseModel> extends BaseAdapter {
 		return list;
 	}
 
+	public void setList(List<E> list) {
+		this.list = list;
+	}
 }

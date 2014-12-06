@@ -1,6 +1,6 @@
 package com.betalife.sushibuffet.adapter;
 
-import java.util.List;
+import java.io.Serializable;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -22,11 +22,12 @@ import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-public class ChangeTableAdapter extends AAdapter<Diningtable> {
+public class ChangeTableAdapter extends AAdapter<Diningtable> implements Serializable {
 
-	public ChangeTableAdapter(Activity activity, List<Diningtable> tables) {
-		super(activity, tables);
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private class ChangeTableTask extends AbstractAsyncTask<Turnover, Boolean> {
 

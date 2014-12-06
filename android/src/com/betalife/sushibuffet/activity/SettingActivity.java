@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.betalife.sushibuffet.AbstractAsyncTask;
+import com.betalife.sushibuffet.adapter.ChangeTableAdapter;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.DodoroContext;
 
@@ -74,7 +75,8 @@ public class SettingActivity extends Activity {
 
 	public void changeTable(View view) {
 		Intent intent = new Intent();
-		intent.setClass(this, ChangeTableActivity.class);
+		intent.putExtra("adapter", new ChangeTableAdapter());
+		intent.setClass(this, TableActivity.class);
 		startActivity(intent);
 	}
 

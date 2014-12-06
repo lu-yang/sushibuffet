@@ -16,10 +16,17 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.betalife.sushibuffet.AbstractAsyncTask;
-import com.betalife.sushibuffet.adapter.TableAdapter;
+import com.betalife.sushibuffet.adapter.AAdapter;
 import com.betalife.sushibuffet.model.Diningtable;
 
 public class FragmentTables extends Fragment {
+
+	private AAdapter<Diningtable> adapter;
+
+	public FragmentTables(AAdapter<Diningtable> adapter) {
+		super();
+		this.adapter = adapter;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,10 +50,10 @@ public class FragmentTables extends Fragment {
 
 		@Override
 		public void postCallback(final List<Diningtable> result) {
-			TableAdapter aa = new TableAdapter(activity, result);
+			adapter.setList(result);
 			View fragmentTablesView = FragmentTables.this.getView();
 			GridView tables = (GridView) fragmentTablesView.findViewById(R.id.diningtables);
-			tables.setAdapter(aa);
+			tables.setAdapter(adapter);
 		}
 
 		@Override

@@ -1,6 +1,6 @@
 package com.betalife.sushibuffet.adapter;
 
-import java.util.List;
+import java.io.Serializable;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -22,13 +22,12 @@ import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.DodoroContext;
 
+public class TableAdapter extends AAdapter<Diningtable> implements Serializable {
 
-
-public class TableAdapter extends AAdapter<Diningtable> {
-
-	public TableAdapter(Activity activity, List<Diningtable> tables) {
-		super(activity, tables);
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private class OpenTableTask extends AbstractAsyncTask<Turnover, Turnover> {
 
@@ -75,7 +74,7 @@ public class TableAdapter extends AAdapter<Diningtable> {
 			TextView desc = (TextView) convertView.findViewById(R.id.status);
 			if (!result.isAvailable()) {
 				desc.setText("{fa-ban}");
-				
+
 			} else {
 				final Turnover turnover = result.getTurnover();
 				if (turnover == null || turnover.isCheckout()) {
