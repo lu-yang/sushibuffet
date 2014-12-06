@@ -19,12 +19,12 @@ public class NewTableActivity extends FragmentActivity implements Callback {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		getSupportFragmentManager().beginTransaction().add(R.id.new_tables_layout, password).commit();
+		getSupportFragmentManager().beginTransaction().replace(R.id.new_tables_layout, password).commit();
 	}
 
 	@Override
 	public void callback() {
-		getSupportFragmentManager().beginTransaction().add(R.id.new_tables_layout, tables).commit();
+		getSupportFragmentManager().beginTransaction().replace(R.id.new_tables_layout, tables).commit();
 	}
 
 }
