@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,18 @@ public class FragmentHistory extends Fragment implements Refreshable {
 
 		@Override
 		public void postCallback(List<Order> result) {
+			SparseArray<Order> map = new SparseArray<Order>();
+			for (Order order : result) {
+				int key = order.getProduct().getId();
+				Order value = map.get(key);
+				if (value == null) {
+					Order copy = order.copy();
+					map.put(key, copy);
+				} else {
+					value.setCount(value.getCount() + order.getCount());
+				}
+			}
+
 			OrderAdapter oa = new OrderAdapter(activity, result);
 			ListView orders = (ListView) activity.findViewById(R.id.orders);
 			orders.setAdapter(oa);
