@@ -18,7 +18,7 @@ public class TableActivity extends FragmentActivity implements Callback {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_table);
 		password = new FragmentSetting();
-		AAdapter<Diningtable> adapter = (AAdapter<Diningtable>) savedInstanceState.get("adapter");
+		AAdapter<Diningtable> adapter = (AAdapter<Diningtable>) getIntent().getSerializableExtra("adapter");
 		Log.i("adapter", "" + adapter.getClass());
 		adapter.setActivity(this);
 		tables = new FragmentTables(adapter);

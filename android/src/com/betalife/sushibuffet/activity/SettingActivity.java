@@ -75,7 +75,9 @@ public class SettingActivity extends Activity {
 
 	public void changeTable(View view) {
 		Intent intent = new Intent();
-		intent.putExtra("adapter", new ChangeTableAdapter());
+		Bundle mBundle = new Bundle();
+		mBundle.putSerializable("adapter", new ChangeTableAdapter());
+		intent.putExtras(mBundle);
 		intent.setClass(this, TableActivity.class);
 		startActivity(intent);
 	}
