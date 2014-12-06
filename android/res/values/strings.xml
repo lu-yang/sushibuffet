@@ -25,6 +25,7 @@
     <string name="setting_activity_checkout">Pay</string>
     <string name="setting_activity_printOrders">Print Orders</string>
     <string name="setting_activity_printOrders_mes">Orders has been printed.</string>
+    <string name="setting_activity_printOrders_err_mes">Printe Error.</string>
     <string name="order_dialog_ok">OK</string>
     <string name="order_dialog_cancel">Cancel</string>
     <string name="btn_take_orders">Take Orders</string>

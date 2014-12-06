@@ -102,8 +102,13 @@ public class SettingActivity extends Activity {
 
 		@Override
 		public void postCallback(Boolean result) {
-			Toast.makeText(activity, activity.getString(R.string.setting_activity_printOrders_mes),
-					Toast.LENGTH_SHORT).show();
+			if (result) {
+				Toast.makeText(activity, activity.getString(R.string.setting_activity_printOrders_mes),
+						Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(activity, activity.getString(R.string.setting_activity_printOrders_err_mes),
+						Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 
