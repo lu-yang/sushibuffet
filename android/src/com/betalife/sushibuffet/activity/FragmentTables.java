@@ -44,7 +44,8 @@ public class FragmentTables extends Fragment {
 		@Override
 		public void postCallback(final List<Diningtable> result) {
 			TableAdapter aa = new TableAdapter(activity, result);
-			GridView tables = (GridView) FragmentTables.this.getView().findViewById(R.id.diningtables);
+			View fragmentTablesView = FragmentTables.this.getView();
+			GridView tables = (GridView) fragmentTablesView.findViewById(R.id.diningtables);
 			tables.setAdapter(aa);
 		}
 
