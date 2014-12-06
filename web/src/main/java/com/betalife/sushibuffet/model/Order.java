@@ -1,5 +1,7 @@
 package com.betalife.sushibuffet.model;
 
+import java.util.Date;
+
 public class Order extends BaseModel {
 	/**
 	 * 
@@ -13,6 +15,9 @@ public class Order extends BaseModel {
 	private Turnover turnover;
 
 	private String locale;
+
+	private Date created;
+	private Date updated;
 
 	// public int getTurnoverId() {
 	// return turnoverId;
@@ -29,6 +34,22 @@ public class Order extends BaseModel {
 	// public void setProductId(int productId) {
 	// this.productId = productId;
 	// }
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 
 	public String getLocale() {
 		return locale;

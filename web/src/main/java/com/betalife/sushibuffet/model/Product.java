@@ -1,5 +1,7 @@
 package com.betalife.sushibuffet.model;
 
+import com.betalife.sushibuffet.util.DodoroUtil;
+
 public class Product extends BaseModel {
 	/**
 	 * 
@@ -112,6 +114,10 @@ public class Product extends BaseModel {
 
 	public void setProductPrice(int productPrice) {
 		this.productPrice = productPrice;
+	}
+
+	public String getDisplayPrice() {
+		return DodoroUtil.getDisplayPrice(productPrice);
 	}
 
 	@Override

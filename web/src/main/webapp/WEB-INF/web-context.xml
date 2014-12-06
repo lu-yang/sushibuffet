@@ -32,6 +32,10 @@
 
 	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 	
+	<bean class="com.betalife.sushibuffet.util.EpsonPrinter"  id="printer" >
+	    <property name="logo"  value="${receipt.logo}" />
+	</bean>
+	
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />

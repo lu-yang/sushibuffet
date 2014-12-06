@@ -19,7 +19,6 @@
 		<property name="maxStatements" value="0" />
 		<property name="idleConnectionTestPeriod" value="60" />
 		<property name="acquireRetryAttempts" value="5" />
-		<property name="breakAfterAcquireFailure" value="true" />
 	</bean>
 
 	<!-- define the SqlSessionFactory -->

@@ -2,6 +2,10 @@ package com.betalife.sushibuffet.manager;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,9 +20,14 @@ import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.model.Turnover;
+import com.betalife.sushibuffet.util.Printer;
+import com.betalife.sushibuffet.util.ReceiptTempleteUtil;
 
 @Service
 public class CustomerManager {
+
+	private static final Logger logger = LoggerFactory.getLogger(CustomerManager.class);
+
 	@Autowired
 	private DiningtableMapper tableMapper;
 
@@ -33,6 +42,12 @@ public class CustomerManager {
 
 	@Autowired
 	private OrderMapper orderMapper;
+
+	@Autowired
+	private ReceiptTempleteUtil receiptTempleteUtil;
+
+	@Resource(name = "printer")
+	private Printer printer;
 
 	@Transactional
 	public void openTable(Turnover turnover) {
@@ -80,7 +95,13 @@ public class CustomerManager {
 	}
 
 	private boolean print(List<Order> orders) {
-		// TODO Auto-generated method stub
+		List<String> list = receiptTempleteUtil.format(orders);
+		try {
+			printer.print(list);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return false;
+		}
 		return true;
 	}
 

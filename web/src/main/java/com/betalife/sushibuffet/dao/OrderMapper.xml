@@ -4,15 +4,17 @@
 
 <mapper namespace="com.betalife.sushibuffet.dao.OrderMapper">
 
-    <resultMap id="orderResult" type="Order">
-		<id property="id"  column="id" />
+	<resultMap id="orderResult" type="Order">
+		<id property="id" column="id" />
 		<result property="count" column="count" />
-		<association property="turnover"   javaType="Turnover" >
+		<result property="created" column="created" />
+		<result property="updated" column="updated" />
+		<association property="turnover" javaType="Turnover">
 			<id property="id" column="turnover_id" />
 			<result property="checkout" column="checkout" />
 			<result property="tableId" column="table_id" />
 		</association>
-		<association property="product"   javaType="Product" >
+		<association property="product" javaType="Product">
 			<id property="id" column="product_id" />
 			<result property="categoryId" column="category_id" />
 			<result property="productPrice" column="product_price" />
@@ -21,21 +23,33 @@
 			<result property="num" column="num" />
 		</association>
 	</resultMap>
-	
-    <select id="selectOrders" parameterType="Order" resultMap="orderResult">
-		SELECT o.id, o.COUNT,  o.turnover_id, o.product_id, t.checkout, t.table_id, p.category_id, p.num,
-		  			p.product_price, p.thumb, m.NAME 
-		FROM `order` o, turnover t, product p LEFT JOIN multilang m ON m.id = CONCAT('p', p.id) AND m.locale = #{locale}
-		WHERE o.turnover_id = #{turnover.id}
-		  AND o.turnover_id = t.id 
-		  AND o.product_id = p.id
-  </select>
-  
-   <insert id="insertOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO `order`
-      (turnover_id, product_id, count, created)
-    VALUES
-      (#{turnover.id}, #{product.id}, #{count}, now())
-  </insert>
+
+	<select id="selectOrders" parameterType="Order" resultMap="orderResult">
+		SELECT o.id, o.`count`, o.turnover_id, o.product_id, t.checkout, o.updated, o.created,
+		t.table_id, p.category_id, p.num,
+		p.product_price, p.thumb, m.NAME
+		FROM
+		`order` o, turnover t, product p LEFT JOIN multilang m ON m.id =
+		CONCAT('p', p.id) AND m.locale = #{locale}
+		WHERE o.turnover_id =
+		#{turnover.id}
+		AND o.turnover_id = t.id
+		AND o.product_id = p.id
+	</select>
+
+	<insert id="insertOrder" parameterType="Order" useGeneratedKeys="true"
+		keyProperty="id">
+		INSERT INTO `order`
+		(turnover_id, product_id, `count`)
+		VALUES
+		(#{turnover.id}, #{product.id}, #{count})
+	</insert>
+
+	<update id="updateCount" parameterType="Order">
+		update `order`
+		set
+		`count`=#{count}, updated=now()
+		where id=#{id}
+	</update>
 
 </mapper>

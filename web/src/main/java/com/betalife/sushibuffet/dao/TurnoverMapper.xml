@@ -4,23 +4,28 @@
 
 <mapper namespace="com.betalife.sushibuffet.dao.TurnoverMapper">
 
-  <insert id="insertTurnover" parameterType="Turnover" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO turnover
-      (table_id, checkout, first_table_id, created)
-    VALUES
-      (#{tableId}, #{checkout}, #{firstTableId}, now())
-  </insert>
-  
-  <update id="checkout"  parameterType="int">
-      update turnover
-      set checkout=true
-      where id=#{id}
-  </update>
-  
-   <update id="changeTable"  parameterType="Turnover">
-      update turnover
-      set table_id=#{tableId}
-      where id=#{id}
-  </update>
+	<insert id="insertTurnover" parameterType="Turnover"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO turnover
+		(table_id,
+		checkout, first_table_id)
+		VALUES
+		(#{tableId}, #{checkout},
+		#{firstTableId})
+	</insert>
+
+	<update id="checkout" parameterType="int">
+		update turnover
+		set
+		checkout=true, updated=now()
+		where id=#{id}
+	</update>
+
+	<update id="changeTable" parameterType="Turnover">
+		update turnover
+		set
+		table_id=#{tableId}, updated=now()
+		where id=#{id}
+	</update>
 
 </mapper>
