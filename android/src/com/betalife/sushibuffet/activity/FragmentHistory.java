@@ -1,5 +1,6 @@
 package com.betalife.sushibuffet.activity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,8 +53,11 @@ public class FragmentHistory extends Fragment implements Refreshable {
 					value.setCount(value.getCount() + order.getCount());
 				}
 			}
-
-			OrderAdapter oa = new OrderAdapter(activity, result);
+			List<Order> list = new ArrayList<Order>();
+			for (int i = 0; i < map.size(); i++) {
+				list.add(map.valueAt(i));
+			}
+			OrderAdapter oa = new OrderAdapter(activity, list);
 			ListView orders = (ListView) activity.findViewById(R.id.orders);
 			orders.setAdapter(oa);
 		}
