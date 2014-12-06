@@ -118,7 +118,9 @@ public class DodoroContext {
 	}
 
 	public static String getNum(Integer num) {
-		if (num == 1) {
+		if (num == null){
+			return "";
+		}else if (num == 1) {
 			return "/ P";
 		} else if (num > 1) {
 			return "/ " + num + " P";
