@@ -1,5 +1,7 @@
 package com.betalife.sushibuffet.model;
 
+import java.util.Date;
+
 public class Turnover extends BaseModel {
 
 	/**
@@ -9,6 +11,24 @@ public class Turnover extends BaseModel {
 	private int tableId;
 	private boolean checkout;
 	private int firstTableId;
+	private Date created;
+	private Date updated;
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 
 	public int getFirstTableId() {
 		return firstTableId;
