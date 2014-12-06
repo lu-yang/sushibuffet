@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.betalife.sushibuffet.AbstractAsyncTask;
-import com.betalife.sushibuffet.adapter.ChangeTableAdapter;
+import com.betalife.sushibuffet.adapter.TableAdapter;
 import com.betalife.sushibuffet.model.Constant;
 import com.betalife.sushibuffet.util.DodoroContext;
 
@@ -42,7 +42,7 @@ public class AccessActivity extends Activity {
 			// config.locale = DodoroContext.DEFAULT_LOCALE;
 			Intent intent = new Intent();
 			Bundle mBundle = new Bundle();
-			mBundle.putSerializable("adapter", new ChangeTableAdapter());
+			mBundle.putSerializable("adapter", new TableAdapter());
 			intent.putExtras(mBundle);
 			intent.setClass(AccessActivity.this, TableActivity.class);
 			startActivity(intent);
