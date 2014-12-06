@@ -24,6 +24,7 @@ public class FragmentTables extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View view = inflater.inflate(R.layout.fragment_tables, container, false);
+
 		return view;
 	}
 
@@ -43,7 +44,7 @@ public class FragmentTables extends Fragment {
 		@Override
 		public void postCallback(final List<Diningtable> result) {
 			TableAdapter aa = new TableAdapter(activity, result);
-			GridView tables = (GridView) activity.findViewById(R.id.diningtables);
+			GridView tables = (GridView) FragmentTables.this.getView().findViewById(R.id.diningtables);
 			tables.setAdapter(aa);
 		}
 
