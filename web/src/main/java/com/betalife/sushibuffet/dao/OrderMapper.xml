@@ -32,10 +32,11 @@
 		FROM
 		`order` o, turnover t, product p LEFT JOIN multilang m ON m.id =
 		CONCAT('p', p.id) AND m.locale = #{locale}
-		WHERE o.turnover_id =
-		#{turnover.id}
+		WHERE o.turnover_id = #{turnover.id}
 		AND o.turnover_id = t.id
 		AND o.product_id = p.id
+		AND p.active=true
+		Order by p.position
 	</select>
 
 	<insert id="insertOrder" parameterType="Order" useGeneratedKeys="true"

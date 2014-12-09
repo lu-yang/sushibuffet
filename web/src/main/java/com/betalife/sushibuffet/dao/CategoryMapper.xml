@@ -11,7 +11,8 @@
 		FROM
 			category c LEFT JOIN multilang m ON m.id = CONCAT('c',c.id)  AND m.locale=#{locale}
 		WHERE 
-			c.parent_id = #{parentId}
+			c.parent_id = #{parentId} and c.active=true
+		Order by c.position	
 	</select>
 
 	<select id="selectAll" parameterType="String"  resultType="Category">
@@ -19,6 +20,9 @@
 			c.id, c.active, c.position, c.thumb, m.name, m.desc as description
 		FROM
 			category c LEFT JOIN multilang m ON m.id = CONCAT('c',c.id)  AND m.locale=#{locale}
+		WHERE 
+			c.active=true
+		Order by c.position	
 	</select>
 
 </mapper>

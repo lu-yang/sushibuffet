@@ -83,6 +83,18 @@ public class Order extends BaseModel {
 		this.count = count;
 	}
 
+	public Order copy() {
+		Order copy = new Order();
+		copy.count = count;
+		copy.locale = locale;
+		copy.product = product;
+		copy.turnover = turnover;
+		copy.created = created;
+		copy.updated = updated;
+
+		return copy;
+	}
+
 	@Override
 	public String toString() {
 		return "Order [turnoverId=" + turnover.getId() + ", productId=" + product.getId() + ", count="

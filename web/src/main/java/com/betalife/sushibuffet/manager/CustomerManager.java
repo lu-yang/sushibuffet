@@ -1,6 +1,10 @@
 package com.betalife.sushibuffet.manager;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -92,7 +96,20 @@ public class CustomerManager {
 
 	public boolean printOrders(Order model) {
 		List<Order> orders = getOrders(model);
-		List<String> list = receiptTempleteUtil.format_receipt_lines(orders, model.getLocale());
+		Map<Integer, Order> map = new HashMap<Integer, Order>();
+		for (Order order : orders) {
+			int id = order.getProduct().getId();
+			if (map.containsKey(id)) {
+				Order one = map.get(id);
+				one.setCount(one.getCount() + order.getCount());
+			} else {
+				Order one = order.copy();
+				map.put(id, one);
+			}
+		}
+		Collection<Order> values = map.values();
+		List<String> list = receiptTempleteUtil.format_receipt_lines(new ArrayList<Order>(values),
+				model.getLocale());
 		return print(list);
 	}
 

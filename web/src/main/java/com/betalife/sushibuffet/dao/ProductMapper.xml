@@ -12,7 +12,9 @@
 			product p LEFT JOIN multilang m 
 				ON m.id = CONCAT('p', p.id) AND m.locale= #{locale}
 		WHERE 
-			p.category_id = #{categoryId}
+			p.category_id = #{categoryId} 
+			AND p.active=true
+		Order by p.position 
 	</select>
 
 	<select id="selectById" parameterType="Product" resultType="Product">
@@ -24,6 +26,8 @@
 				ON m.id = CONCAT('p',p.id) AND m.locale= #{locale}
 		WHERE 
 			p.id = #{id}
+			AND  p.active=true
+		Order by p.position 
 	</select>
 
 	<select id="selectAll"  parameterType="String" resultType="Product">
@@ -33,6 +37,9 @@
 		FROM
 			product p LEFT JOIN multilang m 
 				ON m.id = CONCAT('p', p.id) AND m.locale= #{locale}
+		WHERE 
+			p.active=true
+		Order by p.position 
 	</select>
 
 </mapper>
