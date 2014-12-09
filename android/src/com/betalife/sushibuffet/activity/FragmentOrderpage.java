@@ -101,7 +101,7 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			final String url = activity.getString(R.string.base_uri) + "/takeOrders/"
-					+ DodoroContext.getInstance().getTurnover().getId();
+					+ DodoroContext.languageCode(getActivity());
 
 			List<Order> currentOrdersCache = DodoroContext.getInstance().getCurrentOrdersCache();
 			HttpEntity<List<Order>> requestEntity = new HttpEntity<List<Order>>(currentOrdersCache,
