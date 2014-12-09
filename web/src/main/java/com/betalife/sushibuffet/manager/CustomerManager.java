@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.betalife.sushibuffet.dao.CategoryMapper;
 import com.betalife.sushibuffet.dao.DiningtableMapper;
@@ -77,9 +78,14 @@ public class CustomerManager {
 
 	@Transactional
 	public boolean takeOrders(List<Order> orders) {
+		if (CollectionUtils.isEmpty(orders)) {
+			return true;
+		}
+
 		for (Order o : orders) {
 			orderMapper.insertOrder(o);
 		}
+
 		List<String> list = receiptTempleteUtil.format_order_lines(orders, locale);
 		return print(list);
 	}
@@ -100,6 +106,9 @@ public class CustomerManager {
 
 	public boolean printOrders(Order model) {
 		List<Order> orders = getOrders(model);
+		if (CollectionUtils.isEmpty(orders)) {
+			return true;
+		}
 		Map<Integer, Order> map = new HashMap<Integer, Order>();
 		for (Order order : orders) {
 			int id = order.getProduct().getId();

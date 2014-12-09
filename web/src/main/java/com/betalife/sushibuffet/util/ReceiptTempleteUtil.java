@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import com.betalife.sushibuffet.dao.CategoryMapper;
+import com.betalife.sushibuffet.dao.ProductMapper;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
@@ -38,6 +39,9 @@ public class ReceiptTempleteUtil {
 
 	@Autowired
 	private CategoryMapper categoryMapper;
+
+	@Autowired
+	private ProductMapper productMapper;
 
 	private final static String ESC_STR = "\\u001b";
 	private final static String ESC = "\u001b";
@@ -168,7 +172,9 @@ public class ReceiptTempleteUtil {
 
 	public List<String> format_order_lines(List<Order> orders, String locale) {
 		ArrayList<String> list = new ArrayList<String>();
-		Map<Integer, Category> map = getCategoryMap(locale);
+		Map<Integer, Category> categoryMap = getCategoryMap(locale);
+		Map<Integer, Product> productMap = getProductMap(locale);
+
 		int tableId = 0;
 		if (!CollectionUtils.isEmpty(orders)) {
 			tableId = orders.get(0).getTurnover().getTableId();
@@ -180,9 +186,9 @@ public class ReceiptTempleteUtil {
 				if (!CollectionUtils.isEmpty(orders)) {
 					for (Order order : orders) {
 						Product product = order.getProduct();
-						Category category = map.get(product.getCategoryId());
+						Category category = categoryMap.get(product.getCategoryId());
 						String cateName = category == null ? "" : category.getName();
-						Object[] args = { product.getProductName(),
+						Object[] args = { productMap.get(product.getId()),
 								DodoroUtil.getDisplayPrice(product.getProductPrice()), order.getCount(),
 								product.getProductNum(), cateName };
 						String formated = MessageFormat.format(order_pattern, args);
@@ -217,6 +223,17 @@ public class ReceiptTempleteUtil {
 		}
 
 		return categories;
+	}
+
+	private Map<Integer, Product> getProductMap(String locale) {
+		Map<Integer, Product> products = null;
+		List<Product> list = productMapper.selectAll(locale);
+		products = new HashMap<Integer, Product>();
+		for (Product one : list) {
+			products.put(one.getId(), one);
+		}
+
+		return products;
 	}
 
 }
