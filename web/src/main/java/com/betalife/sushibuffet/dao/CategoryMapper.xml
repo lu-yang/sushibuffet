@@ -3,8 +3,9 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.betalife.sushibuffet.dao.CategoryMapper">
+	<cache flushInterval="600000"/>
 
-	<select id="selectByParentId" parameterType="Category" resultType="Category">
+	<select id="selectByParentId" parameterType="Category" resultType="Category" useCache="false">
 		SELECT
 			c.id, c.active, c.position, c.thumb, m.name, m.desc as description
 		FROM

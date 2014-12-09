@@ -21,11 +21,12 @@
 			<result property="thumb" column="thumb" />
 			<result property="productName" column="name" />
 			<result property="num" column="num" />
+			<result property="productNum" column="product_num" />
 		</association>
 	</resultMap>
 
 	<select id="selectOrders" parameterType="Order" resultMap="orderResult">
-		SELECT o.id, o.`count`, o.turnover_id, o.product_id, t.checkout, o.updated, o.created,
+		SELECT o.id, o.`count`, o.turnover_id, o.product_id, t.checkout, o.updated, o.created, p.product_num,
 		t.table_id, p.category_id, p.num,
 		p.product_price, p.thumb, m.NAME
 		FROM

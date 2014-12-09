@@ -43,11 +43,11 @@ public class CustomerManager {
 	@Autowired
 	private OrderMapper orderMapper;
 
-	@Autowired
-	private ReceiptTempleteUtil receiptTempleteUtil;
-
 	@Resource(name = "printer")
 	private Printer printer;
+
+	@Autowired
+	private ReceiptTempleteUtil receiptTempleteUtil;
 
 	@Transactional
 	public void openTable(Turnover turnover) {
@@ -68,11 +68,12 @@ public class CustomerManager {
 	}
 
 	@Transactional
-	public boolean takeOrders(List<Order> orders) {
+	public boolean takeOrders(List<Order> orders, String locale) {
 		for (Order o : orders) {
 			orderMapper.insertOrder(o);
 		}
-		return print(orders);
+		List<String> list = receiptTempleteUtil.format_order_lines(orders, locale);
+		return print(list);
 	}
 
 	public List<Order> getOrders(Order order) {
@@ -91,11 +92,11 @@ public class CustomerManager {
 
 	public boolean printOrders(Order model) {
 		List<Order> orders = getOrders(model);
-		return print(orders);
+		List<String> list = receiptTempleteUtil.format_receipt_lines(orders, model.getLocale());
+		return print(list);
 	}
 
-	private boolean print(List<Order> orders) {
-		List<String> list = receiptTempleteUtil.format(orders);
+	synchronized private boolean print(List<String> list) {
 		try {
 			printer.print(list);
 		} catch (Exception e) {

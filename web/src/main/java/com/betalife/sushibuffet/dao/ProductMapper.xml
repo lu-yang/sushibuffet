@@ -6,7 +6,7 @@
 
 	<select id="selectByCategoryId" parameterType="Product" resultType="Product">
 		SELECT
-			p.id, p.category_id, p.product_price, p.active, p.position,  p.thumb, p.num,
+			p.id, p.category_id, p.product_price, p.active, p.position,  p.thumb, p.num, p.product_num,
 			m.name as productName, m.desc as description
 		FROM
 			product p LEFT JOIN multilang m 
@@ -17,7 +17,7 @@
 
 	<select id="selectById" parameterType="Product" resultType="Product">
 		SELECT
-			p.id, p.category_id, p.product_price, p.active, p.position,  p.thumb, p.num,
+			p.id, p.category_id, p.product_price, p.active, p.position,  p.thumb, p.num, p.product_num,
 			m.name as productName, m.desc as description
 		FROM
 			product p LEFT JOIN multilang m 
@@ -28,7 +28,7 @@
 
 	<select id="selectAll"  parameterType="String" resultType="Product">
 		SELECT
-			p.id, p.category_id, p.product_price, p.active, p.position, p.thumb, p.num,
+			p.id, p.category_id, p.product_price, p.active, p.position, p.thumb, p.num, p.product_num,
 			m.name as productName, m.desc as description
 		FROM
 			product p LEFT JOIN multilang m 
