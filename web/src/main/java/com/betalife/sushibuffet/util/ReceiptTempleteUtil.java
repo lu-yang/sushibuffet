@@ -188,7 +188,7 @@ public class ReceiptTempleteUtil {
 						Product product = order.getProduct();
 						Category category = categoryMap.get(product.getCategoryId());
 						String cateName = category == null ? "" : category.getName();
-						Object[] args = { productMap.get(product.getId()),
+						Object[] args = { productMap.get(product.getId()).getProductName(),
 								DodoroUtil.getDisplayPrice(product.getProductPrice()), order.getCount(),
 								product.getProductNum(), cateName };
 						String formated = MessageFormat.format(order_pattern, args);
