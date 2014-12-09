@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,8 +45,27 @@ public class SettingActivity extends Activity {
 	}
 
 	public void checkout(View view) {
-		CheckoutTask task = new CheckoutTask(this);
-		task.execute(DodoroContext.getInstance().getTurnover());
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		dialog.setTitle(R.string.setting_activity_checkout);
+		dialog.setMessage(getString(R.string.setting_activity_checkout_msg));
+		final Activity _this = this;
+		dialog.setPositiveButton(R.string._yes, new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				CheckoutTask task = new CheckoutTask(_this);
+				task.execute(DodoroContext.getInstance().getTurnover());
+			}
+		});
+
+		dialog.setNegativeButton(R.string._no, new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		dialog.create().show();
+
 	}
 
 	private class CheckoutTask extends AbstractAsyncTask<Turnover, Boolean> {
@@ -65,11 +86,21 @@ public class SettingActivity extends Activity {
 
 		@Override
 		public void postCallback(Boolean result) {
-			DodoroContext.getInstance().setTurnover(null);
+			if (result) {
+				Toast.makeText(activity, activity.getString(R.string.setting_activity_checkout_ok),
+						Toast.LENGTH_SHORT).show();
+				DodoroContext.getInstance().setTurnover(null);
 
-			Intent intent = new Intent();
-			intent.setClass(activity, AccessActivity.class);
-			activity.startActivity(intent);
+				Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				// Intent intent = new Intent();
+				// intent.setClass(activity, AccessActivity.class);
+				// activity.startActivity(intent);
+			} else {
+				Toast.makeText(activity, activity.getString(R.string.setting_activity_checkout_err),
+						Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 

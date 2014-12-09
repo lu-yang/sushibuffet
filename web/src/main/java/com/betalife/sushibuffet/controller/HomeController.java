@@ -96,7 +96,7 @@ public class HomeController {
 	@RequestMapping(value = "takeOrders/{locale}", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
 	boolean takeOrders(@PathVariable String locale, @RequestBody List<Order> orders) {
-		return customerManager.takeOrders(orders, locale);
+		return customerManager.takeOrders(orders);
 	}
 
 	@RequestMapping(value = "orders/{locale}/{turnoverId}", method = RequestMethod.GET, produces = "application/json")

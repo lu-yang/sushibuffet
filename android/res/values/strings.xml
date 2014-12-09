@@ -23,6 +23,9 @@
     <string name="setting_activity_title">Setting Page</string>
     <string name="setting_activity_change_table">Change Table</string>
     <string name="setting_activity_checkout">Pay</string>
+    <string name="setting_activity_checkout_msg">Confirm Pay?</string>
+    <string name="setting_activity_checkout_ok">Pay succeed</string>
+    <string name="setting_activity_checkout_err">Pay Failed</string>
     <string name="setting_activity_printOrders">Print Orders</string>
     <string name="setting_activity_printOrders_mes">Orders has been printed.</string>
     <string name="setting_activity_printOrders_err_mes">Printe Error.</string>
@@ -31,8 +34,8 @@
     <string name="btn_take_orders">Take Orders</string>
     <string name="err_take_orders">There is an error when taking orders.</string>
     <string name="msg_take_orders">Confirm taking orders?</string>
-    <string name="btn_take_orders_yes">Yes</string>
-    <string name="btn_take_orders_no">No</string>
+    <string name="_yes">Yes</string>
+    <string name="_no">No</string>
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
@@ -46,6 +49,7 @@
     <string name="backspace">C</string>
     <string name="add">+</string>
     <string name="subtract">-</string>
+    
     
     
     <string name="introduction">Lorem ipsum dolor sit amet, consectetur adipisicing elit, 

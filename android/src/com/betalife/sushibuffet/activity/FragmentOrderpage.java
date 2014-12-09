@@ -61,17 +61,16 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 			public void onClick(View v) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 				builder.setMessage(R.string.msg_take_orders);
-				builder.setPositiveButton(R.string.btn_take_orders_yes,
-						new DialogInterface.OnClickListener() {
+				builder.setPositiveButton(R.string._yes, new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								TakeOrdersAsyncTask task = new TakeOrdersAsyncTask(getActivity());
-								task.execute();
-							}
-						});
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						TakeOrdersAsyncTask task = new TakeOrdersAsyncTask(getActivity());
+						task.execute();
+					}
+				});
 
-				builder.setNegativeButton(R.string.btn_take_orders_no, new DialogInterface.OnClickListener() {
+				builder.setNegativeButton(R.string._no, new DialogInterface.OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {

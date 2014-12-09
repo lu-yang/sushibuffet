@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +54,9 @@ public class CustomerManager {
 	@Autowired
 	private ReceiptTempleteUtil receiptTempleteUtil;
 
+	@Value("${order.locale}")
+	private String locale;
+
 	@Transactional
 	public void openTable(Turnover turnover) {
 		turnover.setFirstTableId(turnover.getTableId());
@@ -72,7 +76,7 @@ public class CustomerManager {
 	}
 
 	@Transactional
-	public boolean takeOrders(List<Order> orders, String locale) {
+	public boolean takeOrders(List<Order> orders) {
 		for (Order o : orders) {
 			orderMapper.insertOrder(o);
 		}
