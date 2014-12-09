@@ -93,10 +93,10 @@ public class HomeController {
 		return all;
 	}
 
-	@RequestMapping(value = "takeOrders/{turnoverId}", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	@RequestMapping(value = "takeOrders/{locale}", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
-	boolean takeOrders(@PathVariable int turnoverId, @RequestBody List<Order> orders) {
-		return customerManager.takeOrders(orders);
+	boolean takeOrders(@PathVariable String locale, @RequestBody List<Order> orders) {
+		return customerManager.takeOrders(orders, locale);
 	}
 
 	@RequestMapping(value = "orders/{locale}/{turnoverId}", method = RequestMethod.GET, produces = "application/json")
