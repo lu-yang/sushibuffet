@@ -49,7 +49,7 @@
     <string name="backspace">C</string>
     <string name="add">+</string>
     <string name="subtract">-</string>
-    
+    <string name="lbl_table_no">Table Number: T-</string>
     
     
     <string name="introduction">Lorem ipsum dolor sit amet, consectetur adipisicing elit, 

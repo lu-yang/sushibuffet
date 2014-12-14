@@ -51,5 +51,12 @@
         android:clickable="true"
         android:onClick="printOrders"
         android:text="@string/setting_activity_printOrders" />
+    
+     <TextView
+            android:id="@+id/table_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:textSize="14sp" />
 
 </LinearLayout> <!-- </FrameLayout> -->

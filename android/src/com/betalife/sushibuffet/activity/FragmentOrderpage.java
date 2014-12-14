@@ -22,6 +22,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.betalife.sushibuffet.AbstractAsyncTask;
@@ -53,6 +54,10 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_orderpage, container, false);
+
+		TextView table_no = (TextView) view.findViewById(R.id.table_no);
+		int tableId = DodoroContext.getInstance().getTurnover().getTableId();
+		table_no.setText(getActivity().getString(R.string.lbl_table_no) + tableId);
 
 		Button btn_take_orders = (Button) view.findViewById(R.id.btn_take_orders);
 		btn_take_orders.setOnClickListener(new View.OnClickListener() {

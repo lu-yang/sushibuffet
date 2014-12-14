@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.betalife.sushibuffet.AbstractAsyncTask;
@@ -42,6 +43,11 @@ public class SettingActivity extends Activity {
 				: R.id.FragmentHeader);
 		((View) homeIcon.getParent()).setVisibility(View.GONE);
 		((View) homeIcon).setVisibility(View.GONE);
+
+		TextView table_no = (TextView) findViewById(R.id.table_no);
+		int tableId = DodoroContext.getInstance().getTurnover().getTableId();
+		table_no.setText(getString(R.string.lbl_table_no) + tableId);
+
 	}
 
 	public void checkout(View view) {
