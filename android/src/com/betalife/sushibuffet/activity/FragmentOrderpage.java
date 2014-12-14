@@ -94,7 +94,7 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 	private class TakeOrdersAsyncTask extends AbstractAsyncTask<Void, Boolean> {
 
 		public TakeOrdersAsyncTask(Activity activity) {
-			super(activity);
+			super(activity, true);
 		}
 
 		@Override

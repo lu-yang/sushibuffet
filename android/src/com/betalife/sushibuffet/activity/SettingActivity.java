@@ -121,7 +121,7 @@ public class SettingActivity extends Activity {
 	private class PrintOrdersTask extends AbstractAsyncTask<Void, Boolean> {
 
 		public PrintOrdersTask(Activity activity) {
-			super(activity);
+			super(activity, true);
 		}
 
 		@Override
