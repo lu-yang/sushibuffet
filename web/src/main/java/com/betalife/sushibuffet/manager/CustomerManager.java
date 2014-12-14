@@ -58,6 +58,9 @@ public class CustomerManager {
 	@Value("${order.locale}")
 	private String locale;
 
+	@Value("${print.times}")
+	private int times;
+
 	@Transactional
 	public void openTable(Turnover turnover) {
 		turnover.setFirstTableId(turnover.getTableId());
@@ -87,7 +90,7 @@ public class CustomerManager {
 		}
 
 		List<String> list = receiptTempleteUtil.format_order_lines(orders, locale);
-		return print(list);
+		return print(list, times);
 	}
 
 	public List<Order> getOrders(Order order) {
@@ -123,7 +126,16 @@ public class CustomerManager {
 		Collection<Order> values = map.values();
 		List<String> list = receiptTempleteUtil.format_receipt_lines(new ArrayList<Order>(values),
 				model.getLocale());
-		return print(list);
+		return print(list, times);
+	}
+
+	private boolean print(List<String> list, int times) {
+		List<String> all = new ArrayList<String>((list.size() + 1) * times);
+		for (int i = 0; i < times; i++) {
+			all.addAll(list);
+			printer.addCutPaper(all);
+		}
+		return print(all);
 	}
 
 	synchronized private boolean print(List<String> list) {
