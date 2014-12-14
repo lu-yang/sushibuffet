@@ -79,7 +79,7 @@ public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 			builder.setMessage(R.string.err_server_error);
-			builder.setPositiveButton(R.string._yes, new DialogInterface.OnClickListener() {
+			builder.setPositiveButton(R.string.order_dialog_ok, new DialogInterface.OnClickListener() {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -87,12 +87,7 @@ public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 				}
 			});
 
-			builder.setNegativeButton(R.string._no, new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-				}
-			});
+			builder.setCancelable(false);
 
 			builder.create().show();
 
