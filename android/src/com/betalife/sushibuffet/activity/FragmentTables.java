@@ -56,7 +56,7 @@ public class FragmentTables extends Fragment {
 		}
 
 		@Override
-		protected List<Diningtable> doInBackground(Void... params) {
+		protected List<Diningtable> inBackground(Void... params) {
 			String url = getString(R.string.base_uri) + "/availableTables";
 			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 			ResponseEntity<Diningtable[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET,

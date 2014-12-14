@@ -103,7 +103,7 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 		}
 
 		@Override
-		protected Boolean doInBackground(Void... params) {
+		protected Boolean inBackground(Void... params) {
 			final String url = activity.getString(R.string.base_uri) + "/takeOrders/"
 					+ DodoroContext.languageCode(getActivity());
 
@@ -156,7 +156,7 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 		}
 
 		@Override
-		protected List<Category> doInBackground(Void... params) {
+		protected List<Category> inBackground(Void... params) {
 			String url = getString(R.string.base_uri) + "/categories/"
 					+ DodoroContext.languageCode(getActivity()) + "/1";
 			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
@@ -197,7 +197,7 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 		}
 
 		@Override
-		protected List<Product> doInBackground(Void... params) {
+		protected List<Product> inBackground(Void... params) {
 			String url = getString(R.string.base_uri) + "/products/"
 					+ DodoroContext.languageCode(getActivity()) + "/" + categoryId;
 			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);

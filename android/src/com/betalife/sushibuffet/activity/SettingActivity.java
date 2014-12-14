@@ -81,7 +81,7 @@ public class SettingActivity extends Activity {
 		}
 
 		@Override
-		protected Boolean doInBackground(Turnover... params) {
+		protected Boolean inBackground(Turnover... params) {
 			Turnover turnover = params[0];
 			final String url = activity.getString(R.string.base_uri) + "/checkout/" + turnover.getId();
 			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
@@ -131,7 +131,7 @@ public class SettingActivity extends Activity {
 		}
 
 		@Override
-		protected Boolean doInBackground(Void... params) {
+		protected Boolean inBackground(Void... params) {
 			final String url = activity.getString(R.string.base_uri) + "/printOrders/"
 					+ DodoroContext.languageCode(activity) + "/"
 					+ DodoroContext.getInstance().getTurnover().getId();

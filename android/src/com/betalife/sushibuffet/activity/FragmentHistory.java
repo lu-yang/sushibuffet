@@ -63,7 +63,7 @@ public class FragmentHistory extends Fragment implements Refreshable {
 		}
 
 		@Override
-		protected List<Order> doInBackground(Void... params) {
+		protected List<Order> inBackground(Void... params) {
 			String url = getString(R.string.base_uri) + "/orders/"
 					+ DodoroContext.languageCode(getActivity()) + "/"
 					+ DodoroContext.getInstance().getTurnover().getId();

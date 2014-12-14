@@ -7,11 +7,15 @@ import org.springframework.http.HttpBasicAuthentication;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.betalife.sushibuffet.activity.R;
 
@@ -26,6 +30,8 @@ public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 	private boolean showProgressDialog;
 
 	protected Activity activity;
+
+	private boolean exception;
 
 	public AbstractAsyncTask(Activity activity, boolean showProgressDialog) {
 		this(activity);
@@ -69,10 +75,45 @@ public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 		if (this.progressDialog != null && !activity.isDestroyed()) {
 			this.progressDialog.dismiss();
 		}
-		postCallback(result);
+		if (exception) {
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+			builder.setMessage(R.string.err_server_error);
+			builder.setPositiveButton(R.string._yes, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+
+				}
+			});
+
+			builder.setNegativeButton(R.string._no, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+				}
+			});
+
+			builder.create().show();
+
+		} else {
+			postCallback(result);
+		}
 	}
 
 	public abstract void postCallback(T result);
+
+	final protected T doInBackground(P... params) {
+		try {
+			return inBackground(params);
+		} catch (RestClientException e) {
+			Log.e(this.getClass().getName(), e.getMessage(), e);
+			exception = true;
+		}
+		return null;
+	}
+
+	protected abstract T inBackground(P... params);
 
 	public ProgressDialog getProgressDialog() {
 		return progressDialog;

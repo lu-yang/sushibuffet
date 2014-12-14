@@ -49,7 +49,7 @@ public class AccessActivity extends Activity {
 		}
 
 		@Override
-		protected Constant doInBackground(Void... params) {
+		protected Constant inBackground(Void... params) {
 			String url = getString(R.string.base_uri) + "/constant";
 			System.out.println("url: " + url);
 
