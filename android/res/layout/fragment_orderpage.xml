@@ -29,16 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.2"
         android:orientation="vertical" >
-
-        <ListView
-            android:id="@+id/current_orders"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:choiceMode="none"
-            android:drawSelectorOnTop="false"
-            android:scrollbars="vertical" />
-
-        <Button
+		 <Button
             android:id="@+id/btn_take_orders"
             style="@style/button_text"
             android:layout_width="match_parent"
@@ -47,6 +38,15 @@
             android:text="@string/btn_take_orders"
             android:textColor="@color/beige"
             android:textSize="14sp" />
+        <ListView
+            android:id="@+id/current_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:choiceMode="none"
+            android:drawSelectorOnTop="false"
+            android:scrollbars="vertical" />
+
+       
     </LinearLayout>
 
 </LinearLayout>

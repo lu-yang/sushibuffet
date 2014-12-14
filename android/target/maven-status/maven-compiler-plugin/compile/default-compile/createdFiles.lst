@@ -1,8 +1,9 @@
 com/betalife/sushibuffet/model/Turnover.class
 com/betalife/sushibuffet/activity/MainActivity$FragmentsAdapter.class
 com/betalife/sushibuffet/activity/Refreshable.class
+com/betalife/sushibuffet/dialog/OrderAlertDialog$3.class
+com/betalife/sushibuffet/dialog/OrderAlertDialog$4.class
 com/betalife/sushibuffet/activity/FragmentOrderpage$1$2.class
-com/betalife/sushibuffet/activity/ChangeTableActivity.class
 com/betalife/sushibuffet/activity/AccessActivity.class
 com/betalife/sushibuffet/activity/FragmentSetting$1.class
 com/betalife/sushibuffet/adapter/TableAdapter$1.class
@@ -12,8 +13,7 @@ com/betalife/sushibuffet/activity/SettingActivity.class
 com/betalife/sushibuffet/adapter/TableAdapter.class
 com/betalife/sushibuffet/adapter/ChangeTableAdapter$1.class
 com/betalife/sushibuffet/activity/R$style.class
-com/betalife/sushibuffet/activity/ChangeTableActivity$GetAllTablesAsyncTask.class
-com/betalife/sushibuffet/util/FragmentFactory.class
+com/betalife/sushibuffet/activity/SettingActivity$1.class
 com/betalife/sushibuffet/util/AsyncImageLoader$ImageCallback.class
 com/betalife/sushibuffet/adapter/TableAdapter$2.class
 com/betalife/sushibuffet/activity/R$id.class
@@ -22,7 +22,6 @@ com/betalife/sushibuffet/activity/FragmentOrderpage$TakeOrdersAsyncTask.class
 com/betalife/sushibuffet/adapter/AAdapter.class
 com/betalife/sushibuffet/activity/SettingActivity$CheckoutTask.class
 com/betalife/sushibuffet/adapter/TableAdapter$OpenTableTask.class
-com/betalife/sushibuffet/activity/NewTableActivity$GetAllTablesAsyncTask.class
 com/betalife/sushibuffet/activity/FragmentOrderpage$1.class
 com/betalife/sushibuffet/activity/FragmentIntroduction.class
 com/betalife/sushibuffet/adapter/ChangeTableAdapter$ChangeTableTask.class
@@ -31,7 +30,7 @@ com/betalife/sushibuffet/activity/FragmentHistory$OrdersAsyncTask.class
 com/betalife/sushibuffet/activity/R$color.class
 com/betalife/sushibuffet/activity/R$attr.class
 com/betalife/sushibuffet/activity/R$array.class
-com/betalife/sushibuffet/activity/NewTableActivity.class
+com/betalife/sushibuffet/activity/FragmentTables$GetAllTablesAsyncTask.class
 com/betalife/sushibuffet/util/ImageViewUtil$1.class
 com/betalife/sushibuffet/activity/FragmentOrderpage$1$1.class
 com/betalife/sushibuffet/activity/R$menu.class
@@ -41,14 +40,18 @@ com/betalife/sushibuffet/adapter/CurrentOrderAdapter.class
 com/betalife/sushibuffet/model/Category.class
 com/betalife/sushibuffet/util/AsyncImageLoader$1.class
 com/betalife/sushibuffet/activity/MainActivity$1.class
+com/betalife/sushibuffet/activity/Callback.class
 com/betalife/sushibuffet/activity/BuildConfig.class
 com/betalife/sushibuffet/activity/FragmentOrderpage$GetCategoriesAsyncTask$1.class
 com/betalife/sushibuffet/activity/FragmentSetting.class
 com/betalife/sushibuffet/util/AsyncImageLoader$2.class
 com/betalife/sushibuffet/activity/FragmentSetting$3.class
+com/betalife/sushibuffet/activity/TableActivity.class
 com/betalife/sushibuffet/activity/R$layout.class
+com/betalife/sushibuffet/activity/SettingActivity$2.class
 com/betalife/sushibuffet/util/DodoroContext.class
 com/betalife/sushibuffet/activity/FragmentHistory.class
+com/betalife/sushibuffet/activity/FragmentTables.class
 com/betalife/sushibuffet/activity/FragmentOrderpage$2.class
 com/betalife/sushibuffet/adapter/CategoryAdapter.class
 com/betalife/sushibuffet/activity/FragmentOrderpage$GetProductsByCategoryIdAsyncTask$1.class

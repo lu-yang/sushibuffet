@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="base_uri">http://dodoro.aliapp.com</string>
-   <!-- 
-    <string name="base_uri">http://192.168.0.117:8080/sushibuffet</string>
-     -->
+   <!--  <string name="base_uri">http://dodoro.aliapp.com</string>
+       -->
+    <string name="base_uri">http://192.168.2.42:8080/sushibuffet</string>
+ 
 
 </resources>
