@@ -107,7 +107,7 @@ public class CustomerManager {
 		turnoverMapper.changeTable(t);
 	}
 
-	public boolean printOrders(Order model) {
+	public boolean printOrders(Order model, boolean Kitchen) {
 		List<Order> orders = getOrders(model);
 		if (CollectionUtils.isEmpty(orders)) {
 			return true;
@@ -124,8 +124,13 @@ public class CustomerManager {
 			}
 		}
 		Collection<Order> values = map.values();
-		List<String> list = receiptTempleteUtil.format_receipt_lines(new ArrayList<Order>(values),
-				model.getLocale());
+		List<String> list = null;
+		if (Kitchen) {
+			list = receiptTempleteUtil.format_order_lines(orders, locale);
+		} else {
+			list = receiptTempleteUtil.format_receipt_lines(new ArrayList<Order>(values), model.getLocale());
+		}
+
 		return print(list, times);
 	}
 

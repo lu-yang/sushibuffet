@@ -120,7 +120,14 @@ public class HomeController {
 	public @ResponseBody
 	boolean printOrders(@PathVariable String locale, @PathVariable int turnoverId) {
 		Order model = buildOrder(locale, turnoverId);
-		return customerManager.printOrders(model);
+		return customerManager.printOrders(model, false);
+	}
+
+	@RequestMapping(value = "printKitchenOrders/{locale}/{turnoverId}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	boolean printKitchenOrders(@PathVariable String locale, @PathVariable int turnoverId) {
+		Order model = buildOrder(locale, turnoverId);
+		return customerManager.printOrders(model, true);
 	}
 
 	@RequestMapping(value = "checkout/{turnoverId}", method = RequestMethod.POST, produces = "application/json")
