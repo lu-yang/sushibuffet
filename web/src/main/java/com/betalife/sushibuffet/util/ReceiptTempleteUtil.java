@@ -2,6 +2,7 @@ package com.betalife.sushibuffet.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,13 +26,21 @@ import org.springframework.util.CollectionUtils;
 
 import com.betalife.sushibuffet.dao.CategoryMapper;
 import com.betalife.sushibuffet.dao.ProductMapper;
+import com.betalife.sushibuffet.dao.TaxgroupsMapper;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
+import com.betalife.sushibuffet.model.Taxgroups;
 
 @Component
 public class ReceiptTempleteUtil {
 
+	private static final String FOOD = "food";
+	private static final String FOOD_WRAPPER = "{" + FOOD + "}";
+	private static final String ALCOHOL = "alcohol";
+	private static final String ALCOHOL_WRAPPER = "{" + ALCOHOL + "}";
+	private static final BigDecimal HUNDRED = new BigDecimal(100);
+	private static final BigDecimal ONE = new BigDecimal(1);
 	@Value("${order.template}")
 	public String order_template = "D:\\work\\shintech\\eclipse-jee-kepler-SR2-win32-x86_64-workspace\\sushibuffet\\web\\src\\main\\resources\\ReceiptTemplate.txt";
 	@Value("${receipt.template}")
@@ -42,6 +51,9 @@ public class ReceiptTempleteUtil {
 
 	@Autowired
 	private ProductMapper productMapper;
+
+	@Autowired
+	private TaxgroupsMapper taxgroupsMapper;
 
 	private final static String ESC_STR = "\\u001b";
 	private final static String ESC = "\u001b";
@@ -130,6 +142,9 @@ public class ReceiptTempleteUtil {
 		if (!CollectionUtils.isEmpty(orders)) {
 			tableId = orders.get(0).getTurnover().getTableId();
 		}
+		Map<String, Taxgroups> taxMap = getTaxMap();
+
+		Map<Integer, Integer> taxs = new HashMap<Integer, Integer>();
 		for (String line : receipt_lines) {
 			if (line.startsWith("$Loop ")) {
 				// {0}:product_name, {1}:product_price, {2}:product_count ,
@@ -145,7 +160,15 @@ public class ReceiptTempleteUtil {
 						String formated = MessageFormat.format(receipt_pattern, args);
 						list.add(formated);
 
-						total += product.getProductPrice();
+						int subTotal = product.getProductPrice() * order.getCount();
+						total += subTotal;
+						int taxgroupId = product.getTaxgroupId();
+						if (taxs.containsKey(taxgroupId)) {
+							Integer partTotal = taxs.get(taxgroupId);
+							taxs.put(taxgroupId, partTotal + subTotal);
+						} else {
+							taxs.put(taxgroupId, subTotal);
+						}
 					}
 				}
 
@@ -163,11 +186,46 @@ public class ReceiptTempleteUtil {
 			if (line.contains("{date}")) {
 				line = line.replace("{date}", sdf.format(new Date()));
 			}
+			
+			String kind = null;
+			String wrapper = null;
+			if (line.contains(FOOD_WRAPPER)) {
+				kind = FOOD;
+				wrapper = FOOD_WRAPPER;
+				line = replaceTax(taxMap, kind, taxs, wrapper, line);
+			}
+
+			if (line.contains(ALCOHOL_WRAPPER)) {
+				kind = ALCOHOL;
+				wrapper = ALCOHOL_WRAPPER;
+				line = replaceTax(taxMap, kind, taxs, wrapper, line);
+			}
+
+			
 
 			list.add(line);
 		}
 		logger.debug(list.toString());
 		return list;
+	}
+
+	private String replaceTax(Map<String, Taxgroups> taxMap, String kind, Map<Integer, Integer> taxs,
+			String wrapper, String line) {
+		Taxgroups taxgroups = taxMap.get(kind);
+		BigDecimal partTotal = new BigDecimal(taxs.get(taxgroups.getId()));
+		BigDecimal value = new BigDecimal(taxgroups.getValue());
+		BigDecimal tax = partTotal.multiply(value).divide(value.add(ONE)).divide(HUNDRED);
+		line = line.replace(wrapper, "" + tax.floatValue());
+		return line;
+	}
+
+	private Map<String, Taxgroups> getTaxMap() {
+		List<Taxgroups> taxs = taxgroupsMapper.selectAll();
+		Map<String, Taxgroups> taxMap = new HashMap<String, Taxgroups>();
+		for (Taxgroups taxgroups : taxs) {
+			taxMap.put(taxgroups.getName(), taxgroups);
+		}
+		return taxMap;
 	}
 
 	public List<String> format_order_lines(List<Order> orders, String locale) {

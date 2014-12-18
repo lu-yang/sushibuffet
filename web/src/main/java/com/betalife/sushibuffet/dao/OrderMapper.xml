@@ -26,7 +26,7 @@
 	</resultMap>
 
 	<select id="selectOrders" parameterType="Order" resultMap="orderResult">
-		SELECT o.id, o.`count`, o.turnover_id, o.product_id, t.checkout, o.updated, o.created, p.product_num,
+		SELECT o.id, o.`count`, o.turnover_id, o.product_id, t.checkout, o.updated, o.created, p.product_num, p.taxgroup_id, 
 		t.table_id, p.category_id, p.num,
 		p.product_price, p.thumb, m.NAME
 		FROM
