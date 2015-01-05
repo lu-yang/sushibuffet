@@ -110,6 +110,7 @@ public class CustomerManager {
 	public boolean printOrders(Order model, boolean Kitchen) {
 		List<Order> orders = getOrders(model);
 		if (CollectionUtils.isEmpty(orders)) {
+			logger.info("there is no order to print." + model);
 			return true;
 		}
 		Map<Integer, Order> map = new HashMap<Integer, Order>();

@@ -21,8 +21,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ResourceUtils;
 
 import com.betalife.sushibuffet.dao.CategoryMapper;
 import com.betalife.sushibuffet.dao.ProductMapper;
@@ -37,12 +39,12 @@ public class ReceiptTempleteUtil {
 
 	private static final String FOOD = "food";
 	private static final String FOOD_WRAPPER = "{" + FOOD + "}";
-	private static final String ALCOHOL = "alcohol";
+	private static final String ALCOHOL = "alcool";
 	private static final String ALCOHOL_WRAPPER = "{" + ALCOHOL + "}";
 	private static final BigDecimal HUNDRED = new BigDecimal(100);
 	private static final BigDecimal ONE = new BigDecimal(1);
 	@Value("${order.template}")
-	public String order_template = "D:\\work\\shintech\\eclipse-jee-kepler-SR2-win32-x86_64-workspace\\sushibuffet\\web\\src\\main\\resources\\ReceiptTemplate.txt";
+	public String order_template = "D:\\work\\shintech\\eclipse-jee-kepler-SR2-win32-x86_64-workspace\\sushibuffet\\web\\src\\main\\resources\\OrderTemplate.txt";
 	@Value("${receipt.template}")
 	public String receipt_template = "D:\\work\\shintech\\eclipse-jee-kepler-SR2-win32-x86_64-workspace\\sushibuffet\\web\\src\\main\\resources\\ReceiptTemplate.txt";
 
@@ -98,7 +100,7 @@ public class ReceiptTempleteUtil {
 	}
 
 	private void init_receipt_lines() throws IOException {
-		List<String> lines = FileUtils.readLines(new File(receipt_template));
+		List<String> lines = readLines(receipt_template);
 		for (String line : lines) {
 			if (StringUtils.isEmpty(line) || line.startsWith("#")) {
 				continue;
@@ -115,8 +117,21 @@ public class ReceiptTempleteUtil {
 		}
 	}
 
+	private List<String> readLines(String location) throws IOException {
+		File file = null;
+		if (location.startsWith(ResourceUtils.CLASSPATH_URL_PREFIX)) {
+			ClassPathResource resource = new ClassPathResource(
+					location.substring(ResourceUtils.CLASSPATH_URL_PREFIX.length()));
+			file = resource.getFile();
+		} else {
+			file = new File(location);
+		}
+		List<String> lines = FileUtils.readLines(file);
+		return lines;
+	}
+
 	private void init_order_lines() throws IOException {
-		List<String> lines = FileUtils.readLines(new File(order_template));
+		List<String> lines = readLines(order_template);
 		for (String line : lines) {
 			if (StringUtils.isEmpty(line) || line.startsWith("#")) {
 				continue;
@@ -186,7 +201,7 @@ public class ReceiptTempleteUtil {
 			if (line.contains("{date}")) {
 				line = line.replace("{date}", sdf.format(new Date()));
 			}
-			
+
 			String kind = null;
 			String wrapper = null;
 			if (line.contains(FOOD_WRAPPER)) {
@@ -201,8 +216,6 @@ public class ReceiptTempleteUtil {
 				line = replaceTax(taxMap, kind, taxs, wrapper, line);
 			}
 
-			
-
 			list.add(line);
 		}
 		logger.debug(list.toString());
@@ -212,9 +225,20 @@ public class ReceiptTempleteUtil {
 	private String replaceTax(Map<String, Taxgroups> taxMap, String kind, Map<Integer, Integer> taxs,
 			String wrapper, String line) {
 		Taxgroups taxgroups = taxMap.get(kind);
-		BigDecimal partTotal = new BigDecimal(taxs.get(taxgroups.getId()));
+		logger.debug("kind is " + kind);
+		int id = taxgroups.getId();
+		logger.debug("id is " + id);
+		logger.debug("taxs is " + taxs);
+		if (!taxs.containsKey(id)) {
+			line = line.replace(wrapper, "0");
+			return line;
+		}
+		Integer kindTax = taxs.get(id);
+		logger.debug("kindTax is " + kindTax);
+		BigDecimal partTotal = new BigDecimal(kindTax);
 		BigDecimal value = new BigDecimal(taxgroups.getValue());
-		BigDecimal tax = partTotal.multiply(value).divide(value.add(ONE)).divide(HUNDRED);
+		BigDecimal tax = partTotal.multiply(value).divide((value.add(ONE)).multiply(HUNDRED), 2,
+				BigDecimal.ROUND_HALF_DOWN);
 		line = line.replace(wrapper, "" + tax.floatValue());
 		return line;
 	}

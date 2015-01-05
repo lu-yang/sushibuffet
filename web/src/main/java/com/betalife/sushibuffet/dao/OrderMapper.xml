@@ -22,6 +22,7 @@
 			<result property="productName" column="name" />
 			<result property="num" column="num" />
 			<result property="productNum" column="product_num" />
+			<result property="taxgroupId" column="taxgroup_id" />
 		</association>
 	</resultMap>
 
