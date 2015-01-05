@@ -1,4 +1,4 @@
-package com.betalife.sushibuffet;
+package com.betalife.sushibuffet.asynctask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.betalife.sushibuffet.activity.R;
+import com.betalife.sushibuffet.util.DodoroContext;
 
 public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 
@@ -79,11 +80,12 @@ public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 			builder.setMessage(R.string.err_server_error);
-			builder.setPositiveButton(R.string.order_dialog_ok, new DialogInterface.OnClickListener() {
+			builder.setPositiveButton(R.string._ok, new DialogInterface.OnClickListener() {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-
+					// restart app
+					DodoroContext.restartApp(activity);
 				}
 			});
 

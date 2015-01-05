@@ -22,7 +22,7 @@ public class CurrentOrderAdapter extends AAdapter<Order> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView = this.layoutInflater.inflate(R.layout.current_order, parent, false);
+			convertView = this.layoutInflater.inflate(R.layout.adapter_current_order, parent, false);
 		}
 
 		Order result = getItem(position);

@@ -1,38 +1,36 @@
 package com.betalife.sushibuffet.activity;
 
+import java.util.List;
+
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+import android.widget.GridView;
+import android.widget.TextView;
 
 import com.betalife.sushibuffet.adapter.AAdapter;
 import com.betalife.sushibuffet.model.Diningtable;
 
-public class TableActivity extends FragmentActivity implements Callback {
+public abstract class TableActivity extends Activity {
 
-	private FragmentSetting password;
-	private FragmentTables tables;
-
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_table);
-		password = new FragmentSetting();
-		AAdapter<Diningtable> adapter = (AAdapter<Diningtable>) getIntent().getSerializableExtra("adapter");
-		Log.i("adapter", "" + adapter.getClass());
+		setContentView(R.layout.activity_tables);
+
+		TextView lbl_table_activity_title = (TextView) findViewById(R.id.lbl_table_activity_title);
+		lbl_table_activity_title.setText(getTitleId());
+	}
+
+	public abstract int getTitleId();
+
+	public void displayTables(List<Diningtable> result) {
+		AAdapter<Diningtable> adapter = getAdapter();
+		adapter.setList(result);
 		adapter.setActivity(this);
-		tables = new FragmentTables(adapter);
+		GridView tables = (GridView) findViewById(R.id.diningtables);
+		tables.setAdapter(adapter);
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		getSupportFragmentManager().beginTransaction().replace(R.id.new_tables_layout, password).commit();
-	}
-
-	@Override
-	public void callback() {
-		getSupportFragmentManager().beginTransaction().replace(R.id.new_tables_layout, tables).commit();
-	}
+	public abstract AAdapter<Diningtable> getAdapter();
 
 }

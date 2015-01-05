@@ -26,7 +26,7 @@ public class CategoryAdapter extends AAdapter<Category> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView = this.layoutInflater.inflate(R.layout.category, parent, false);
+			convertView = this.layoutInflater.inflate(R.layout.adapter_category, parent, false);
 		}
 
 		Category result = getItem(position);

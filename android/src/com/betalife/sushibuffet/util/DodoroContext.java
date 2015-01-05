@@ -118,14 +118,20 @@ public class DodoroContext {
 	}
 
 	public static String getNum(Integer num) {
-		if (num == null){
+		if (num == null) {
 			return "";
-		}else if (num == 1) {
+		} else if (num == 1) {
 			return "/ P";
 		} else if (num > 1) {
 			return "/ " + num + " P";
 		} else {
 			return "";
 		}
+	}
+
+	public static void restartApp(Activity activity) {
+		Intent intent = activity.getPackageManager().getLaunchIntentForPackage(activity.getPackageName());
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		activity.startActivity(intent);
 	}
 }

@@ -2,12 +2,6 @@ package com.betalife.sushibuffet.adapter;
 
 import java.io.Serializable;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.betalife.sushibuffet.AbstractAsyncTask;
-import com.betalife.sushibuffet.activity.MainActivity;
 import com.betalife.sushibuffet.activity.R;
+import com.betalife.sushibuffet.asynctask.ChangeTableTask;
 import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.DodoroContext;
@@ -29,34 +22,10 @@ public class ChangeTableAdapter extends AAdapter<Diningtable> implements Seriali
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private class ChangeTableTask extends AbstractAsyncTask<Turnover, Boolean> {
-
-		public ChangeTableTask(Activity activity) {
-			super(activity);
-		}
-
-		@Override
-		protected Boolean inBackground(Turnover... params) {
-			final String url = activity.getString(R.string.base_uri) + "/changeTable";
-			HttpEntity<Turnover> requestEntity = new HttpEntity<Turnover>(params[0], requestHeaders);
-			ResponseEntity<Boolean> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
-					requestEntity, Boolean.class);
-			return responseEntity.getBody();
-		}
-
-		@Override
-		public void postCallback(Boolean result) {
-			Intent intent = new Intent();
-			intent.setClass(activity, MainActivity.class);
-			activity.startActivity(intent);
-		}
-
-	}
-
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView = this.layoutInflater.inflate(R.layout.table, parent, false);
+			convertView = this.layoutInflater.inflate(R.layout.adapter_table, parent, false);
 		}
 		Diningtable result = getItem(position);
 		convertView.setTag(result);

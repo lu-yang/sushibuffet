@@ -22,7 +22,7 @@ public class OrderAdapter extends AAdapter<Order> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView = this.layoutInflater.inflate(R.layout.order, parent, false);
+			convertView = this.layoutInflater.inflate(R.layout.adapter_order, parent, false);
 		}
 
 		Order result = getItem(position);
@@ -42,8 +42,8 @@ public class OrderAdapter extends AAdapter<Order> {
 			price.setText("prix: " + DodoroContext.getDisplayPrice(productPrice) + " €");
 
 			TextView totalPrice = (TextView) convertView.findViewById(R.id.totalPrice);
-			int total = productCount * productPrice;
-			totalPrice.setText("subtotal: " + DodoroContext.getDisplayPrice(total) + " €");
+			int subTotal = productCount * productPrice;
+			totalPrice.setText("subtotal: " + DodoroContext.getDisplayPrice(subTotal) + " €");
 
 		}
 

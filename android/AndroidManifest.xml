@@ -26,19 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.betalife.sushibuffet.activity.NewTableActivity"
-            android:configChanges="locale"
-            android:label="@string/title_activity_new_table"
-            android:screenOrientation="landscape" >
-        </activity>
-        <activity
-            android:name="com.betalife.sushibuffet.activity.ChangeTableActivity"
-            android:configChanges="locale"
-            android:label="@string/title_activity_new_table"
-            android:screenOrientation="landscape" >
-        </activity>
-        <activity
-            android:name="com.betalife.sushibuffet.activity.TableActivity"
+            android:name="com.betalife.sushibuffet.activity.ChooseTableActivity"
             android:configChanges="locale"
             android:label="@string/title_activity_new_table"
             android:screenOrientation="landscape" >
@@ -51,7 +39,7 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden" >
         </activity>
         <activity
-            android:name="com.betalife.sushibuffet.activity.SettingActivity"
+            android:name="com.betalife.sushibuffet.activity.ChangeTableActivity"
             android:configChanges="locale"
             android:label="@string/title_activity_setting"
             android:screenOrientation="landscape" >

@@ -15,9 +15,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.betalife.sushibuffet.AbstractAsyncTask;
 import com.betalife.sushibuffet.activity.MainActivity;
 import com.betalife.sushibuffet.activity.R;
+import com.betalife.sushibuffet.asynctask.AbstractAsyncTask;
 import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.DodoroContext;
@@ -63,7 +63,7 @@ public class TableAdapter extends AAdapter<Diningtable> implements Serializable 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView = this.layoutInflater.inflate(R.layout.table, parent, false);
+			convertView = this.layoutInflater.inflate(R.layout.adapter_table, parent, false);
 		}
 		Diningtable result = getItem(position);
 		convertView.setTag(result);
@@ -74,7 +74,6 @@ public class TableAdapter extends AAdapter<Diningtable> implements Serializable 
 			TextView desc = (TextView) convertView.findViewById(R.id.status);
 			if (!result.isAvailable()) {
 				desc.setText("{fa-ban}");
-
 			} else {
 				final Turnover turnover = result.getTurnover();
 				if (turnover == null || turnover.isCheckout()) {

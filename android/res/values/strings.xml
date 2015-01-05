@@ -4,17 +4,14 @@
     <string name="logo">DODORO LOGO</string>
     <string name="slogan">DODORO LOGO</string>
     <string name="logoLayout">DODORO LOGO</string>
-    <string name="Title">New Table</string>
     <string name="label_tblNum">Choose a table number:</string>
     <string name="label_perNum">The number of persons:</string>
-    <string name="activeTbl">Active this table</string>
     <string name="title_activity_new_table">Dodoro</string>
     <string name="label_language">language</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="label_categories">{fa_list} Menu</string>
     <string name="label_password">{fa_cog} Configuration</string>
     <string name="title_password">Waiter Password</string>
-    <string name="label_passwordConfirmButton">OK</string>
     <string name="title_activity_setting">Setting</string>
     <string name="mes_password_wrong">Password is not correct.</string>
     <string name="head_introduction">{fa_info_circle} How it works</string>
@@ -29,8 +26,9 @@
     <string name="setting_activity_printOrders">Print Orders</string>
     <string name="setting_activity_printOrders_mes">Orders has been printed.</string>
     <string name="setting_activity_printOrders_err_mes">Printe Error.</string>
-    <string name="order_dialog_ok">OK</string>
-    <string name="order_dialog_cancel">Cancel</string>
+    <string name="setting_activity_finishOrder">Order Finished</string>
+    <string name="_ok">OK</string>
+    <string name="_cancel">Cancel</string>
     <string name="btn_take_orders">Take Orders</string>
     <string name="err_take_orders">There is an error when taking orders.</string>
     <string name="msg_take_orders">Confirm taking orders?</string>
@@ -46,11 +44,14 @@
     <string name="eight">8</string>
     <string name="nine">9</string>
     <string name="zero">0</string>
-    <string name="backspace">C</string>
+    <string name="backspace">&lt;-</string>
+    <string name="clear">C</string>
     <string name="add">+</string>
     <string name="subtract">-</string>
     <string name="lbl_table_no">Table Number: T-</string>
     <string name="err_server_error">Server Error</string>
+    <string name="lbl_table_activity_title_change_table">Change Table</string>
+    <string name="lbl_table_activity_title_choose_table">Choose Table</string>
     
     
     

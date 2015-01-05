@@ -29,7 +29,7 @@ public class OrderAlertDialog {
 		this.parent = parent;
 
 		LayoutInflater layoutInflater = parent.getLayoutInflater();
-		View layout = layoutInflater.inflate(R.layout.order_dialog, null);
+		View layout = layoutInflater.inflate(R.layout.dialog_order, null);
 
 		final TextView num = (TextView) layout.findViewById(R.id.num);
 		int count = getCount(product);
@@ -76,24 +76,7 @@ public class OrderAlertDialog {
 		builder = new AlertDialog.Builder(parent);
 		builder.setView(layout);
 
-		// Button ok = (Button) layout.findViewById(R.id.order_dialog_ok);
-		// ok.setOnClickListener(new View.OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// changeCount(product, num);
-		// }
-		// });
-		//
-		// Button cancel = (Button)
-		// layout.findViewById(R.id.order_dialog_cancel);
-		// cancel.setOnClickListener(new View.OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// }
-		// });
-		builder.setPositiveButton(R.string.order_dialog_ok, new DialogInterface.OnClickListener() {
+		builder.setPositiveButton(R.string._ok, new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -101,7 +84,7 @@ public class OrderAlertDialog {
 			}
 		});
 
-		builder.setNegativeButton(R.string.order_dialog_cancel, new DialogInterface.OnClickListener() {
+		builder.setNegativeButton(R.string._cancel, new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

@@ -1,8 +1,5 @@
 package com.betalife.sushibuffet.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
@@ -16,16 +13,18 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify.IconValue;
 
-public class MainActivity extends FragmentActivity implements Callback {
+public class MainActivity extends FragmentActivity {
 
-	private static final String SELECTED_NAVIGATION_INDEX = "SelectedNavigationIndex";
+	public static final String SELECTED_NAVIGATION_INDEX = "SelectedNavigationIndex";
 	private ViewPager viewPager;
 	private ActionBar actionBar;
+	private FragmentsAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -33,7 +32,7 @@ public class MainActivity extends FragmentActivity implements Callback {
 		setContentView(R.layout.activity_main);
 
 		viewPager = (ViewPager) findViewById(R.id.pager);
-		final FragmentsAdapter adapter = new FragmentsAdapter(getSupportFragmentManager());
+		adapter = new FragmentsAdapter(getSupportFragmentManager());
 		viewPager.setAdapter(adapter);
 
 		viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -42,10 +41,7 @@ public class MainActivity extends FragmentActivity implements Callback {
 			public void onPageSelected(int arg0) {
 				actionBar.setSelectedNavigationItem(arg0);
 
-				Fragment item = adapter.getItem(arg0);
-				if (item instanceof Refreshable) {
-					((Refreshable) item).refresh();
-				}
+				refresh(adapter, arg0);
 			}
 
 		});
@@ -74,41 +70,39 @@ public class MainActivity extends FragmentActivity implements Callback {
 		// actionBar.setLogo(new ColorDrawable(Color.TRANSPARENT));
 		// View homeIcon = findViewById(android.R.id.home);
 		// ((View) homeIcon.getParent()).setVisibility(View.GONE);
-		String[] tabIcons = getResources().getStringArray(R.array.tabs);
-		String[] fragments = getResources().getStringArray(R.array.fragments);
-		for (int i = 0; i < tabIcons.length; i++) {
-			Fragment fragment = Fragment.instantiate(this, fragments[i]);
-			adapter.addFragment(fragment);
+		TabListener tabListener = new TabListener() {
 
+			@Override
+			public void onTabReselected(Tab tab, FragmentTransaction ft) {
+			}
+
+			@Override
+			public void onTabSelected(Tab tab, FragmentTransaction ft) {
+				int position = tab.getPosition();
+				viewPager.setCurrentItem(position);
+			}
+
+			@Override
+			public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+			}
+		};
+		String[] tabIcons = getResources().getStringArray(R.array.tabs);
+		for (int i = 0; i < tabIcons.length; i++) {
 			String icon = tabIcons[i];
 			ActionBar.Tab tab = actionBar.newTab();
 			tab.setIcon(new IconDrawable(this, IconValue.valueOf(icon)).colorRes(R.color.gold)
 					.actionBarSize());
-			tab.setTabListener(new TabListener() {
-
-				@Override
-				public void onTabReselected(Tab tab, FragmentTransaction ft) {
-				}
-
-				@Override
-				public void onTabSelected(Tab tab, FragmentTransaction ft) {
-					int position = tab.getPosition();
-					viewPager.setCurrentItem(position);
-				}
-
-				@Override
-				public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-				}
-			});
+			tab.setTabListener(tabListener);
 			actionBar.addTab(tab);
-			adapter.notifyDataSetChanged();// 通知界面更新
 		}
 		int index = 0;
-		if (arg0 != null) {
-			index = arg0.getInt(SELECTED_NAVIGATION_INDEX, 0);
+		Intent intent = getIntent();
+		if (intent != null) {
+			index = intent.getIntExtra(SELECTED_NAVIGATION_INDEX, 0);
 		}
 		changeTab(index);
-		viewPager.setOffscreenPageLimit(adapter.getCount());
+		viewPager.setOffscreenPageLimit(0);
+		adapter.notifyDataSetChanged();// 通知界面更新
 	}
 
 	public void changeTab(int index) {
@@ -128,35 +122,46 @@ public class MainActivity extends FragmentActivity implements Callback {
 		startActivity(intent);
 	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			changeTab(0);
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 	private class FragmentsAdapter extends FragmentPagerAdapter {
 
-		private List<Fragment> fragments;
+		private Fragment[] fragments;
+		private String[] fragmentClazzs;
 
 		public FragmentsAdapter(FragmentManager fm) {
 			super(fm);
-			this.fragments = new ArrayList<Fragment>();
+			fragmentClazzs = getResources().getStringArray(R.array.fragments);
+			this.fragments = new Fragment[fragmentClazzs.length];
 		}
 
 		@Override
-		public Fragment getItem(int arg0) {
-			return fragments.get(arg0);
-		}
+		public Fragment getItem(int index) {
+			if (fragments[index] == null) {
+				fragments[index] = Fragment.instantiate(MainActivity.this, fragmentClazzs[index]);
+			}
 
-		public void addFragment(Fragment fragment) {
-			fragments.add(fragment);
+			return fragments[index];
 		}
 
 		@Override
 		public int getCount() {
-			return fragments.size();
+			return fragments.length;
 		}
 
 	}
 
-	@Override
-	public void callback() {
-		Intent intent = new Intent();
-		intent.setClass(this, SettingActivity.class);
-		startActivity(intent);
+	private void refresh(final FragmentsAdapter adapter, int index) {
+		Fragment item = adapter.getItem(index);
+		if (item instanceof Refreshable) {
+			((Refreshable) item).refresh();
+		}
 	}
 }

@@ -6,30 +6,37 @@
     tools:context="com.orderapp.dodoro.FragmentHistory" >
 
     <!-- TODO: Update blank fragment layout -->
-	<LinearLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
-    <android.widget.IconTextView
+
+        <android.widget.IconTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:shadowColor="#22000000"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="1"
+            android:text="@string/head_historical"
+            android:textColor="#C69C6D"
+            android:textSize="25sp" />
+
+        <ListView
+            android:id="@+id/orders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawSelectorOnTop="false"
+            android:scrollbars="vertical" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/totalPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:shadowColor="#22000000"
-        android:shadowDx="3"
-        android:shadowDy="3"
-        android:shadowRadius="1"
-        android:text="@string/head_historical"
-        android:textColor="#C69C6D"
-        android:textSize="25sp" />
-
-    <ListView
-        android:id="@+id/orders"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:drawSelectorOnTop="false"
-        android:scrollbars="vertical" />
-
-    
-    </LinearLayout>
+        android:paddingLeft="10dp"
+        android:textSize="14sp" />
 
 </FrameLayout>

@@ -22,7 +22,7 @@ public class ProductAdapter extends AAdapter<Product> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView = this.layoutInflater.inflate(R.layout.product, parent, false);
+			convertView = this.layoutInflater.inflate(R.layout.adapter_product, parent, false);
 		}
 
 		final Product result = getItem(position);
