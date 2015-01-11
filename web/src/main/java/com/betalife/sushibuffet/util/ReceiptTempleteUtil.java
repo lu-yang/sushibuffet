@@ -4,13 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -21,13 +19,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ResourceUtils;
 
-import com.betalife.sushibuffet.dao.CategoryMapper;
-import com.betalife.sushibuffet.dao.ProductMapper;
 import com.betalife.sushibuffet.dao.TaxgroupsMapper;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Order;
@@ -35,7 +29,7 @@ import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.model.Taxgroups;
 
 @Component
-public class ReceiptTempleteUtil {
+public class ReceiptTempleteUtil extends TempleteUtil {
 
 	private static final String FOOD = "food";
 	private static final String FOOD_WRAPPER = "{" + FOOD + "}";
@@ -47,12 +41,6 @@ public class ReceiptTempleteUtil {
 	public String order_template = "D:\\work\\shintech\\eclipse-jee-kepler-SR2-win32-x86_64-workspace\\sushibuffet\\web\\src\\main\\resources\\OrderTemplate.txt";
 	@Value("${receipt.template}")
 	public String receipt_template = "D:\\work\\shintech\\eclipse-jee-kepler-SR2-win32-x86_64-workspace\\sushibuffet\\web\\src\\main\\resources\\ReceiptTemplate.txt";
-
-	@Autowired
-	private CategoryMapper categoryMapper;
-
-	@Autowired
-	private ProductMapper productMapper;
 
 	@Autowired
 	private TaxgroupsMapper taxgroupsMapper;
@@ -68,8 +56,6 @@ public class ReceiptTempleteUtil {
 	private String order_pattern;
 	private String receipt_pattern;
 	private static final Logger logger = LoggerFactory.getLogger(ReceiptTempleteUtil.class);
-
-	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
 
 	public static void main(String[] args) throws IOException {
 
@@ -118,14 +104,7 @@ public class ReceiptTempleteUtil {
 	}
 
 	private List<String> readLines(String location) throws IOException {
-		File file = null;
-		if (location.startsWith(ResourceUtils.CLASSPATH_URL_PREFIX)) {
-			ClassPathResource resource = new ClassPathResource(
-					location.substring(ResourceUtils.CLASSPATH_URL_PREFIX.length()));
-			file = resource.getFile();
-		} else {
-			file = new File(location);
-		}
+		File file = getFile(location);
 		List<String> lines = FileUtils.readLines(file);
 		return lines;
 	}
@@ -294,28 +273,6 @@ public class ReceiptTempleteUtil {
 		}
 		logger.debug(list.toString());
 		return list;
-	}
-
-	private Map<Integer, Category> getCategoryMap(String locale) {
-		Map<Integer, Category> categories = null;
-		List<Category> list = categoryMapper.selectAll(locale);
-		categories = new HashMap<Integer, Category>();
-		for (Category category : list) {
-			categories.put(category.getId(), category);
-		}
-
-		return categories;
-	}
-
-	private Map<Integer, Product> getProductMap(String locale) {
-		Map<Integer, Product> products = null;
-		List<Product> list = productMapper.selectAll(locale);
-		products = new HashMap<Integer, Product>();
-		for (Product one : list) {
-			products.put(one.getId(), one);
-		}
-
-		return products;
 	}
 
 }

@@ -1,0 +1,75 @@
+package com.betalife.sushibuffet.util;
+
+import java.awt.ComponentOrientation;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JEditorPane;
+
+public class Html2ImageBytes {
+	private JEditorPane editorPane;
+	static final Dimension DEFAULT_SIZE = new Dimension(800, 800);
+
+	public Html2ImageBytes() {
+		editorPane = createJEditorPane();
+	}
+
+	public ComponentOrientation getOrientation() {
+		return editorPane.getComponentOrientation();
+	}
+
+	public void setOrientation(ComponentOrientation orientation) {
+		editorPane.setComponentOrientation(orientation);
+	}
+
+	public Dimension getSize() {
+		return editorPane.getSize();
+	}
+
+	public void setSize(Dimension dimension) {
+		editorPane.setSize(dimension);
+	}
+
+	public void loadHtml(String html) {
+		editorPane.setText(html);
+	}
+
+	public Dimension getDefaultSize() {
+		return DEFAULT_SIZE;
+	}
+
+	public BufferedImage getBufferedImage() {
+		Dimension prefSize = editorPane.getPreferredSize();
+		BufferedImage img = new BufferedImage(prefSize.width, editorPane.getPreferredSize().height,
+				BufferedImage.TYPE_INT_RGB);
+		Graphics graphics = img.getGraphics();
+		editorPane.setSize(prefSize);
+		editorPane.paint(graphics);
+		return img;
+	}
+
+	public byte[] getBytes() throws IOException {
+		BufferedImage bufferedImage = getBufferedImage();
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ImageIO.write(bufferedImage, "BMP", baos);
+		baos.flush();
+		byte[] bytes = baos.toByteArray();
+		baos.close();
+		return bytes;
+	}
+
+	protected JEditorPane createJEditorPane() {
+		final JEditorPane editorPane = new JEditorPane();
+		editorPane.setSize(getDefaultSize());
+		editorPane.setEditable(false);
+		final SynchronousHTMLEditorKit kit = new SynchronousHTMLEditorKit();
+		editorPane.setEditorKitForContentType("text/html", kit);
+		editorPane.setContentType("text/html");
+		return editorPane;
+	}
+}

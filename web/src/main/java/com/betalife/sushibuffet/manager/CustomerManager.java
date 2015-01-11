@@ -1,5 +1,6 @@
 package com.betalife.sushibuffet.manager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,8 +27,11 @@ import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.model.Turnover;
+import com.betalife.sushibuffet.util.OrderTempleteHtmlUtil;
 import com.betalife.sushibuffet.util.Printer;
 import com.betalife.sushibuffet.util.ReceiptTempleteUtil;
+
+import freemarker.template.TemplateException;
 
 @Service
 public class CustomerManager {
@@ -54,6 +58,9 @@ public class CustomerManager {
 
 	@Autowired
 	private ReceiptTempleteUtil receiptTempleteUtil;
+
+	@Autowired
+	private OrderTempleteHtmlUtil orderTempleteHtmlUtil;
 
 	@Value("${order.locale}")
 	private String locale;
@@ -89,8 +96,14 @@ public class CustomerManager {
 			orderMapper.insertOrder(o);
 		}
 
-		List<String> list = receiptTempleteUtil.format_order_lines(orders, locale);
-		return print(list, times);
+		try {
+			byte[] img = orderTempleteHtmlUtil.format_order_lines(orders, locale);
+			return print(img, times);
+		} catch (TemplateException | IOException e) {
+			logger.error(e.getMessage(), e);
+			return false;
+		}
+
 	}
 
 	public List<Order> getOrders(Order order) {
@@ -107,7 +120,7 @@ public class CustomerManager {
 		turnoverMapper.changeTable(t);
 	}
 
-	public boolean printOrders(Order model, boolean Kitchen) {
+	public boolean printOrders(Order model, boolean kitchen) {
 		List<Order> orders = getOrders(model);
 		if (CollectionUtils.isEmpty(orders)) {
 			logger.info("there is no order to print." + model);
@@ -126,27 +139,34 @@ public class CustomerManager {
 		}
 		Collection<Order> values = map.values();
 		List<String> list = null;
-		if (Kitchen) {
-			list = receiptTempleteUtil.format_order_lines(orders, locale);
+		if (kitchen) {
+			try {
+				byte[] img = orderTempleteHtmlUtil.format_order_lines(orders, locale);
+				return print(img, times);
+			} catch (TemplateException | IOException e) {
+				logger.error(e.getMessage(), e);
+				return false;
+			}
 		} else {
 			list = receiptTempleteUtil.format_receipt_lines(new ArrayList<Order>(values), model.getLocale());
+			return print(list, times);
 		}
 
-		return print(list, times);
 	}
 
-	private boolean print(List<String> list, int times) {
-		List<String> all = new ArrayList<String>((list.size() + 1) * times);
-		for (int i = 0; i < times; i++) {
-			all.addAll(list);
-			printer.addCutPaper(all);
-		}
-		return print(all);
-	}
-
-	synchronized private boolean print(List<String> list) {
+	synchronized private boolean print(List<String> list, int times) {
 		try {
-			printer.print(list);
+			printer.print(list, times);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return false;
+		}
+		return true;
+	}
+
+	synchronized private boolean print(byte[] img, int times) {
+		try {
+			printer.print(img, times);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			return false;

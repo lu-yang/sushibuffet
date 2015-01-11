@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface Printer {
 
-	public void addCutPaper(List<String> lines);
+	void print(List<String> lines, int times) throws Exception;
 
-	public void print(List<String> lines) throws Exception;
+	void print(byte[] img, int times) throws Exception;
 
-	public void setLogo(String logo);
+	void setLogo(String logo);
 }

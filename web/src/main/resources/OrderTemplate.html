@@ -1,0 +1,56 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Template</title>
+</head>
+<body>
+
+	<table width="90%">
+		<tbody>
+			<tr>
+				<td width="40%">${date}</td>
+				<td width="10%">&nbsp;</td>
+				<td width="10%">&nbsp;</td>
+				<td width="10%">&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="40%"><hr></td>
+				<td width="10%">&nbsp;</td>
+				<td width="10%">&nbsp;</td>
+				<td width="10%">&nbsp;</td>
+			</tr>
+		</tbody>
+		<tbody>
+			<tr>
+				<td width="30%">种类</td>
+				<td width="5%">菜号</td>
+				<td width="35%">菜名</td>
+				<td width="10%">数量</td>
+			</tr>
+			<#list list as one>
+			<tr>
+				<td width="30%">${one['cname']}</td>
+				<td width="5%">${one['pnum']}</td>
+				<td width="35%">${one['pname']}</td>
+				<td width="10%">${one['count']}份</td>
+			</tr>
+			</#list>
+		</tbody>
+		<tbody>
+			<tr>
+				<td width="40%"><hr></td>
+				<td width="10%">&nbsp;</td>
+				<td width="10%">&nbsp;</td>
+				<td width="10%">&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="40%">台号:</td>
+				<td width="10%">${tableNo};</td>
+				<td width="10%">&nbsp;</td>
+				<td width="10%">&nbsp;</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>
