@@ -5,10 +5,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JEditorPane;
+
+import org.apache.commons.io.FileUtils;
 
 public class Html2ImageBytes {
 	private JEditorPane editorPane;
@@ -71,5 +74,16 @@ public class Html2ImageBytes {
 		editorPane.setEditorKitForContentType("text/html", kit);
 		editorPane.setContentType("text/html");
 		return editorPane;
+	}
+
+	public static void main(String[] args) throws IOException {
+		String bmpFile = "d:\\test.bmp";
+		String htmlFile = "d:\\test.html";
+		Html2ImageBytes ut = new Html2ImageBytes();
+		String html = FileUtils.readFileToString(new File(htmlFile), "utf-8");
+		ut.loadHtml(html);
+
+		BufferedImage bufferedImage = ut.getBufferedImage();
+		ImageIO.write(bufferedImage, "BMP", new File(bmpFile));
 	}
 }

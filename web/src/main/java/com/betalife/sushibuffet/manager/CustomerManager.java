@@ -1,6 +1,5 @@
 package com.betalife.sushibuffet.manager;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,8 +29,6 @@ import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.OrderTempleteHtmlUtil;
 import com.betalife.sushibuffet.util.Printer;
 import com.betalife.sushibuffet.util.ReceiptTempleteUtil;
-
-import freemarker.template.TemplateException;
 
 @Service
 public class CustomerManager {
@@ -87,7 +84,7 @@ public class CustomerManager {
 	}
 
 	@Transactional
-	public boolean takeOrders(List<Order> orders) {
+	public boolean takeOrders(List<Order> orders) throws Exception {
 		if (CollectionUtils.isEmpty(orders)) {
 			return true;
 		}
@@ -96,14 +93,9 @@ public class CustomerManager {
 			orderMapper.insertOrder(o);
 		}
 
-		try {
-			byte[] img = orderTempleteHtmlUtil.format_order_lines(orders, locale);
-			return print(img, times);
-		} catch (TemplateException | IOException e) {
-			logger.error(e.getMessage(), e);
-			return false;
-		}
-
+		byte[] img = orderTempleteHtmlUtil.format_order_lines(orders, locale);
+		print(img, times);
+		return true;
 	}
 
 	public List<Order> getOrders(Order order) {
@@ -139,39 +131,28 @@ public class CustomerManager {
 		}
 		Collection<Order> values = map.values();
 		List<String> list = null;
-		if (kitchen) {
-			try {
+		try {
+			if (kitchen) {
 				byte[] img = orderTempleteHtmlUtil.format_order_lines(orders, locale);
-				return print(img, times);
-			} catch (TemplateException | IOException e) {
-				logger.error(e.getMessage(), e);
-				return false;
+				print(img, times);
+			} else {
+				list = receiptTempleteUtil.format_receipt_lines(new ArrayList<Order>(values),
+						model.getLocale());
+				print(list, times);
 			}
-		} else {
-			list = receiptTempleteUtil.format_receipt_lines(new ArrayList<Order>(values), model.getLocale());
-			return print(list, times);
-		}
-
-	}
-
-	synchronized private boolean print(List<String> list, int times) {
-		try {
-			printer.print(list, times);
+			return true;
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			return false;
 		}
-		return true;
 	}
 
-	synchronized private boolean print(byte[] img, int times) {
-		try {
-			printer.print(img, times);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			return false;
-		}
-		return true;
+	synchronized private void print(List<String> list, int times) throws Exception {
+		printer.print(list, times);
+	}
+
+	synchronized private void print(byte[] img, int times) throws Exception {
+		printer.print(img, times);
 	}
 
 }
