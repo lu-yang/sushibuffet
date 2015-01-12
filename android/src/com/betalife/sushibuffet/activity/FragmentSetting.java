@@ -13,14 +13,19 @@ import android.widget.TextView;
 
 import com.betalife.sushibuffet.asynctask.CheckoutTask;
 import com.betalife.sushibuffet.asynctask.PrintOrdersTask;
-import com.betalife.sushibuffet.dialog.PasswordAlertDialog;
+import com.betalife.sushibuffet.dialog.PasswordDialog;
 import com.betalife.sushibuffet.util.DodoroContext;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
  * 
  */
-public class FragmentSetting extends Fragment implements PasswordAlertDialogCallback, Refreshable {
+public class FragmentSetting extends Fragment implements Callback, Refreshable {
+
+	private Button changeTable;
+	private Button printOrders;
+	private Button checkout;
+	private Button finishOrder;
 
 	public FragmentSetting() {
 	}
@@ -28,22 +33,34 @@ public class FragmentSetting extends Fragment implements PasswordAlertDialogCall
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View view = inflater.inflate(R.layout.fragment_setting, container, false);
+
+		changeTable = (Button) view.findViewById(R.id.btn_changeTable);
+		printOrders = (Button) view.findViewById(R.id.btn_printOrders);
+		checkout = (Button) view.findViewById(R.id.btn_checkout);
+		finishOrder = (Button) view.findViewById(R.id.btn_finishOrder);
 		return view;
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		// refresh();
-	}
-
-	@Override
-	public void callback() {
 		TextView table_no = (TextView) getActivity().findViewById(R.id.table_no);
 		int tableId = DodoroContext.getInstance().getTurnover().getTableId();
 		table_no.setText(getString(R.string.lbl_table_no) + tableId);
 
-		Button changeTable = (Button) getActivity().findViewById(R.id.btn_changeTable);
+		setVisibility(View.INVISIBLE);
+		// refresh();
+	}
+
+	private void setVisibility(int visibility) {
+		changeTable.setVisibility(visibility);
+		printOrders.setVisibility(visibility);
+		checkout.setVisibility(visibility);
+		finishOrder.setVisibility(visibility);
+	}
+
+	@Override
+	public void callback() {
 		changeTable.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -54,7 +71,6 @@ public class FragmentSetting extends Fragment implements PasswordAlertDialogCall
 			}
 		});
 
-		Button printOrders = (Button) getActivity().findViewById(R.id.btn_printOrders);
 		printOrders.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -64,7 +80,6 @@ public class FragmentSetting extends Fragment implements PasswordAlertDialogCall
 			}
 		});
 
-		Button checkout = (Button) getActivity().findViewById(R.id.btn_checkout);
 		checkout.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -93,7 +108,6 @@ public class FragmentSetting extends Fragment implements PasswordAlertDialogCall
 			}
 		});
 
-		Button finishOrder = (Button) getActivity().findViewById(R.id.btn_finishOrder);
 		finishOrder.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -123,11 +137,13 @@ public class FragmentSetting extends Fragment implements PasswordAlertDialogCall
 
 			}
 		});
+
+		setVisibility(View.VISIBLE);
 	}
 
 	@Override
 	public void refresh() {
-		PasswordAlertDialog dialog = new PasswordAlertDialog(this.getActivity(), this);
+		PasswordDialog dialog = new PasswordDialog(this.getActivity(), this, true);
 		dialog.show();
 	}
 

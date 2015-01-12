@@ -6,10 +6,10 @@ import android.view.KeyEvent;
 import com.betalife.sushibuffet.adapter.AAdapter;
 import com.betalife.sushibuffet.adapter.TableAdapter;
 import com.betalife.sushibuffet.asynctask.GetAllTablesAsyncTask;
-import com.betalife.sushibuffet.dialog.PasswordAlertDialog;
+import com.betalife.sushibuffet.dialog.PasswordDialog;
 import com.betalife.sushibuffet.model.Diningtable;
 
-public class ChooseTableActivity extends TableActivity implements PasswordAlertDialogCallback {
+public class ChooseTableActivity extends TableActivity implements Callback {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class ChooseTableActivity extends TableActivity implements PasswordAlertD
 	@Override
 	protected void onResume() {
 		super.onResume();
-		PasswordAlertDialog dialog = new PasswordAlertDialog(this, this);
+		PasswordDialog dialog = new PasswordDialog(this, this, false);
 		dialog.show();
 	}
 

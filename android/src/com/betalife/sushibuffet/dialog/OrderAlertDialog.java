@@ -152,7 +152,6 @@ public class OrderAlertDialog {
 
 	public void show() {
 		builder.create().show();
-
 	}
 
 }
