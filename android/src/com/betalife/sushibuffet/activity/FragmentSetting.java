@@ -143,6 +143,7 @@ public class FragmentSetting extends Fragment implements Callback, Refreshable {
 
 	@Override
 	public void refresh() {
+		setVisibility(View.INVISIBLE);
 		PasswordDialog dialog = new PasswordDialog(this.getActivity(), this, true);
 		dialog.show();
 	}
