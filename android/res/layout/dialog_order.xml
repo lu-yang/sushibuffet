@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="23dp"
-        android:layout_toRightOf="@+id/linearLayout1"
         android:orientation="horizontal"
         android:padding="10dp" >
 
@@ -26,6 +25,43 @@
                 android:layout_height="220dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/app_name" />
+             
+			<LinearLayout
+        		android:id="@+id/linearLayout1"
+       			android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:gravity="right"
+        		android:orientation="horizontal"
+        		android:padding="10dp" >
+
+        <Button
+            android:id="@+id/subtract"
+            style="@style/button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="@string/subtract" />
+
+        <TextView
+            android:id="@+id/num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/dodoro"
+            android:textSize="26sp" />
+		
+        <Button
+            android:id="@+id/add"
+            style="@style/button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="@string/add" />
+       
+    </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -58,40 +94,6 @@
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
-	   <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:gravity="right"
-        android:orientation="horizontal"
-        android:padding="10dp" >
-
-        <Button
-            android:id="@+id/add"
-            style="@style/button_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="@string/add" />
-
-        <TextView
-            android:id="@+id/num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:textColor="@color/dodoro"
-            android:textSize="26sp" />
-
-        <Button
-            android:id="@+id/subtract"
-            style="@style/button_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="@string/subtract" />
-    </LinearLayout>
+	 
     
 </RelativeLayout>

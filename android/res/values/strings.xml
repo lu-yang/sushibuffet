@@ -18,15 +18,15 @@
     <string name="head_lang">{fa_globe} Language</string>
    	<string name="head_historical">{fa_history} Ordered historical</string>
     <string name="setting_activity_title">Setting Page</string>
-    <string name="setting_activity_change_table">Change Table</string>
-    <string name="setting_activity_checkout">Pay</string>
-    <string name="setting_activity_checkout_msg">Confirm Pay?</string>
-    <string name="setting_activity_checkout_ok">Pay succeed</string>
-    <string name="setting_activity_checkout_err">Pay Failed</string>
-    <string name="setting_activity_printOrders">Print Orders</string>
+    <string name="setting_activity_change_table">换桌</string>
+    <string name="setting_activity_checkout">结账</string>
+    <string name="setting_activity_checkout_msg">确认结账 ?</string>
+    <string name="setting_activity_checkout_ok">结算成功</string>
+    <string name="setting_activity_checkout_err">结算失败</string>
+    <string name="setting_activity_printOrders">打印结账单</string>
     <string name="setting_activity_printOrders_mes">Orders has been printed.</string>
     <string name="setting_activity_printOrders_err_mes">Printe Error.</string>
-    <string name="setting_activity_finishOrder">Order Finished</string>
+    <string name="setting_activity_finishOrder">结束点单</string>
     <string name="_ok">OK</string>
     <string name="_cancel">Cancel</string>
     <string name="btn_take_orders">Take Orders</string>
@@ -50,25 +50,11 @@
     <string name="subtract">-</string>
     <string name="lbl_table_no">Table Number: T-</string>
     <string name="err_server_error">Server Error</string>
-    <string name="lbl_table_activity_title_change_table">Change Table</string>
-    <string name="lbl_table_activity_title_choose_table">Choose Table</string>
+    <string name="lbl_table_activity_title_change_table">换桌</string>
+    <string name="lbl_table_activity_title_choose_table">选桌</string>
     
     
     
-    <string name="introduction">Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-         Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-         Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>	
+    <string name="introduction"></string>	
    
 </resources>

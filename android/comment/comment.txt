@@ -1,0 +1,19 @@
+http://{username}:{password}@localhost:8080/sushibuffet/printKitchenOrders/{locale}/{turnoverId}
+http://{username}:{password}@localhost:8080/sushibuffet/printOrders/{locale}/{turnoverId}
+
+in this case
+
+
+SELECT d.id, d.available, t.checkout, t.id AS turnover_id,  t.first_table_id, t.table_id 
+  FROM diningtable d LEFT JOIN
+    (
+     SELECT tn.checkout, tn.id, tn.table_id, tn.first_table_id  
+      FROM turnover tn,
+      (
+       SELECT MAX(id) AS id 
+       FROM turnover 
+       GROUP BY table_id
+       ) tm 
+       WHERE tn.id = tm.id
+    ) t 
+    ON d.id = t.table_id
