@@ -93,8 +93,13 @@ public class CustomerManager {
 			orderMapper.insertOrder(o);
 		}
 
-		byte[] img = orderTempleteHtmlUtil.format_order_lines(orders, locale);
-		print(img, times);
+		List<byte[]> imgs = orderTempleteHtmlUtil.format_order_lines(orders, locale);
+		List<Object> list = new ArrayList<Object>();
+		for (byte[] img : imgs) {
+			list.add(img);
+			list.add(printer.getCutPaper());
+		}
+		print(list, false, times);
 		return true;
 	}
 
@@ -130,15 +135,20 @@ public class CustomerManager {
 			}
 		}
 		Collection<Order> values = map.values();
-		List<String> list = null;
 		try {
 			if (kitchen) {
-				byte[] img = orderTempleteHtmlUtil.format_order_lines(orders, locale);
-				print(img, times);
+				List<byte[]> imgs = orderTempleteHtmlUtil.format_order_lines(orders, locale);
+				List<Object> list = new ArrayList<Object>();
+				for (byte[] img : imgs) {
+					list.add(img);
+					list.add(printer.getCutPaper());
+				}
+				print(list, false, times);
 			} else {
-				list = receiptTempleteUtil.format_receipt_lines(new ArrayList<Order>(values),
+				List<String> list = receiptTempleteUtil.format_receipt_lines(new ArrayList<Order>(values),
 						model.getLocale());
-				print(list, times);
+				list.add(printer.getCutPaper());
+				print(list, true, times);
 			}
 			return true;
 		} catch (Exception e) {
@@ -147,12 +157,12 @@ public class CustomerManager {
 		}
 	}
 
-	synchronized private void print(List<String> list, int times) throws Exception {
-		printer.print(list, times);
+	synchronized private void print(List<?> list, boolean logo, int times) throws Exception {
+		printer.print(list, logo, times);
 	}
 
-	synchronized private void print(byte[] img, int times) throws Exception {
-		printer.print(img, times);
-	}
+	// synchronized private void print(byte[] img, int times) throws Exception {
+	// printer.print(img, times);
+	// }
 
 }

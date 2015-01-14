@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
@@ -63,12 +64,12 @@ public class OrderTempleteHtmlUtil extends TempleteUtil {
 		template.setEncoding("UTF-8");
 	}
 
-	public byte[] format_order_lines(List<Order> orders, String locale) throws TemplateException, IOException {
+	public List<byte[]> format_order_lines(List<Order> orders, String locale) throws TemplateException,
+			IOException {
 		if (CollectionUtils.isEmpty(orders)) {
 			return null;
 		}
 
-		ArrayList<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		Map<Integer, Category> categoryMap = getCategoryMap(locale);
 		Map<Integer, Product> productMap = getProductMap(locale);
 
@@ -78,10 +79,20 @@ public class OrderTempleteHtmlUtil extends TempleteUtil {
 		int tableId = orders.get(0).getTurnover().getTableId();
 		map.put("tableNo", tableId);
 
+		Map<String, List<Map<String, String>>> barNameMap = new HashMap<String, List<Map<String, String>>>();
+
 		for (Order order : orders) {
 			Product product = order.getProduct();
 			Category category = categoryMap.get(product.getCategoryId());
 			String cateName = category == null ? "" : category.getName();
+			String barName = category.getBarName();
+			List<Map<String, String>> list = null;
+			if (barNameMap.containsKey(barName)) {
+				list = barNameMap.get(barName);
+			} else {
+				list = new ArrayList<Map<String, String>>();
+				barNameMap.put(barName, list);
+			}
 
 			Map<String, String> one = new HashMap<String, String>();
 			one.put("pname", productMap.get(product.getId()).getProductName());
@@ -91,15 +102,22 @@ public class OrderTempleteHtmlUtil extends TempleteUtil {
 			list.add(one);
 		}
 
-		map.put("list", list);
+		ArrayList<byte[]> list = new ArrayList<byte[]>();
+		Set<String> keySet = barNameMap.keySet();
+		for (String barname : keySet) {
+			map.put("barname", barname);
+			map.put("list", barNameMap.get(barname));
 
-		StringWriter out = new StringWriter();
-		template.process(map, out);
-		String html = out.toString();
-		html2ImageBytes.loadHtml(html);
-		logger.debug(html);
-		byte[] bytes = html2ImageBytes.getBytes();
-		return bytes;
+			StringWriter out = new StringWriter();
+			template.process(map, out);
+			String html = out.toString();
+			html2ImageBytes.loadHtml(html);
+			logger.debug(html);
+			byte[] bytes = html2ImageBytes.getBytes();
+			list.add(bytes);
+		}
+
+		return list;
 	}
 
 }
