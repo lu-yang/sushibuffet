@@ -47,7 +47,7 @@ public class Html2ImageBytes {
 
 	public BufferedImage getBufferedImage() {
 		Dimension prefSize = editorPane.getPreferredSize();
-		BufferedImage img = new BufferedImage(prefSize.width, editorPane.getPreferredSize().height,
+		BufferedImage img = new BufferedImage(250, editorPane.getPreferredSize().height,
 				BufferedImage.TYPE_INT_RGB);
 		Graphics graphics = img.getGraphics();
 		editorPane.setSize(prefSize);
@@ -77,8 +77,8 @@ public class Html2ImageBytes {
 	}
 
 	public static void main(String[] args) throws IOException {
-		String bmpFile = "d:\\test.bmp";
-		String htmlFile = "d:\\test.html";
+		String bmpFile = "c:\\Users\\mbp-bobhao\\Desktop\\java\\test.bmp";
+		String htmlFile = "c:\\Users\\mbp-bobhao\\Desktop\\java\\OrderTemplate.html";
 		Html2ImageBytes ut = new Html2ImageBytes();
 		String html = FileUtils.readFileToString(new File(htmlFile), "utf-8");
 		ut.loadHtml(html);
