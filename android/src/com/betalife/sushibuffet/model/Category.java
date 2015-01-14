@@ -16,6 +16,15 @@ public class Category extends BaseModel {
 	private String thumb;
 	private int view;
 	private String locale;
+	private String barName;
+
+	public String getBarName() {
+		return barName;
+	}
+
+	public void setBarName(String barName) {
+		this.barName = barName;
+	}
 
 	public String getLocale() {
 		return locale;
