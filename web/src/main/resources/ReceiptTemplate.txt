@@ -1,16 +1,19 @@
-#header  with logo
+<#-- header  with logo -->
 \u001b|1B
 
 \u001b|NBrusselsesteenweg 416, 3090 Overijse\n
 \u001b|rATEL/FAX : 02 / 657 77 79\n
 \u001b|rAwww.dodoro.be\n\n
 
-\u001b|bcTable No.: {tableNo}\n
-\u001b|bcOrder time: {date}\n\n
+\u001b|bcTable No.: ${tableNo}\n
+\u001b|bcOrder time: ${date}\n\n
 
-# {0}:product_name, {1}:product_price, {2}:product_count , {3}:product_num, {4}:category_name
+<#list list as one>
+ \u001b|2C${one['pnum']}. ${one['pname']} x ${one['count']}\n${one['cname']}  \u001b|rA${one['price']} ${one['subtotal']}\n\n
+</#list>
+			
+FOOD: $${food_tax}  $${food}  $${food_total}  
+alcool: $${alcool_tax}  $${alcool}  $${alcool_total}  
 
-$Loop \u001b|2C{3}. {0} x {2}\n{4}  \u001b|rA{1}\n\n
-FOOD: ${food}  alcool:  ${alcool}
-\u001b|bc\u001b|rATotal : {total} Eur\n\n
-#footer
+\u001b|bc\u001b|rATotal : ${total} Eur\n\n
+<#-- footer -->

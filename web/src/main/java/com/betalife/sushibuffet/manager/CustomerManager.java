@@ -28,7 +28,7 @@ import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.OrderTempleteHtmlUtil;
 import com.betalife.sushibuffet.util.Printer;
-import com.betalife.sushibuffet.util.ReceiptTempleteUtil;
+import com.betalife.sushibuffet.util.ReceiptTempleteHtmlUtil;
 
 @Service
 public class CustomerManager {
@@ -54,7 +54,7 @@ public class CustomerManager {
 	private Printer printer;
 
 	@Autowired
-	private ReceiptTempleteUtil receiptTempleteUtil;
+	private ReceiptTempleteHtmlUtil receiptTempleteHtmlUtil;
 
 	@Autowired
 	private OrderTempleteHtmlUtil orderTempleteHtmlUtil;
@@ -136,17 +136,18 @@ public class CustomerManager {
 		}
 		Collection<Order> values = map.values();
 		try {
+			List<Object> list = new ArrayList<Object>();
 			if (kitchen) {
 				List<byte[]> imgs = orderTempleteHtmlUtil.format_order_lines(orders, locale);
-				List<Object> list = new ArrayList<Object>();
 				for (byte[] img : imgs) {
 					list.add(img);
 					list.add(printer.getCutPaper());
 				}
 				print(list, false, times);
 			} else {
-				List<String> list = receiptTempleteUtil.format_receipt_lines(new ArrayList<Order>(values),
+				String content = receiptTempleteHtmlUtil.format_receipt_lines(new ArrayList<Order>(values),
 						model.getLocale());
+				list.add(content);
 				list.add(printer.getCutPaper());
 				print(list, true, times);
 			}
