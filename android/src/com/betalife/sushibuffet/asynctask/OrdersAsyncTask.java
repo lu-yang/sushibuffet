@@ -62,8 +62,7 @@ public class OrdersAsyncTask extends AbstractAsyncTask<Void, List<Order>> {
 
 	@Override
 	protected List<Order> inBackground(Void... params) {
-		String url = activity.getString(R.string.base_uri) + "/orders/"
-				+ DodoroContext.languageCode(activity) + "/"
+		String url = base_url + "/orders/" + DodoroContext.languageCode(activity) + "/"
 				+ DodoroContext.getInstance().getTurnover().getId();
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 		ResponseEntity<Order[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,

@@ -50,8 +50,7 @@ public class GetCategoriesAsyncTask extends AbstractAsyncTask<Void, List<Categor
 
 	@Override
 	protected List<Category> inBackground(Void... params) {
-		String url = activity.getString(R.string.base_uri) + "/categories/"
-				+ DodoroContext.languageCode(activity) + "/1";
+		String url = base_url + "/categories/" + DodoroContext.languageCode(activity) + "/1";
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 		ResponseEntity<Category[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 				Category[].class);

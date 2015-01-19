@@ -22,8 +22,7 @@ public class TakeOrdersAsyncTask extends AbstractAsyncTask<Void, Boolean> {
 
 	@Override
 	protected Boolean inBackground(Void... params) {
-		final String url = activity.getString(R.string.base_uri) + "/takeOrders/"
-				+ DodoroContext.languageCode(activity);
+		final String url = base_url + "/takeOrders/" + DodoroContext.languageCode(activity);
 
 		List<Order> currentOrdersCache = DodoroContext.getInstance().getCurrentOrdersCache();
 		HttpEntity<List<Order>> requestEntity = new HttpEntity<List<Order>>(currentOrdersCache,

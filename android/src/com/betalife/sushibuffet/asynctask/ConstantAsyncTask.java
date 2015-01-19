@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.betalife.sushibuffet.activity.ChooseTableActivity;
-import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.model.Constant;
 import com.betalife.sushibuffet.util.DodoroContext;
 
@@ -28,9 +27,7 @@ public class ConstantAsyncTask extends AbstractAsyncTask<Void, Constant> {
 
 	@Override
 	protected Constant inBackground(Void... params) {
-		String url = activity.getString(R.string.base_uri) + "/constant";
-		System.out.println("url: " + url);
-
+		String url = base_url + "/constant";
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 
 		ResponseEntity<Constant> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,

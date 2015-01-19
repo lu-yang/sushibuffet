@@ -7,7 +7,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
-import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.activity.TableActivity;
 import com.betalife.sushibuffet.model.Diningtable;
 
@@ -31,7 +30,7 @@ public class GetAllTablesAsyncTask extends AbstractAsyncTask<Void, List<Diningta
 
 	@Override
 	protected List<Diningtable> inBackground(Void... params) {
-		String url = activity.getString(R.string.base_uri) + "/availableTables";
+		String url = base_url + "/availableTables";
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 		ResponseEntity<Diningtable[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
 				requestEntity, Diningtable[].class);

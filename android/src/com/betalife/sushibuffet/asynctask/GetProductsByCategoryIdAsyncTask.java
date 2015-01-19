@@ -54,8 +54,7 @@ public class GetProductsByCategoryIdAsyncTask extends AbstractAsyncTask<Void, Li
 
 	@Override
 	protected List<Product> inBackground(Void... params) {
-		String url = activity.getString(R.string.base_uri) + "/products/"
-				+ DodoroContext.languageCode(activity) + "/" + categoryId;
+		String url = base_url + "/products/" + DodoroContext.languageCode(activity) + "/" + categoryId;
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 		ResponseEntity<Product[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 				Product[].class);

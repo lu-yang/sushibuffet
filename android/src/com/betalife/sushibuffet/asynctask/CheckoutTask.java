@@ -20,7 +20,7 @@ public class CheckoutTask extends AbstractAsyncTask<Turnover, Boolean> {
 	@Override
 	protected Boolean inBackground(Turnover... params) {
 		Turnover turnover = params[0];
-		final String url = activity.getString(R.string.base_uri) + "/checkout/" + turnover.getId();
+		final String url = base_url + "/checkout/" + turnover.getId();
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 		ResponseEntity<Boolean> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
 				Boolean.class);
