@@ -2,6 +2,7 @@ package com.betalife.sushibuffet.manager;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,7 +90,9 @@ public class CustomerManager {
 			return true;
 		}
 
+		Date now = new Date();
 		for (Order o : orders) {
+			o.setCreated(now);
 			orderMapper.insertOrder(o);
 		}
 

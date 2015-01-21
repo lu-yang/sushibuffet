@@ -27,9 +27,9 @@
 	</resultMap>
 
 	<select id="selectOrders" parameterType="Order" resultMap="orderResult">
-		SELECT o.id, o.`count`, o.turnover_id, o.product_id, t.checkout, o.updated, o.created, p.product_num, p.taxgroup_id, 
-		t.table_id, p.category_id, p.num,
-		p.product_price, p.thumb, m.NAME
+		SELECT o.id, o.`count`, o.turnover_id, o.product_id, t.checkout, o.updated, 
+		o.created, p.product_num, p.taxgroup_id, 
+		t.table_id, p.category_id, p.num, p.product_price, p.thumb, m.NAME
 		FROM
 		`order` o, turnover t, product p LEFT JOIN multilang m ON m.id =
 		CONCAT('p', p.id) AND m.locale = #{locale}
@@ -37,15 +37,15 @@
 		AND o.turnover_id = t.id
 		AND o.product_id = p.id
 		AND p.active=true
-		Order by p.position
+		Order by o.created
 	</select>
 
 	<insert id="insertOrder" parameterType="Order" useGeneratedKeys="true"
 		keyProperty="id">
 		INSERT INTO `order`
-		(turnover_id, product_id, `count`)
+		(turnover_id, product_id, `count`, created)
 		VALUES
-		(#{turnover.id}, #{product.id}, #{count})
+		(#{turnover.id}, #{product.id}, #{count}, #{created})
 	</insert>
 
 	<update id="updateCount" parameterType="Order">
