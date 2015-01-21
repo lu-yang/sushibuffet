@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.betalife.sushibuffet.asynctask.CheckoutTask;
 import com.betalife.sushibuffet.asynctask.PrintOrdersTask;
 import com.betalife.sushibuffet.dialog.PasswordDialog;
+import com.betalife.sushibuffet.dialog.ServerAddressAlertDialog;
 import com.betalife.sushibuffet.util.DodoroContext;
 
 /**
@@ -26,6 +27,7 @@ public class FragmentSetting extends Fragment implements Callback, Refreshable {
 	private Button printOrders;
 	private Button checkout;
 	private Button finishOrder;
+	private Button changeServerAddress;
 
 	public FragmentSetting() {
 	}
@@ -38,6 +40,7 @@ public class FragmentSetting extends Fragment implements Callback, Refreshable {
 		printOrders = (Button) view.findViewById(R.id.btn_printOrders);
 		checkout = (Button) view.findViewById(R.id.btn_checkout);
 		finishOrder = (Button) view.findViewById(R.id.btn_finishOrder);
+		changeServerAddress = (Button) view.findViewById(R.id.btn_changeServerAddress);
 		return view;
 	}
 
@@ -135,6 +138,15 @@ public class FragmentSetting extends Fragment implements Callback, Refreshable {
 				});
 				dialog.create().show();
 
+			}
+		});
+
+		changeServerAddress.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				ServerAddressAlertDialog dialog = new ServerAddressAlertDialog(getActivity(), null, true);
+				dialog.show();
 			}
 		});
 

@@ -16,7 +16,7 @@
     <string name="mes_password_wrong">Password is not correct.</string>
     <string name="head_introduction">{fa_info_circle} Informations</string>
     <string name="head_lang">{fa_globe} Language</string>
-   	<string name="head_historical">{fa_history} Ordered historical</string>
+    <string name="head_historical">{fa_history} Ordered historical</string>
     <string name="setting_activity_title">Setting Page</string>
     <string name="setting_activity_change_table">换桌</string>
     <string name="setting_activity_checkout">清空此台</string>
@@ -28,6 +28,7 @@
     <string name="setting_activity_printOrders_err_mes">Printe Error.</string>
     <string name="setting_activity_finishOrder">结束点单</string>
     <string name="setting_activity_finishOrder_msg">确定结束点单 ?</string>
+    <string name="setting_activity_change_server_address">服务器地址变更</string>
     <string name="_ok">OK</string>
     <string name="_cancel">Cancel</string>
     <string name="btn_take_orders">Take Orders</string>
@@ -35,27 +36,10 @@
     <string name="msg_take_orders">Confirm taking orders?</string>
     <string name="_yes">Yes</string>
     <string name="_no">No</string>
-    <string name="one">1</string>
-    <string name="two">2</string>
-    <string name="three">3</string>
-    <string name="four">4</string>
-    <string name="five">5</string>
-    <string name="six">6</string>
-    <string name="seven">7</string>
-    <string name="eight">8</string>
-    <string name="nine">9</string>
-    <string name="zero">0</string>
-    <string name="backspace">&lt;-</string>
-    <string name="clear">C</string>
-    <string name="add">+</string>
-    <string name="subtract">-</string>
     <string name="lbl_table_no">Table Number: T-</string>
     <string name="err_server_error">Server Error</string>
     <string name="lbl_table_activity_title_change_table">换桌</string>
     <string name="lbl_table_activity_title_choose_table">选桌</string>
-    
-    
-    
-    <string name="introduction"></string>	
-   
+    <string name="introduction"></string>
+
 </resources>

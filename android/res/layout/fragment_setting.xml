@@ -1,69 +1,80 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:baselineAligned="false"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/settingPage"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:textSize="25sp" 
-        android:textColor="@color/dodoro"
-        android:text="@string/setting_activity_title" 
-        android:layout_gravity="center"/>
-    <TextView
-        android:id="@+id/table_no"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp" 
-        android:layout_gravity="center"
-        android:layout_marginBottom="40dp"/>
-    <Button
-        android:id="@+id/btn_changeTable"
-        style="@style/button_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:text="@string/setting_activity_change_table" 
-        android:layout_gravity="center"/>
+        android:baselineAligned="false"
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/btn_checkout"
-        style="@style/button_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:text="@string/setting_activity_checkout"
-        android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/settingPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:text="@string/setting_activity_title"
+            android:textColor="@color/dodoro"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/btn_printOrders"
-        style="@style/button_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:text="@string/setting_activity_printOrders" 
-        android:layout_gravity="center"/>
-    
-    <Button
-        android:id="@+id/btn_finishOrder"
-        style="@style/button_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:text="@string/setting_activity_finishOrder" 
-        android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/table_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="40dp"
+            android:textSize="18sp" />
 
+        <Button
+            android:id="@+id/btn_changeTable"
+            style="@style/button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="@string/setting_activity_change_table" />
 
+        <Button
+            android:id="@+id/btn_checkout"
+            style="@style/button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="@string/setting_activity_checkout" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_printOrders"
+            style="@style/button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="@string/setting_activity_printOrders" />
+
+        <Button
+            android:id="@+id/btn_finishOrder"
+            style="@style/button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="@string/setting_activity_finishOrder" />
+
+        <Button
+            android:id="@+id/btn_changeServerAddress"
+            style="@style/button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="@string/setting_activity_change_server_address" />
+    </LinearLayout>
+
 </ScrollView>

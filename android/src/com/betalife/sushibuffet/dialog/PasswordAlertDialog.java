@@ -18,6 +18,7 @@ import com.betalife.sushibuffet.activity.Callback;
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.util.DodoroContext;
 
+@Deprecated
 public class PasswordAlertDialog {
 
 	private AlertDialog.Builder builder;

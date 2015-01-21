@@ -3,7 +3,6 @@ package com.betalife.sushibuffet.asynctask;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpBasicAuthentication;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,8 +14,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -46,17 +43,7 @@ public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 
 	public AbstractAsyncTask(Activity activity) {
 		this.activity = activity;
-
-		SharedPreferences preferences = activity.getPreferences(Activity.MODE_PRIVATE);
-		base_url = preferences.getString("base_url", null);
-		if (StringUtils.isEmpty(base_url)) {
-			base_url = activity.getString(R.string.base_uri);
-			Editor editor = preferences.edit();
-			editor.putString("base_url", base_url);
-			editor.putString("comment", "格式如：http://192.168.0.101:8080/sushibuffet");
-			editor.commit();
-		}
-
+		base_url = DodoroContext.getInstance().getServerAddress(activity);
 		requestHeaders = new HttpHeaders();
 		List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
 		acceptableMediaTypes.add(MediaType.APPLICATION_JSON);

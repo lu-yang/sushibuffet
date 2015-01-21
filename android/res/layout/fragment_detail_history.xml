@@ -27,7 +27,7 @@
         android:textColor="#C69C6D"
         android:textSize="20sp" />
 
-    <ListView
+    <ExpandableListView
         android:id="@+id/orders"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

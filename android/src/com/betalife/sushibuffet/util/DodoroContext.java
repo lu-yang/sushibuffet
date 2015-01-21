@@ -7,11 +7,14 @@ import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
 import com.betalife.sushibuffet.activity.MainActivity;
+import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.model.Constant;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Turnover;
@@ -26,6 +29,8 @@ public class DodoroContext {
 	private Turnover turnover;
 
 	private List<Order> currentOrdersCache;
+
+	private String base_url;
 
 	private DodoroContext() {
 	}
@@ -134,4 +139,23 @@ public class DodoroContext {
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		activity.startActivity(intent);
 	}
+
+	public void setServerAddress(Activity activity, String base_url) {
+		this.base_url = base_url;
+		SharedPreferences preferences = activity.getSharedPreferences(activity.getString(R.string.setting),
+				Activity.MODE_PRIVATE);
+		Editor editor = preferences.edit();
+		editor.putString("base_url", base_url);
+		editor.commit();
+	}
+
+	public String getServerAddress(Activity activity) {
+		if (StringUtils.isEmpty(base_url)) {
+			SharedPreferences preferences = activity.getSharedPreferences(
+					activity.getString(R.string.setting), Activity.MODE_PRIVATE);
+			base_url = preferences.getString("base_url", null);
+		}
+		return base_url;
+	}
+
 }

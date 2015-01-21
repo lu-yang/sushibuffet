@@ -59,4 +59,5 @@ public abstract class AAdapter<E extends BaseModel> extends BaseAdapter {
 	public void setList(List<E> list) {
 		this.list = list;
 	}
+
 }

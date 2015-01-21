@@ -1,8 +1,10 @@
 package com.betalife.sushibuffet.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,8 +17,8 @@ import com.betalife.sushibuffet.util.ImageViewUtil;
 
 public class OrderAdapter extends AAdapter<Order> {
 
-	public OrderAdapter(Activity activity, List<Order> orders) {
-		super(activity, orders);
+	public OrderAdapter(Activity activity) {
+		super(activity);
 	}
 
 	@Override
@@ -48,6 +50,26 @@ public class OrderAdapter extends AAdapter<Order> {
 		}
 
 		return convertView;
+	}
+
+	public void setRawList(List<Order> list) {
+		SparseArray<Order> map = new SparseArray<Order>();
+		for (Order order : list) {
+			int key = order.getProduct().getId();
+			Order value = map.get(key);
+			if (value == null) {
+				Order copy = order.copy();
+				map.put(key, copy);
+			} else {
+				value.setCount(value.getCount() + order.getCount());
+			}
+		}
+		List<Order> squeeze = new ArrayList<Order>();
+		for (int i = 0; i < map.size(); i++) {
+			squeeze.add(map.valueAt(i));
+		}
+
+		super.setList(squeeze);
 	}
 
 }

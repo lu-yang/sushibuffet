@@ -4,47 +4,84 @@
     <string name="username">admin</string>
     <string name="password">pas2word</string>
     <string name="app_name">Dodoro</string>
-
-    <string-array name="perNumList">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-    </string-array>
-    
+    <string name="setting">setting</string>
     <string name="ENGLISH">English</string>
     <string name="FRENCH">Français</string>
     <string name="DUTCH">Nederlands</string>
-    
+
     <string-array name="languages">
         <item>@string/ENGLISH</item>
         <item>@string/FRENCH</item>
         <item>@string/DUTCH</item>
     </string-array>
-    
     <string-array name="tabs">
         <item>fa_cutlery</item>
         <item>fa_history</item>
         <item>fa_globe</item>
         <item>fa_cog</item>
         <item>fa_info_circle</item>
+         <item>fa_history</item>
     </string-array>
-    
     <string-array name="fragments">
         <item>com.betalife.sushibuffet.activity.FragmentOrderpage</item>
         <item>com.betalife.sushibuffet.activity.FragmentHistory</item>
         <item>com.betalife.sushibuffet.activity.FragmentLang</item>
         <item>com.betalife.sushibuffet.activity.FragmentSetting</item>
         <item>com.betalife.sushibuffet.activity.FragmentIntroduction</item>
+        <item>com.betalife.sushibuffet.activity.FragmentDetailHistory</item>
     </string-array>
-    
+
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="zero">0</string>
+    <string name="backspace">&lt;-</string>
+    <string name="clear">C</string>
+    <string name="add">+</string>
+    <string name="subtract">-</string>
+    <string name="letterQ">q</string>
+    <string name="letterW">w</string>
+    <string name="letterE">e</string>
+    <string name="letterR">r</string>
+    <string name="letterT">t</string>
+    <string name="letterY">y</string>
+    <string name="letterU">u</string>
+    <string name="letterI">i</string>
+    <string name="letterO">o</string>
+    <string name="letterP">p</string>
+    <string name="letterA">a</string>
+    <string name="letterS">s</string>
+    <string name="letterD">d</string>
+    <string name="letterF">f</string>
+    <string name="letterG">g</string>
+    <string name="letterH">h</string>
+    <string name="letterJ">j</string>
+    <string name="letterK">k</string>
+    <string name="letterL">l</string>
+    <string name="letterColon">:</string>
+    <string name="letterZ">z</string>
+    <string name="letterX">x</string>
+    <string name="letterC">c</string>
+    <string name="letterV">v</string>
+    <string name="letterB">b</string>
+    <string name="letterN">n</string>
+    <string name="letterM">m</string>
+    <string name="letterDot">.</string>
+    <string name="letterSlash">/</string>
+    <string name="http">http://</string>
+    <string name="com">.com</string>
+    <string name="www">www.</string>
+    <string name="order_history_format">yyyy MM dd HH:mm:ss</string>
+
+    <!--
+   <string name="base_uri">http://dodoro.aliapp.com</string>
+    <string name="base_uri">http://192.168.0.101:8080/sushibuffet</string>
+    -->
 
 </resources>
