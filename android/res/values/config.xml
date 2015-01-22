@@ -24,11 +24,13 @@
     </string-array>
     <string-array name="fragments">
         <item>com.betalife.sushibuffet.activity.FragmentOrderpage</item>
+        <!-- 
         <item>com.betalife.sushibuffet.activity.FragmentHistory</item>
+         -->
+        <item>com.betalife.sushibuffet.activity.FragmentDetailHistory</item>
         <item>com.betalife.sushibuffet.activity.FragmentLang</item>
         <item>com.betalife.sushibuffet.activity.FragmentSetting</item>
         <item>com.betalife.sushibuffet.activity.FragmentIntroduction</item>
-        <item>com.betalife.sushibuffet.activity.FragmentDetailHistory</item>
     </string-array>
 
     <string name="one">1</string>

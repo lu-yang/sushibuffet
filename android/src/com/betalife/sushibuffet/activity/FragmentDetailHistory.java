@@ -50,6 +50,8 @@ public class FragmentDetailHistory extends Fragment implements Refreshable {
 	private AsyncTaskCallback<Order> callback = new AsyncTaskCallback<Order>() {
 		@Override
 		public void callback(List<Order> list) {
+			setTotalPrice(list);
+
 			DetailOrderAdapter adapter = new DetailOrderAdapter(getActivity());
 			adapter.setRawList(list);
 			ExpandableListView orders = (ExpandableListView) getActivity().findViewById(R.id.orders);
@@ -58,7 +60,6 @@ public class FragmentDetailHistory extends Fragment implements Refreshable {
 			for (int i = 0; i < groupCount; i++) {
 				orders.expandGroup(i);
 			}
-			setTotalPrice(list);
 		}
 
 	};

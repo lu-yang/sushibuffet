@@ -50,12 +50,12 @@ public class FragmentHistory extends Fragment implements Refreshable {
 	private AsyncTaskCallback<Order> callback = new AsyncTaskCallback<Order>() {
 		@Override
 		public void callback(List<Order> list) {
+			setTotalPrice(list);
+
 			OrderAdapter adapter = new OrderAdapter(getActivity());
 			adapter.setRawList(list);
 			ListView orders = (ListView) getActivity().findViewById(R.id.orders);
 			orders.setAdapter(adapter);
-
-			setTotalPrice(list);
 		}
 
 	};

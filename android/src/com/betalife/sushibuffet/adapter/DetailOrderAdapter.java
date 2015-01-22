@@ -1,6 +1,7 @@
 package com.betalife.sushibuffet.adapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -140,6 +141,7 @@ public class DetailOrderAdapter extends BaseExpandableListAdapter {
 
 		Set<Date> keySet = map.keySet();
 		groups = new ArrayList<Date>(keySet);
+		Collections.sort(groups);
 	}
 
 }
