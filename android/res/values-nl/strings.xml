@@ -39,6 +39,10 @@
     <string name="err_server_error">Server Error</string>
     <string name="lbl_table_activity_title_change_table">换桌</string>
     <string name="lbl_table_activity_title_choose_table">选桌</string>
+    <string name="lbl_total">Totaal: </string>
+    <string name="lbl_price">prijs: </string>
+    <string name="lbl_subtotal">subtotaal: </string>
+    <string name="lbl_count">qty: </string>
     <string name="introduction">(NL)</string>
 
 </resources>
