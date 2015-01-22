@@ -65,7 +65,7 @@
             android:layout_margin="10dp"
             android:padding="10dp"
             android:text="@string/setting_activity_finishOrder" />
-
+        <!--
         <Button
             android:id="@+id/btn_changeServerAddress"
             style="@style/button_text"
@@ -75,6 +75,8 @@
             android:layout_margin="10dp"
             android:padding="10dp"
             android:text="@string/setting_activity_change_server_address" />
+        -->
+
     </LinearLayout>
 
 </ScrollView>

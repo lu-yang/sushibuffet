@@ -17,16 +17,14 @@
     <string-array name="tabs">
         <item>fa_cutlery</item>
         <item>fa_history</item>
+        <!-- <item>fa_history</item> -->
         <item>fa_globe</item>
         <item>fa_cog</item>
         <item>fa_info_circle</item>
-         <item>fa_history</item>
     </string-array>
     <string-array name="fragments">
         <item>com.betalife.sushibuffet.activity.FragmentOrderpage</item>
-        <!-- 
-        <item>com.betalife.sushibuffet.activity.FragmentHistory</item>
-         -->
+        <!-- <item>com.betalife.sushibuffet.activity.FragmentHistory</item> -->
         <item>com.betalife.sushibuffet.activity.FragmentDetailHistory</item>
         <item>com.betalife.sushibuffet.activity.FragmentLang</item>
         <item>com.betalife.sushibuffet.activity.FragmentSetting</item>
@@ -79,7 +77,7 @@
     <string name="http">http://</string>
     <string name="com">.com</string>
     <string name="www">www.</string>
-    <string name="order_history_format">yyyy MM dd HH:mm:ss</string>
+    <string name="order_history_format">yyyy MMM dd HH:mm:ss</string>
 
     <!--
    <string name="base_uri">http://dodoro.aliapp.com</string>

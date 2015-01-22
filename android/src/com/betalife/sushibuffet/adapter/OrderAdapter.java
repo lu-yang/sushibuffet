@@ -37,15 +37,17 @@ public class OrderAdapter extends AAdapter<Order> {
 
 			TextView count = (TextView) convertView.findViewById(R.id.count);
 			int productCount = result.getCount();
-			count.setText("qty: " + productCount);
+			count.setText(activity.getString(R.string.lbl_count) + productCount);
 
 			TextView price = (TextView) convertView.findViewById(R.id.price);
 			int productPrice = result.getProduct().getProductPrice();
-			price.setText("prix: " + DodoroContext.getDisplayPrice(productPrice) + " €");
+			price.setText(activity.getString(R.string.lbl_price)
+					+ DodoroContext.getDisplayPrice(productPrice) + " €");
 
 			TextView totalPrice = (TextView) convertView.findViewById(R.id.totalPrice);
 			int subTotal = productCount * productPrice;
-			totalPrice.setText("subtotal: " + DodoroContext.getDisplayPrice(subTotal) + " €");
+			totalPrice.setText(activity.getString(R.string.lbl_subtotal)
+					+ DodoroContext.getDisplayPrice(subTotal) + " €");
 
 		}
 

@@ -44,7 +44,8 @@ public class FragmentHistory extends Fragment implements Refreshable {
 		}
 
 		TextView totalPrice = (TextView) getActivity().findViewById(R.id.totalPrice);
-		totalPrice.setText("total: " + DodoroContext.getDisplayPrice(total) + " €");
+		totalPrice.setText(getActivity().getString(R.string.lbl_total) + DodoroContext.getDisplayPrice(total)
+				+ " €");
 	}
 
 	private AsyncTaskCallback<Order> callback = new AsyncTaskCallback<Order>() {
