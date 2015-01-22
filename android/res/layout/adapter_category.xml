@@ -22,21 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:textColor="@color/dodoro"
-            android:textSize="16sp" 
-            android:textAllCaps="true"/>
-
-    <!--     <TextView
-            android:id="@+id/desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:textSize="14sp" /> -->
-
-        <TextView
-            android:id="@+id/current_order_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textAllCaps="true"
             android:textColor="@color/dodoro"
             android:textSize="16sp" />
     </LinearLayout>
