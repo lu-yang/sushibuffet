@@ -54,7 +54,10 @@ public class FragmentDetailHistory extends Fragment implements Refreshable {
 			adapter.setRawList(list);
 			ExpandableListView orders = (ExpandableListView) getActivity().findViewById(R.id.orders);
 			orders.setAdapter(adapter);
-
+			int groupCount = adapter.getGroupCount();
+			for (int i = 0; i < groupCount; i++) {
+				orders.expandGroup(i);
+			}
 			setTotalPrice(list);
 		}
 
