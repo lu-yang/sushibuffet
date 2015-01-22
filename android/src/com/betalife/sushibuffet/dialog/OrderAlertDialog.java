@@ -84,12 +84,7 @@ public class OrderAlertDialog {
 			}
 		});
 
-		builder.setNegativeButton(R.string._cancel, new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-			}
-		});
+		builder.setCancelable(true);
 
 	}
 
