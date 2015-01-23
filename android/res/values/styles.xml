@@ -2,6 +2,11 @@
 
     <style name="AppBaseTheme" parent="android:Theme"></style>
 
+    <style name="Theme.Start" parent="android:Theme">
+        <item name="android:windowBackground">@drawable/test</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
     <!-- 将自定义的style取名为CustomTheme，父类为Theme.Holo.Light，也就是说默认背景是白底黑字（如果是Theme.Holo，则默认是黑底白字） -->
     <style name="Theme.Dodoro" parent="@android:style/Theme.Holo">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_dodoro</item>

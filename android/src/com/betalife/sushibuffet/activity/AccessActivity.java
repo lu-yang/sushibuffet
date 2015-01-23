@@ -2,6 +2,7 @@ package com.betalife.sushibuffet.activity;
 
 import org.apache.commons.lang.StringUtils;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -14,7 +15,10 @@ public class AccessActivity extends Activity implements Callback {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		getActionBar().hide();
+		ActionBar actionBar = getActionBar();
+		if (actionBar != null) {
+			actionBar.hide();
+		}
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_access);

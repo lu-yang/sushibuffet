@@ -18,7 +18,8 @@
         <activity
             android:name="com.betalife.sushibuffet.activity.AccessActivity"
             android:label="@string/app_name"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.Start" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
