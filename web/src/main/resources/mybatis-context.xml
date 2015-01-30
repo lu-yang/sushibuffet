@@ -13,6 +13,7 @@
 
 		<property name="minPoolSize" value="5" />
 		<property name="maxPoolSize" value="${db.max.pool.size}" />
+		<property name="automaticTestTable" value="C3P0TestTable" />
 		<property name="initialPoolSize" value="3" />
 		<property name="maxIdleTime" value="60" />
 		<property name="acquireIncrement" value="3" />
