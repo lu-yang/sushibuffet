@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,8 +13,6 @@ import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -29,11 +26,6 @@ import freemarker.template.TemplateException;
 
 @Component
 public class OrderTempleteHtmlUtil extends TempleteUtil {
-
-	@Value("${order.template}")
-	public String order_template = "D:\\work\\shintech\\eclipse-jee-kepler-SR2-win32-x86_64-workspace\\sushibuffet\\web\\src\\main\\resources\\OrderTemplate.txt";
-
-	private static final Logger logger = LoggerFactory.getLogger(OrderTempleteHtmlUtil.class);
 
 	private Template template;
 
@@ -59,7 +51,7 @@ public class OrderTempleteHtmlUtil extends TempleteUtil {
 
 	@PostConstruct
 	public void init() throws IOException {
-		File file = getFile(order_template);
+		File file = getFile();
 		template = new Template(null, new InputStreamReader(new FileInputStream(file), "UTF-8"), null);
 		template.setEncoding("UTF-8");
 	}
@@ -108,16 +100,19 @@ public class OrderTempleteHtmlUtil extends TempleteUtil {
 			map.put("barname", barname);
 			map.put("list", barNameMap.get(barname));
 
-			StringWriter out = new StringWriter();
-			template.process(map, out);
-			String html = out.toString();
+			String html = format(map);
 			html2ImageBytes.loadHtml(html);
-			logger.debug(html);
 			byte[] bytes = html2ImageBytes.getBytes();
 			list.add(bytes);
 		}
 
 		return list;
+	}
+
+	@Value("${order.template}")
+	@Override
+	protected void setTemplateFile(String templateFile) {
+		this.templateFile = templateFile;
 	}
 
 }

@@ -16,7 +16,10 @@
 
 package com.betalife.sushibuffet.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -147,5 +150,16 @@ public class HomeController {
 	boolean changeTable(@RequestBody Turnover turnover) {
 		customerManager.changeTable(turnover);
 		return true;
+	}
+
+	@RequestMapping(value = "ledger/{from}/{to}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> ledger(@PathVariable String from, @PathVariable String to) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date fromDate = sdf.parse(from);
+		Date toDate = sdf.parse(to);
+
+		Map<String, Object> map = customerManager.getOrdersByDate(fromDate, toDate);
+		return map;
 	}
 }

@@ -27,9 +27,10 @@ import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.model.Turnover;
+import com.betalife.sushibuffet.util.LedgerTempletePOSUtil;
 import com.betalife.sushibuffet.util.OrderTempleteHtmlUtil;
 import com.betalife.sushibuffet.util.Printer;
-import com.betalife.sushibuffet.util.ReceiptTempleteHtmlUtil;
+import com.betalife.sushibuffet.util.ReceiptTempletePOSUtil;
 
 @Service
 public class CustomerManager {
@@ -55,10 +56,13 @@ public class CustomerManager {
 	private Printer printer;
 
 	@Autowired
-	private ReceiptTempleteHtmlUtil receiptTempleteHtmlUtil;
+	private ReceiptTempletePOSUtil receiptTempletePOSUtil;
 
 	@Autowired
 	private OrderTempleteHtmlUtil orderTempleteHtmlUtil;
+
+	@Autowired
+	private LedgerTempletePOSUtil ledgerTempletePOSUtil;
 
 	@Value("${order.locale}")
 	private String locale;
@@ -110,6 +114,23 @@ public class CustomerManager {
 		return orderMapper.selectOrders(order);
 	}
 
+	public Map<String, Object> getOrdersByDate(Date from, Date to) throws Exception {
+		Map<String, Date> param = new HashMap<String, Date>();
+		param.put("from", from);
+		param.put("to", to);
+		List<Order> orders = orderMapper.selectOrdersByDate(param);
+		if (CollectionUtils.isEmpty(orders)) {
+			return null;
+		}
+		Map<String, Object> map = ledgerTempletePOSUtil.buildParam(orders);
+		String html = ledgerTempletePOSUtil.format(map);
+		List<Object> list = new ArrayList<Object>();
+		list.add(html);
+		list.add(printer.getCutPaper());
+		print(list, false, 1);
+		return map;
+	}
+
 	@Transactional
 	public void checkout(int id) {
 		turnoverMapper.checkout(id);
@@ -148,7 +169,7 @@ public class CustomerManager {
 				}
 				print(list, false, times);
 			} else {
-				String content = receiptTempleteHtmlUtil.format_receipt_lines(new ArrayList<Order>(values),
+				String content = receiptTempletePOSUtil.format_receipt_lines(new ArrayList<Order>(values),
 						model.getLocale());
 				list.add(content);
 				list.add(printer.getCutPaper());
