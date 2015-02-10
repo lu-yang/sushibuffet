@@ -53,9 +53,6 @@ public class HomeController {
 	@Autowired
 	private CustomerManager customerManager;
 
-	@Autowired
-	private Constant constant;
-
 	@RequestMapping(value = "availableTables", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Diningtable> fetchAllTables() {
@@ -83,7 +80,7 @@ public class HomeController {
 	@RequestMapping(value = "constant", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	Constant fetchConstants() {
-		return constant;
+		return customerManager.getConstant();
 	}
 
 	@RequestMapping(value = "products/{locale}/{categoryId}", method = RequestMethod.GET, produces = "application/json")

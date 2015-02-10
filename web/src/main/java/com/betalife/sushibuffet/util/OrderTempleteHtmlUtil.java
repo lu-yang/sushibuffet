@@ -27,8 +27,6 @@ import freemarker.template.TemplateException;
 @Component
 public class OrderTempleteHtmlUtil extends TempleteUtil {
 
-	private Template template;
-
 	private Html2ImageBytes html2ImageBytes = new Html2ImageBytes();
 
 	public static void main(String[] args) throws IOException {

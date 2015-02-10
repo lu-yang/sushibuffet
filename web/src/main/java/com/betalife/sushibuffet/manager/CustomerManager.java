@@ -21,12 +21,14 @@ import com.betalife.sushibuffet.dao.CategoryMapper;
 import com.betalife.sushibuffet.dao.DiningtableMapper;
 import com.betalife.sushibuffet.dao.OrderMapper;
 import com.betalife.sushibuffet.dao.ProductMapper;
+import com.betalife.sushibuffet.dao.SettingsMapper;
 import com.betalife.sushibuffet.dao.TurnoverMapper;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.model.Turnover;
+import com.betalife.sushibuffet.util.Constant;
 import com.betalife.sushibuffet.util.LedgerTempletePOSUtil;
 import com.betalife.sushibuffet.util.OrderTempleteHtmlUtil;
 import com.betalife.sushibuffet.util.Printer;
@@ -36,6 +38,9 @@ import com.betalife.sushibuffet.util.ReceiptTempletePOSUtil;
 public class CustomerManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(CustomerManager.class);
+
+	@Autowired
+	private SettingsMapper settingsMapper;
 
 	@Autowired
 	private DiningtableMapper tableMapper;
@@ -70,6 +75,9 @@ public class CustomerManager {
 	@Value("${print.times}")
 	private int times;
 
+	@Autowired
+	private Constant constant;
+
 	@Transactional
 	public void openTable(Turnover turnover) {
 		turnover.setFirstTableId(turnover.getTableId());
@@ -82,6 +90,13 @@ public class CustomerManager {
 
 	public List<Diningtable> getTables() {
 		return tableMapper.selectTables();
+	}
+
+	public Constant getConstant() {
+		Map<String, String> settings = settingsMapper.select();
+		constant.setCategoryRootUrl(settings.get("category_url"));
+		constant.setProductRootUrl(settings.get("product_url"));
+		return constant;
 	}
 
 	public List<Product> getProductsByCategoryId(Product product) {
