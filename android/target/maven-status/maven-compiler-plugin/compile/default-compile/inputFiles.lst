@@ -14,6 +14,7 @@
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/adapter/TableAdapter.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/model/BaseModel.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/adapter/ChangeTableAdapter.java
+/Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/dialog/ServerAddressAlertDialog.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/asynctask/AbstractAsyncTask.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/adapter/AAdapter.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/target/generated-sources/r/com/betalife/sushibuffet/activity/R.java
@@ -29,7 +30,9 @@
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/model/Product.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/asynctask/OrdersAsyncTask.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/asynctask/CheckoutTask.java
+/Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/adapter/DetailOrderAdapter.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/asynctask/PrintOrdersTask.java
+/Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/activity/FragmentDetailHistory.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/util/DodoroContext.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/activity/MainActivity.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/activity/Callback.java
@@ -42,3 +45,4 @@
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/asynctask/ChangeTableTask.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/activity/Refreshable.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/activity/TableActivity.java
+/Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/asynctask/AsyncTaskCallback.java

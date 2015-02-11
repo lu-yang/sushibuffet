@@ -77,7 +77,7 @@
     <string name="http">http://</string>
     <string name="com">.com</string>
     <string name="www">www.</string>
-    <string name="order_history_format">dd-MMM-yyyy HH:mm:ss</string>
+    <string name="order_history_format">dd-MMM-yyyy hh:mm:ss a</string>
 
     <!--
    <string name="base_uri">http://dodoro.aliapp.com</string>
