@@ -8,28 +8,29 @@ import android.app.Activity;
 import android.widget.Toast;
 
 import com.betalife.sushibuffet.activity.R;
+import com.betalife.sushibuffet.exchange.BooleanExchange;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-public class CheckoutTask extends AbstractAsyncTask<Turnover, Boolean> {
+public class CheckoutTask extends AbstractAsyncTask<Turnover, BooleanExchange> {
 
 	public CheckoutTask(Activity activity) {
 		super(activity);
 	}
 
 	@Override
-	protected Boolean inBackground(Turnover... params) {
+	protected BooleanExchange inBackground(Turnover... params) {
 		Turnover turnover = params[0];
 		final String url = base_url + "/checkout/" + turnover.getId();
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
-		ResponseEntity<Boolean> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
-				Boolean.class);
+		ResponseEntity<BooleanExchange> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
+				requestEntity, BooleanExchange.class);
 		return responseEntity.getBody();
 	}
 
 	@Override
-	public void postCallback(Boolean result) {
-		if (result) {
+	public void postCallback(BooleanExchange result) {
+		if (result.getModel() != null && result.getModel()) {
 			Toast.makeText(activity, activity.getString(R.string.setting_activity_checkout_ok),
 					Toast.LENGTH_SHORT).show();
 			DodoroContext.getInstance().setTurnover(null);

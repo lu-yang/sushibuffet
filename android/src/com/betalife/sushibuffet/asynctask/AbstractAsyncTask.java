@@ -11,16 +11,17 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.betalife.sushibuffet.activity.R;
+import com.betalife.sushibuffet.dialog.ErrorMessageAlertDialog;
+import com.betalife.sushibuffet.exchange.BaseExchange;
+import com.betalife.sushibuffet.exchange.DodoroException;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
+public abstract class AbstractAsyncTask<P, T extends BaseExchange> extends AsyncTask<P, Void, T> {
 
 	protected RestTemplate restTemplate;
 
@@ -32,7 +33,7 @@ public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 
 	protected Activity activity;
 
-	private boolean exception;
+	private RestClientException exception;
 
 	protected String base_url;
 
@@ -79,23 +80,15 @@ public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 		if (this.progressDialog != null && !activity.isDestroyed()) {
 			this.progressDialog.dismiss();
 		}
-		if (exception) {
-
-			AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-			builder.setMessage(R.string.err_server_error);
-			builder.setPositiveButton(R.string._ok, new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// restart app
-					DodoroContext.restartApp(activity);
-				}
-			});
-
-			builder.setCancelable(false);
-
-			builder.create().show();
-
+		if (exception != null) {
+			Throwable rootCause = exception.getRootCause();
+			DodoroException ex = new DodoroException(rootCause);
+			ErrorMessageAlertDialog dialog = new ErrorMessageAlertDialog(activity, ex, null);
+			dialog.show();
+		} else if (result.getException() != null) {
+			ErrorMessageAlertDialog dialog = new ErrorMessageAlertDialog(activity, result.getException(),
+					null);
+			dialog.show();
 		} else {
 			postCallback(result);
 		}
@@ -108,7 +101,7 @@ public abstract class AbstractAsyncTask<P, T> extends AsyncTask<P, Void, T> {
 			return inBackground(params);
 		} catch (RestClientException e) {
 			Log.e(this.getClass().getName(), e.getMessage(), e);
-			exception = true;
+			exception = e;
 		}
 		return null;
 	}

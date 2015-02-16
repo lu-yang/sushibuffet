@@ -11,30 +11,31 @@ import android.widget.Toast;
 
 import com.betalife.sushibuffet.activity.MainActivity;
 import com.betalife.sushibuffet.activity.R;
+import com.betalife.sushibuffet.exchange.BooleanExchange;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-public class TakeOrdersAsyncTask extends AbstractAsyncTask<Void, Boolean> {
+public class TakeOrdersAsyncTask extends AbstractAsyncTask<Void, BooleanExchange> {
 
 	public TakeOrdersAsyncTask(Activity activity) {
 		super(activity, true);
 	}
 
 	@Override
-	protected Boolean inBackground(Void... params) {
+	protected BooleanExchange inBackground(Void... params) {
 		final String url = base_url + "/takeOrders/" + DodoroContext.languageCode(activity);
 
 		List<Order> currentOrdersCache = DodoroContext.getInstance().getCurrentOrdersCache();
 		HttpEntity<List<Order>> requestEntity = new HttpEntity<List<Order>>(currentOrdersCache,
 				requestHeaders);
-		ResponseEntity<Boolean> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
-				Boolean.class);
+		ResponseEntity<BooleanExchange> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
+				requestEntity, BooleanExchange.class);
 		return responseEntity.getBody();
 	}
 
 	@Override
-	public void postCallback(Boolean result) {
-		if (result) {
+	public void postCallback(BooleanExchange result) {
+		if (result.getModel() != null && result.getModel()) {
 			DodoroContext.getInstance().getCurrentOrdersCache().clear();
 
 			MainActivity mainActivity = (MainActivity) activity;

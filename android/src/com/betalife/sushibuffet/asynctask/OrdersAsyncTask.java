@@ -9,10 +9,11 @@ import org.springframework.http.ResponseEntity;
 
 import android.app.Activity;
 
+import com.betalife.sushibuffet.exchange.OrderListExchange;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-public class OrdersAsyncTask extends AbstractAsyncTask<Void, List<Order>> {
+public class OrdersAsyncTask extends AbstractAsyncTask<Void, OrderListExchange> {
 
 	private AsyncTaskCallback<Order> callback;
 
@@ -22,19 +23,19 @@ public class OrdersAsyncTask extends AbstractAsyncTask<Void, List<Order>> {
 	}
 
 	@Override
-	public void postCallback(List<Order> result) {
-		callback.callback(result);
+	public void postCallback(OrderListExchange result) {
+		List<Order> list = Arrays.asList(result.getList());
+		callback.callback(list);
 	}
 
 	@Override
-	protected List<Order> inBackground(Void... params) {
+	protected OrderListExchange inBackground(Void... params) {
 		String url = base_url + "/orders/" + DodoroContext.languageCode(activity) + "/"
 				+ DodoroContext.getInstance().getTurnover().getId();
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
-		ResponseEntity<Order[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
-				Order[].class);
-		List<Order> orders = Arrays.asList(responseEntity.getBody());
+		ResponseEntity<OrderListExchange> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
+				requestEntity, OrderListExchange.class);
 
-		return orders;
+		return responseEntity.getBody();
 	}
 }

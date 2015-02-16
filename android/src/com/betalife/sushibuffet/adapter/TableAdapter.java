@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.betalife.sushibuffet.activity.MainActivity;
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.asynctask.AbstractAsyncTask;
+import com.betalife.sushibuffet.exchange.TurnoverExchange;
 import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.DodoroContext;
@@ -29,25 +30,25 @@ public class TableAdapter extends AAdapter<Diningtable> implements Serializable 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private class OpenTableTask extends AbstractAsyncTask<Turnover, Turnover> {
+	private class OpenTableTask extends AbstractAsyncTask<Turnover, TurnoverExchange> {
 
 		public OpenTableTask(Activity activity) {
 			super(activity);
 		}
 
 		@Override
-		protected Turnover inBackground(Turnover... params) {
+		protected TurnoverExchange inBackground(Turnover... params) {
 			Turnover tur = params[0];
 			final String url = base_url + "/openTable";
 			HttpEntity<Turnover> requestEntity = new HttpEntity<Turnover>(tur, requestHeaders);
-			ResponseEntity<Turnover> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
-					requestEntity, Turnover.class);
+			ResponseEntity<TurnoverExchange> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
+					requestEntity, TurnoverExchange.class);
 			return responseEntity.getBody();
 		}
 
 		@Override
-		public void postCallback(Turnover result) {
-			goToMainActivity(result);
+		public void postCallback(TurnoverExchange result) {
+			goToMainActivity(result.getModel());
 		}
 
 	}

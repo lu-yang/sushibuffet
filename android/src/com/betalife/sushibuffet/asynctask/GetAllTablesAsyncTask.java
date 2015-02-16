@@ -1,16 +1,15 @@
 package com.betalife.sushibuffet.asynctask;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
 import com.betalife.sushibuffet.activity.TableActivity;
-import com.betalife.sushibuffet.model.Diningtable;
+import com.betalife.sushibuffet.exchange.DiningtableListExchange;
 
-public class GetAllTablesAsyncTask extends AbstractAsyncTask<Void, List<Diningtable>> {
+public class GetAllTablesAsyncTask extends AbstractAsyncTask<Void, DiningtableListExchange> {
 
 	private TableActivity activity;
 
@@ -24,17 +23,17 @@ public class GetAllTablesAsyncTask extends AbstractAsyncTask<Void, List<Diningta
 	}
 
 	@Override
-	public void postCallback(final List<Diningtable> result) {
-		activity.displayTables(result);
+	public void postCallback(DiningtableListExchange result) {
+		activity.displayTables(Arrays.asList(result.getList()));
 	}
 
 	@Override
-	protected List<Diningtable> inBackground(Void... params) {
+	protected DiningtableListExchange inBackground(Void... params) {
 		String url = base_url + "/availableTables";
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
-		ResponseEntity<Diningtable[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
-				requestEntity, Diningtable[].class);
-		return Arrays.asList(responseEntity.getBody());
+		ResponseEntity<DiningtableListExchange> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
+				requestEntity, DiningtableListExchange.class);
+		return responseEntity.getBody();
 	}
 
 };

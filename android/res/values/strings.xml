@@ -38,6 +38,7 @@
     <string name="_no">No</string>
     <string name="lbl_table_no">Table Number: T-</string>
     <string name="err_server_error">Server Error</string>
+    <string name="err_pos_error">POS Printer Error</string>
     <string name="lbl_table_activity_title_change_table">换桌</string>
     <string name="lbl_table_activity_title_choose_table">选桌</string>
     <string name="lbl_total">Total: </string>
@@ -45,5 +46,9 @@
     <string name="lbl_subtotal">subtotal: </string>
     <string name="lbl_count">qty: </string>
     <string name="introduction"></string>
+    <string name="label_ellipsis">Show Details</string>
+    <string name="label_restart_app">Restart Pad app</string>
+    <string name="err_other_error">Unknow Error</string>
+    
 
 </resources>

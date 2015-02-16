@@ -16,10 +16,11 @@ import android.widget.ListView;
 
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.adapter.CategoryAdapter;
+import com.betalife.sushibuffet.exchange.CategoryListExchange;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-public class GetCategoriesAsyncTask extends AbstractAsyncTask<Void, List<Category>> {
+public class GetCategoriesAsyncTask extends AbstractAsyncTask<Void, CategoryListExchange> {
 
 	public GetCategoriesAsyncTask(Activity activity) {
 		this(activity, false);
@@ -30,16 +31,17 @@ public class GetCategoriesAsyncTask extends AbstractAsyncTask<Void, List<Categor
 	}
 
 	@Override
-	public void postCallback(final List<Category> result) {
-		Log.i("FragmentOrderpage", "" + result.size());
-		CategoryAdapter aa = new CategoryAdapter(activity, result);
+	public void postCallback(CategoryListExchange result) {
+		final List<Category> list = Arrays.asList(result.getList());
+		Log.i("FragmentOrderpage", "" + list.size());
+		CategoryAdapter aa = new CategoryAdapter(activity, list);
 		ListView categories = (ListView) activity.findViewById(R.id.categories);
 		categories.setAdapter(aa);
 		categories.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Category selected = result.get(position);
+				Category selected = list.get(position);
 
 				GetProductsByCategoryIdAsyncTask task2 = new GetProductsByCategoryIdAsyncTask(activity,
 						selected.getId());
@@ -49,13 +51,12 @@ public class GetCategoriesAsyncTask extends AbstractAsyncTask<Void, List<Categor
 	}
 
 	@Override
-	protected List<Category> inBackground(Void... params) {
+	protected CategoryListExchange inBackground(Void... params) {
 		String url = base_url + "/categories/" + DodoroContext.languageCode(activity) + "/1";
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
-		ResponseEntity<Category[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
-				Category[].class);
-		List<Category> categories = Arrays.asList(responseEntity.getBody());
+		ResponseEntity<CategoryListExchange> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
+				requestEntity, CategoryListExchange.class);
 
-		return categories;
+		return responseEntity.getBody();
 	}
 }

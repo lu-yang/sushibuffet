@@ -17,10 +17,11 @@ import android.widget.GridView;
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.adapter.ProductAdapter;
 import com.betalife.sushibuffet.dialog.OrderAlertDialog;
+import com.betalife.sushibuffet.exchange.ProductListExchange;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-public class GetProductsByCategoryIdAsyncTask extends AbstractAsyncTask<Void, List<Product>> {
+public class GetProductsByCategoryIdAsyncTask extends AbstractAsyncTask<Void, ProductListExchange> {
 
 	private int categoryId;
 
@@ -34,16 +35,17 @@ public class GetProductsByCategoryIdAsyncTask extends AbstractAsyncTask<Void, Li
 	}
 
 	@Override
-	public void postCallback(final List<Product> result) {
-		Log.i("FragmentOrderpage", "" + result.size());
-		ProductAdapter aa = new ProductAdapter(activity, result);
+	public void postCallback(ProductListExchange result) {
+		final List<Product> list = Arrays.asList(result.getList());
+		Log.i("FragmentOrderpage", "" + list.size());
+		ProductAdapter aa = new ProductAdapter(activity, list);
 		GridView products = (GridView) activity.findViewById(R.id.products);
 		products.setAdapter(aa);
 		products.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Product selected = result.get(position);
+				Product selected = list.get(position);
 
 				OrderAlertDialog dialog = new OrderAlertDialog(activity, selected);
 				dialog.show();
@@ -53,13 +55,12 @@ public class GetProductsByCategoryIdAsyncTask extends AbstractAsyncTask<Void, Li
 	}
 
 	@Override
-	protected List<Product> inBackground(Void... params) {
+	protected ProductListExchange inBackground(Void... params) {
 		String url = base_url + "/products/" + DodoroContext.languageCode(activity) + "/" + categoryId;
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
-		ResponseEntity<Product[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
-				Product[].class);
-		List<Product> products = Arrays.asList(responseEntity.getBody());
+		ResponseEntity<ProductListExchange> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
+				requestEntity, ProductListExchange.class);
 
-		return products;
+		return responseEntity.getBody();
 	}
 }
