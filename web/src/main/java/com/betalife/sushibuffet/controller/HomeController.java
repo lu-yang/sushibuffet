@@ -25,12 +25,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.betalife.sushibuffet.exchange.BaseExchange;
+import com.betalife.sushibuffet.exchange.BooleanExchange;
+import com.betalife.sushibuffet.exchange.CategoryListExchange;
+import com.betalife.sushibuffet.exchange.ConstantExchange;
+import com.betalife.sushibuffet.exchange.DiningtableListExchange;
+import com.betalife.sushibuffet.exchange.DodoroException;
+import com.betalife.sushibuffet.exchange.OrderListExchange;
+import com.betalife.sushibuffet.exchange.ProductListExchange;
+import com.betalife.sushibuffet.exchange.TurnoverExchange;
 import com.betalife.sushibuffet.manager.CustomerManager;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Diningtable;
@@ -55,61 +65,77 @@ public class HomeController {
 
 	@RequestMapping(value = "availableTables", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<Diningtable> fetchAllTables() {
+	DiningtableListExchange fetchAllTables() {
 		List<Diningtable> allTables = customerManager.getTables();
-		return allTables;
+		DiningtableListExchange exchange = new DiningtableListExchange();
+		exchange.setList(allTables.toArray(new Diningtable[0]));
+		return exchange;
 	}
 
 	@RequestMapping(value = "categories/{locale}/{parentId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<Category> fetchRootCategories(@PathVariable String locale, @PathVariable int parentId) {
+	CategoryListExchange fetchRootCategories(@PathVariable String locale, @PathVariable int parentId) {
 		Category model = new Category();
 		model.setParentId(parentId);
 		model.setLocale(locale);
 		List<Category> all = customerManager.getCategoriesByParentId(model);
-		return all;
+
+		CategoryListExchange exchange = new CategoryListExchange();
+		exchange.setList(all.toArray(new Category[0]));
+		return exchange;
 	}
 
 	@RequestMapping(value = "openTable", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
-	Turnover openTable(@RequestBody Turnover turnover) {
+	TurnoverExchange openTable(@RequestBody Turnover turnover) {
 		customerManager.openTable(turnover);
-		return turnover;
+
+		TurnoverExchange exchange = new TurnoverExchange();
+		exchange.setModel(turnover);
+		return exchange;
 	}
 
 	@RequestMapping(value = "constant", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	Constant fetchConstants() {
-		return customerManager.getConstant();
+	ConstantExchange fetchConstants() {
+		Constant constant = customerManager.getConstant();
+
+		ConstantExchange exchange = new ConstantExchange();
+		exchange.setModel(constant);
+		return exchange;
 	}
 
 	@RequestMapping(value = "products/{locale}/{categoryId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<Product> fetchProductsByCategoryId(@PathVariable String locale, @PathVariable int categoryId) {
+	ProductListExchange fetchProductsByCategoryId(@PathVariable String locale, @PathVariable int categoryId) {
 		Product model = new Product();
 		model.setCategoryId(categoryId);
 		model.setLocale(locale);
 		List<Product> all = customerManager.getProductsByCategoryId(model);
-		return all;
+
+		ProductListExchange exchange = new ProductListExchange();
+		exchange.setList(all.toArray(new Product[0]));
+		return exchange;
 	}
 
 	@RequestMapping(value = "takeOrders/{locale}", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
-	boolean takeOrders(@PathVariable String locale, @RequestBody List<Order> orders) {
-		try {
-			return customerManager.takeOrders(orders);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			return false;
-		}
+	BooleanExchange takeOrders(@PathVariable String locale, @RequestBody List<Order> orders) throws Exception {
+		customerManager.takeOrders(orders);
+		BooleanExchange exchange = new BooleanExchange();
+		exchange.setModel(true);
+		return exchange;
 	}
 
 	@RequestMapping(value = "orders/{locale}/{turnoverId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<Order> orders(@PathVariable String locale, @PathVariable int turnoverId) {
+	OrderListExchange orders(@PathVariable String locale, @PathVariable int turnoverId) {
 		Order model = buildOrder(locale, turnoverId);
-		List<Order> orders = customerManager.getOrders(model);
-		return orders;
+		List<Order> all = customerManager.getOrders(model);
+
+		OrderListExchange exchange = new OrderListExchange();
+		exchange.setList(all.toArray(new Order[0]));
+		return exchange;
 	}
 
 	private Order buildOrder(String locale, int turnoverId) {
@@ -123,30 +149,41 @@ public class HomeController {
 
 	@RequestMapping(value = "printOrders/{locale}/{turnoverId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	boolean printOrders(@PathVariable String locale, @PathVariable int turnoverId) {
+	BooleanExchange printOrders(@PathVariable String locale, @PathVariable int turnoverId) throws Exception {
+		return printOrders(locale, turnoverId, false);
+	}
+
+	private BooleanExchange printOrders(String locale, int turnoverId, boolean kitchen) throws Exception {
 		Order model = buildOrder(locale, turnoverId);
-		return customerManager.printOrders(model, false);
+		customerManager.printOrders(model, kitchen);
+		BooleanExchange exchange = new BooleanExchange();
+		exchange.setModel(true);
+		return exchange;
 	}
 
 	@RequestMapping(value = "printKitchenOrders/{locale}/{turnoverId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	boolean printKitchenOrders(@PathVariable String locale, @PathVariable int turnoverId) {
-		Order model = buildOrder(locale, turnoverId);
-		return customerManager.printOrders(model, true);
+	BooleanExchange printKitchenOrders(@PathVariable String locale, @PathVariable int turnoverId)
+			throws Exception {
+		return printOrders(locale, turnoverId, true);
 	}
 
 	@RequestMapping(value = "checkout/{turnoverId}", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
-	boolean checkout(@PathVariable int turnoverId) {
+	BooleanExchange checkout(@PathVariable int turnoverId) {
 		customerManager.checkout(turnoverId);
-		return true;
+		BooleanExchange exchange = new BooleanExchange();
+		exchange.setModel(true);
+		return exchange;
 	}
 
 	@RequestMapping(value = "changeTable", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
-	boolean changeTable(@RequestBody Turnover turnover) {
+	BooleanExchange changeTable(@RequestBody Turnover turnover) {
 		customerManager.changeTable(turnover);
-		return true;
+		BooleanExchange exchange = new BooleanExchange();
+		exchange.setModel(true);
+		return exchange;
 	}
 
 	@RequestMapping(value = "ledger/{from}/{to}", method = RequestMethod.GET, produces = "application/json")
@@ -158,5 +195,15 @@ public class HomeController {
 
 		Map<String, Object> map = customerManager.getOrdersByDate(fromDate, toDate);
 		return map;
+	}
+
+	@ExceptionHandler(Exception.class)
+	public @ResponseBody
+	BaseExchange exception(Exception e) {
+		logger.error(e.getMessage(), e);
+		DodoroException ex = new DodoroException(e);
+		BaseExchange exchange = new BaseExchange();
+		exchange.setException(ex);
+		return exchange;
 	}
 }

@@ -78,7 +78,7 @@ public class CustomerManager {
 	@Autowired
 	private Constant constant;
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void openTable(Turnover turnover) {
 		turnover.setFirstTableId(turnover.getTableId());
 		turnoverMapper.insertTurnover(turnover);
@@ -103,10 +103,10 @@ public class CustomerManager {
 		return productMapper.selectByCategoryId(product);
 	}
 
-	@Transactional
-	public boolean takeOrders(List<Order> orders) throws Exception {
+	@Transactional(rollbackFor = Exception.class)
+	public void takeOrders(List<Order> orders) throws Exception {
 		if (CollectionUtils.isEmpty(orders)) {
-			return true;
+			return;
 		}
 
 		Date now = new Date();
@@ -122,7 +122,6 @@ public class CustomerManager {
 			list.add(printer.getCutPaper());
 		}
 		print(list, false, times);
-		return true;
 	}
 
 	public List<Order> getOrders(Order order) {
@@ -146,21 +145,20 @@ public class CustomerManager {
 		return map;
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void checkout(int id) {
 		turnoverMapper.checkout(id);
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void changeTable(Turnover t) {
 		turnoverMapper.changeTable(t);
 	}
 
-	public boolean printOrders(Order model, boolean kitchen) {
+	public void printOrders(Order model, boolean kitchen) throws Exception {
 		List<Order> orders = getOrders(model);
 		if (CollectionUtils.isEmpty(orders)) {
 			logger.info("there is no order to print." + model);
-			return true;
 		}
 		Map<Integer, Order> map = new HashMap<Integer, Order>();
 		for (Order order : orders) {
@@ -174,26 +172,20 @@ public class CustomerManager {
 			}
 		}
 		Collection<Order> values = map.values();
-		try {
-			List<Object> list = new ArrayList<Object>();
-			if (kitchen) {
-				List<byte[]> imgs = orderTempleteHtmlUtil.format_order_lines(orders, locale);
-				for (byte[] img : imgs) {
-					list.add(img);
-					list.add(printer.getCutPaper());
-				}
-				print(list, false, times);
-			} else {
-				String content = receiptTempletePOSUtil.format_receipt_lines(new ArrayList<Order>(values),
-						model.getLocale());
-				list.add(content);
+		List<Object> list = new ArrayList<Object>();
+		if (kitchen) {
+			List<byte[]> imgs = orderTempleteHtmlUtil.format_order_lines(orders, locale);
+			for (byte[] img : imgs) {
+				list.add(img);
 				list.add(printer.getCutPaper());
-				print(list, true, times);
 			}
-			return true;
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			return false;
+			print(list, false, times);
+		} else {
+			String content = receiptTempletePOSUtil.format_receipt_lines(new ArrayList<Order>(values),
+					model.getLocale());
+			list.add(content);
+			list.add(printer.getCutPaper());
+			print(list, true, times);
 		}
 	}
 
