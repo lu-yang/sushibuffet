@@ -3,7 +3,7 @@
     <style name="AppBaseTheme" parent="android:Theme"></style>
 
     <style name="Theme.Start" parent="android:Theme">
-        <item name="android:windowBackground">@drawable/test</item>
+        <item name="android:windowBackground">@drawable/logo_fish</item>
         <item name="android:windowNoTitle">true</item>
     </style>
 
