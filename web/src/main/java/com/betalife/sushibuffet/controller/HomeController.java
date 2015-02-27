@@ -168,19 +168,10 @@ public class HomeController {
 		return printOrders(locale, turnoverId, true);
 	}
 
-	@RequestMapping(value = "checkout/{turnoverId}", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "turnover", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
-	BooleanExchange checkout(@PathVariable int turnoverId) {
-		customerManager.checkout(turnoverId);
-		BooleanExchange exchange = new BooleanExchange();
-		exchange.setModel(true);
-		return exchange;
-	}
-
-	@RequestMapping(value = "changeTable", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-	public @ResponseBody
-	BooleanExchange changeTable(@RequestBody Turnover turnover) {
-		customerManager.changeTable(turnover);
+	BooleanExchange updateTurnover(@RequestBody Turnover turnover) {
+		customerManager.update(turnover);
 		BooleanExchange exchange = new BooleanExchange();
 		exchange.setModel(true);
 		return exchange;

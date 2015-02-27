@@ -81,7 +81,7 @@ public class CustomerManager {
 	@Transactional(rollbackFor = Exception.class)
 	public void openTable(Turnover turnover) {
 		turnover.setFirstTableId(turnover.getTableId());
-		turnoverMapper.insertTurnover(turnover);
+		turnoverMapper.insert(turnover);
 	}
 
 	public List<Category> getCategoriesByParentId(Category category) {
@@ -146,13 +146,8 @@ public class CustomerManager {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void checkout(int id) {
-		turnoverMapper.checkout(id);
-	}
-
-	@Transactional(rollbackFor = Exception.class)
-	public void changeTable(Turnover t) {
-		turnoverMapper.changeTable(t);
+	public void update(Turnover t) {
+		turnoverMapper.update(t);
 	}
 
 	public void printOrders(Order model, boolean kitchen) throws Exception {
@@ -181,8 +176,9 @@ public class CustomerManager {
 			}
 			print(list, false, times);
 		} else {
+			Turnover turnover = turnoverMapper.select(model.getTurnover());
 			String content = receiptTempletePOSUtil.format_receipt_lines(new ArrayList<Order>(values),
-					model.getLocale());
+					model.getLocale(), turnover);
 			list.add(content);
 			list.add(printer.getCutPaper());
 			print(list, true, times);

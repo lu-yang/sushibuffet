@@ -3,9 +3,9 @@ package com.betalife.sushibuffet.dao;
 import com.betalife.sushibuffet.model.Turnover;
 
 public interface TurnoverMapper {
-	void insertTurnover(Turnover t);
+	void insert(Turnover t);
 
-	void checkout(int id);
+	void update(Turnover t);
 
-	void changeTable(Turnover t);
+	Turnover select(Turnover t);
 }

@@ -15,6 +15,7 @@ import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.model.Taxgroups;
+import com.betalife.sushibuffet.model.Turnover;
 
 import freemarker.template.TemplateException;
 
@@ -26,20 +27,20 @@ public class ReceiptTempletePOSUtil extends TempletePOSUtil {
 		this.templateFile = templateFile;
 	}
 
-	public String format_receipt_lines(List<Order> orders, String locale) throws TemplateException,
-			IOException {
+	public String format_receipt_lines(List<Order> orders, String locale, Turnover turnover)
+			throws TemplateException, IOException {
 		if (CollectionUtils.isEmpty(orders)) {
 			return null;
 		}
 
-		Map<String, Object> map = buildParam(orders, locale);
+		Map<String, Object> map = buildParam(orders, locale, turnover);
 
 		String html = format(map);
 
 		return html;
 	}
 
-	public Map<String, Object> buildParam(List<Order> orders, String locale) {
+	public Map<String, Object> buildParam(List<Order> orders, String locale, Turnover turnover) {
 
 		Map<Integer, Category> categoryMap = getCategoryMap(locale);
 		Map<Integer, Product> productMap = getProductMap(locale);
@@ -92,7 +93,17 @@ public class ReceiptTempletePOSUtil extends TempletePOSUtil {
 
 		putTotal(taxgroupsMap, ALCOHOL, kindTotalMap, ALCOHOL_WRAPPER, map);
 
+		int percent = turnover.getDiscount();
+		if (percent == 100) {
+			map.put("discount", "-");
+		} else if (percent == 0) {
+			map.put("discount", "Free");
+		} else {
+			map.put("discount", percent + "%");
+		}
+
+		map.put("discountPrice", DodoroUtil.getDiscountPrice(total * percent));
+
 		return map;
 	}
-
 }

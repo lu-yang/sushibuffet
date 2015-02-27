@@ -32,7 +32,7 @@
 
 	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 	
-	<bean class="com.betalife.sushibuffet.util.EpsonPrinter"  id="printer" >
+	<bean class="com.betalife.sushibuffet.util.EpsonPrinter"  id="printer"  scope="prototype">
 	    <property name="logo"  value="${receipt.logo}" />
 	</bean>
 	
