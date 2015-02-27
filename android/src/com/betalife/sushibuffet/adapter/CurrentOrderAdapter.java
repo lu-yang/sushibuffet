@@ -43,13 +43,13 @@ public class CurrentOrderAdapter extends AAdapter<Order> {
 		TextView price = (TextView) convertView.findViewById(R.id.price);
 		int productPrice = result.getProduct().getProductPrice();
 		price.setText(activity.getString(R.string.lbl_price) + DodoroContext.getDisplayPrice(productPrice)
-				+ "€");
+				+ getActivity().getString(R.string.lbl_eur));
 
 		TextView totalPrice = (TextView) convertView.findViewById(R.id.totalPrice);
 		int total = productCount * productPrice;
 
 		totalPrice.setText(activity.getString(R.string.lbl_subtotal) + DodoroContext.getDisplayPrice(total)
-				+ "€");
+				+ getActivity().getString(R.string.lbl_eur));
 
 		return convertView;
 	}

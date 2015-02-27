@@ -73,6 +73,12 @@ public class ServerAddressAlertDialog {
 		list.add((Button) view.findViewById(R.id.com));
 		list.add((Button) view.findViewById(R.id.www));
 
+		list.add((Button) view.findViewById(R.id.s192));
+		list.add((Button) view.findViewById(R.id.s168));
+		list.add((Button) view.findViewById(R.id.s101));
+		list.add((Button) view.findViewById(R.id.sport));
+		list.add((Button) view.findViewById(R.id.sappname));
+
 		OnClickListener listener = new OnClickListener() {
 
 			@Override

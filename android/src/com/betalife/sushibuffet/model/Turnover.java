@@ -11,8 +11,18 @@ public class Turnover extends BaseModel {
 	private int tableId;
 	private boolean checkout;
 	private int firstTableId;
+	private int discount;
+
 	private Date created;
 	private Date updated;
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
 
 	public Date getCreated() {
 		return created;

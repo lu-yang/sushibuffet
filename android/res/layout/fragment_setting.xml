@@ -57,6 +57,16 @@
             android:text="@string/setting_activity_printOrders" />
 
         <Button
+            android:id="@+id/btn_discount"
+            style="@style/button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="@string/setting_activity_changeDiscount" />
+
+        <Button
             android:id="@+id/btn_finishOrder"
             style="@style/button_text"
             android:layout_width="wrap_content"

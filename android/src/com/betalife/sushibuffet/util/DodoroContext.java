@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 
 import com.betalife.sushibuffet.activity.MainActivity;
@@ -32,7 +33,17 @@ public class DodoroContext {
 
 	private String base_url;
 
+	private Drawable noImage;
+
 	private DodoroContext() {
+	}
+
+	public Drawable getNoImage() {
+		return noImage;
+	}
+
+	public void setNoImage(Drawable noImage) {
+		this.noImage = noImage;
 	}
 
 	public List<Order> getCurrentOrdersCache() {
@@ -120,6 +131,10 @@ public class DodoroContext {
 		}
 
 		return price;
+	}
+
+	public static String getDiscountPrice(int total) {
+		return getDisplayPrice(total / 100);
 	}
 
 	public static String getNum(Integer num) {

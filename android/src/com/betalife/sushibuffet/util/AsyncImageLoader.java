@@ -56,6 +56,10 @@ public class AsyncImageLoader {
 				// 获取图片
 				Drawable drawable = loadImageFromUrl(imageUrl);
 
+				if (drawable == null) {
+					drawable = DodoroContext.getInstance().getNoImage();
+				}
+
 				// 缓存图片
 				imageCache.put(imageUrl, drawable);
 

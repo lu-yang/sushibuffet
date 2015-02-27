@@ -22,13 +22,13 @@ import com.betalife.sushibuffet.util.ImageViewUtil;
 
 public class OrderAlertDialog {
 
-	private Activity parent;
+	private Activity activity;
 	private AlertDialog.Builder builder;
 
-	public OrderAlertDialog(Activity parent, final Product product) {
-		this.parent = parent;
+	public OrderAlertDialog(Activity activity, final Product product) {
+		this.activity = activity;
 
-		LayoutInflater layoutInflater = parent.getLayoutInflater();
+		LayoutInflater layoutInflater = activity.getLayoutInflater();
 		View layout = layoutInflater.inflate(R.layout.dialog_order, null);
 
 		final TextView num = (TextView) layout.findViewById(R.id.num);
@@ -67,13 +67,13 @@ public class OrderAlertDialog {
 		name.setText(product.getProductName());
 
 		TextView desc = (TextView) layout.findViewById(R.id.desc);
-		desc.setText("Description: " + product.getDescription());
+		desc.setText(activity.getString(R.string.lbl_desc) + product.getDescription());
 
 		TextView price = (TextView) layout.findViewById(R.id.price);
-		price.setText("" + DodoroContext.getDisplayPrice(product.getProductPrice()) + " € "
-				+ DodoroContext.getNum(product.getNum()));
+		price.setText("" + DodoroContext.getDisplayPrice(product.getProductPrice())
+				+ activity.getString(R.string.lbl_eur) + DodoroContext.getNum(product.getNum()));
 
-		builder = new AlertDialog.Builder(parent);
+		builder = new AlertDialog.Builder(activity);
 		builder.setView(layout);
 
 		builder.setPositiveButton(R.string._ok, new DialogInterface.OnClickListener() {
@@ -94,7 +94,7 @@ public class OrderAlertDialog {
 	}
 
 	private int getCount(Product result) {
-		ListView orders = (ListView) parent.findViewById(R.id.current_orders);
+		ListView orders = (ListView) activity.findViewById(R.id.current_orders);
 		CurrentOrderAdapter adapter = (CurrentOrderAdapter) orders.getAdapter();
 		List<Order> list = adapter.getList();
 		int count = 0;
@@ -114,13 +114,13 @@ public class OrderAlertDialog {
 	}
 
 	private void changeCategoryCount() {
-		ListView categories = (ListView) parent.findViewById(R.id.categories);
+		ListView categories = (ListView) activity.findViewById(R.id.categories);
 		CategoryAdapter adapter = (CategoryAdapter) categories.getAdapter();
 		adapter.notifyDataSetChanged();
 	}
 
 	private void changeOrderCount(Product result, TextView num) {
-		ListView currentOrders = (ListView) parent.findViewById(R.id.current_orders);
+		ListView currentOrders = (ListView) activity.findViewById(R.id.current_orders);
 		CurrentOrderAdapter adapter = (CurrentOrderAdapter) currentOrders.getAdapter();
 		List<Order> list = adapter.getList();
 		int index = -1;

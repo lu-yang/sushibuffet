@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.betalife.sushibuffet.asynctask.CheckoutTask;
 import com.betalife.sushibuffet.asynctask.PrintOrdersTask;
+import com.betalife.sushibuffet.dialog.DiscountAlertDialog;
 import com.betalife.sushibuffet.dialog.PasswordDialog;
+import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.DodoroContext;
 
 /**
@@ -24,6 +26,7 @@ public class FragmentSetting extends Fragment implements Callback, Refreshable {
 
 	private Button changeTable;
 	private Button printOrders;
+	private Button discount;
 	private Button checkout;
 	private Button finishOrder;
 
@@ -38,6 +41,7 @@ public class FragmentSetting extends Fragment implements Callback, Refreshable {
 
 		changeTable = (Button) view.findViewById(R.id.btn_changeTable);
 		printOrders = (Button) view.findViewById(R.id.btn_printOrders);
+		discount = (Button) view.findViewById(R.id.btn_discount);
 		checkout = (Button) view.findViewById(R.id.btn_checkout);
 		finishOrder = (Button) view.findViewById(R.id.btn_finishOrder);
 		// changeServerAddress = (Button)
@@ -59,6 +63,7 @@ public class FragmentSetting extends Fragment implements Callback, Refreshable {
 	private void setVisibility(int visibility) {
 		changeTable.setVisibility(visibility);
 		printOrders.setVisibility(visibility);
+		discount.setVisibility(visibility);
 		checkout.setVisibility(visibility);
 		finishOrder.setVisibility(visibility);
 	}
@@ -84,6 +89,15 @@ public class FragmentSetting extends Fragment implements Callback, Refreshable {
 			}
 		});
 
+		discount.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				DiscountAlertDialog dialog = new DiscountAlertDialog(getActivity(), null);
+				dialog.show();
+			}
+		});
+
 		checkout.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -97,7 +111,9 @@ public class FragmentSetting extends Fragment implements Callback, Refreshable {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						CheckoutTask task = new CheckoutTask(getActivity());
-						task.execute(DodoroContext.getInstance().getTurnover());
+						Turnover turnover = DodoroContext.getInstance().getTurnover();
+						turnover.setCheckout(true);
+						task.execute(turnover);
 					}
 				});
 

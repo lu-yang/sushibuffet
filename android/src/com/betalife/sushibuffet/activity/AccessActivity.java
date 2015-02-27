@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
@@ -19,6 +20,8 @@ public class AccessActivity extends Activity implements Callback {
 		if (actionBar != null) {
 			actionBar.hide();
 		}
+		Drawable noImage = getResources().getDrawable(R.drawable.no_image);
+		DodoroContext.getInstance().setNoImage(noImage);
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_access);

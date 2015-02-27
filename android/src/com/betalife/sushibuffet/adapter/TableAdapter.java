@@ -38,9 +38,8 @@ public class TableAdapter extends AAdapter<Diningtable> implements Serializable 
 
 		@Override
 		protected TurnoverExchange inBackground(Turnover... params) {
-			Turnover tur = params[0];
 			final String url = base_url + "/openTable";
-			HttpEntity<Turnover> requestEntity = new HttpEntity<Turnover>(tur, requestHeaders);
+			HttpEntity<Turnover> requestEntity = new HttpEntity<Turnover>(params[0], requestHeaders);
 			ResponseEntity<TurnoverExchange> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
 					requestEntity, TurnoverExchange.class);
 			return responseEntity.getBody();

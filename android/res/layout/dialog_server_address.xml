@@ -19,7 +19,7 @@
             android:shadowDx="3"
             android:shadowDy="3"
             android:shadowRadius="1"
-            android:text="Server address"
+            android:text="@string/lbl_server_address"
             android:textColor="#C69C6D"
             android:textSize="25sp" />
 
@@ -408,8 +408,48 @@
                 style="@style/button_text"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:text="@string/com" 
-                android:textSize="15sp"/>
+                android:text="@string/com"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/s192"
+                style="@style/button_text"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="@string/s192"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/s168"
+                style="@style/button_text"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="@string/s168"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/s101"
+                style="@style/button_text"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="@string/s101"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/sport"
+                style="@style/button_text"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="@string/sport"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/sappname"
+                style="@style/button_text"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:text="@string/sappname"
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/clear"
@@ -418,7 +458,6 @@
                 android:layout_height="60dp"
                 android:text="@string/clear"
                 android:textSize="15sp" />
-
         </LinearLayout>
     </LinearLayout>
 

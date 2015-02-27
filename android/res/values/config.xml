@@ -77,6 +77,11 @@
     <string name="http">http://</string>
     <string name="com">.com</string>
     <string name="www">www.</string>
+    <string name="s192">192.</string>
+    <string name="s168">168.</string>
+    <string name="s101">.101</string>
+    <string name="sport">:8080/</string>
+    <string name="sappname">sushibuffet</string>
     <string name="order_history_format">dd-MMM-yyyy hh:mm:ss a</string>
 
     <!--

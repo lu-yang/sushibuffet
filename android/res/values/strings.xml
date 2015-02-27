@@ -49,6 +49,15 @@
     <string name="label_ellipsis">Show Details</string>
     <string name="label_restart_app">Restart Pad app</string>
     <string name="err_other_error">Unknow Error</string>
-    
-
+    <string name="label_discount">Discount</string>
+    <string name="label_discount_detail">0 表示免单，空表示无折扣。</string>
+    <string name="label_discount_free">Free</string>
+    <string name="lbl_discount_price">Discount Price: </string>
+    <string name="lbl_discount">Discount: </string>
+    <string name="setting_activity_changeDiscount_mes">Discount has been set.</string>
+    <string name="setting_activity_changeDiscount">Change Discount</string>
+	<string name="lbl_eur"> €</string>
+	<string name="lbl_desc">Description: </string>
+	<string name="lbl_server_address">Server address</string>
+	
 </resources>

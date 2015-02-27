@@ -27,6 +27,24 @@
         android:textColor="#C69C6D"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="10dp"
+        android:textColor="#C69C6D"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/discountPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="10dp"
+        android:textColor="#C69C6D"
+        android:textSize="20sp" />
+
     <ListView
         android:id="@+id/orders"
         android:layout_width="match_parent"
