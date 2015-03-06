@@ -7,10 +7,9 @@
 	<insert id="insert" parameterType="Turnover" useGeneratedKeys="true"
 		keyProperty="id">
 		INSERT INTO turnover
-		(table_id, checkout, first_table_id,
-		discount)
+		(table_id, checkout, first_table_id, discount, takeaway_id)
 		VALUES
-		(#{tableId}, #{checkout}, #{firstTableId}, #{discount})
+		(#{tableId}, #{checkout}, #{firstTableId}, #{discount}, #{takeawayId})
 	</insert>
 
 	<update id="update" parameterType="Turnover">
@@ -23,7 +22,7 @@
 
 	<select id="select" parameterType="Turnover" resultType="Turnover">
 		SELECT
-		id, table_id, discount, checkout
+		id, table_id, discount, checkout, takeaway_id
 		FROM turnover
 		WHERE id=#{id}
 	</select>

@@ -18,7 +18,15 @@ public class DodoroUtil {
 		return price;
 	}
 
-	public static String getDiscountPrice(int total) {
-		return getDisplayPrice(total / 100);
+	public static String getDiscountPrice(int total, Integer discount) {
+		int percent = 0;
+		if (discount == null) {
+			percent = 0;
+		} else if (discount == 0) {
+			percent = 100;
+		} else {
+			percent = discount;
+		}
+		return getDisplayPrice(total * (100 - percent) / 100);
 	}
 }

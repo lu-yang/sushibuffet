@@ -22,11 +22,13 @@ import com.betalife.sushibuffet.dao.DiningtableMapper;
 import com.betalife.sushibuffet.dao.OrderMapper;
 import com.betalife.sushibuffet.dao.ProductMapper;
 import com.betalife.sushibuffet.dao.SettingsMapper;
+import com.betalife.sushibuffet.dao.TakeawayMapper;
 import com.betalife.sushibuffet.dao.TurnoverMapper;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
+import com.betalife.sushibuffet.model.Takeaway;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.Constant;
 import com.betalife.sushibuffet.util.LedgerTempletePOSUtil;
@@ -56,6 +58,9 @@ public class CustomerManager {
 
 	@Autowired
 	private OrderMapper orderMapper;
+
+	@Autowired
+	private TakeawayMapper takeawayMapper;
 
 	@Resource(name = "printer")
 	private Printer printer;
@@ -148,6 +153,39 @@ public class CustomerManager {
 	@Transactional(rollbackFor = Exception.class)
 	public void update(Turnover t) {
 		turnoverMapper.update(t);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void remove(Takeaway t) {
+		takeawayMapper.delete(t);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void update(Takeaway t, boolean checkout) {
+		if (checkout) {
+			Turnover turnover = t.getTurnover();
+			turnover.setCheckout(true);
+			update(turnover);
+		}
+
+		takeawayMapper.update(t);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void add(Takeaway takeaway) {
+		takeawayMapper.insert(takeaway);
+
+		Turnover turnover = new Turnover();
+		turnover.setTakeawayId(takeaway.getId());
+		turnover.setTableId(0);
+		turnover.setFirstTableId(0);
+		turnoverMapper.insert(turnover);
+
+		takeaway.setTurnover(turnover);
+	}
+
+	public List<Takeaway> getTakeaways() {
+		return takeawayMapper.selectTodayUnTakeaways();
 	}
 
 	public void printOrders(Order model, boolean kitchen) throws Exception {

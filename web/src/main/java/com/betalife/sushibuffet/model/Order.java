@@ -97,8 +97,8 @@ public class Order extends BaseModel {
 
 	@Override
 	public String toString() {
-		return "Order [turnoverId=" + turnover.getId() + ", productId=" + product.getId() + ", count="
-				+ count + ", id=" + id + "]" + ", locale=" + locale;
+		return "Order [turnover=" + turnover + "], [product=" + product + "], count=" + count + ", id=" + id
+				+ "]" + ", locale=" + locale;
 	}
 
 }

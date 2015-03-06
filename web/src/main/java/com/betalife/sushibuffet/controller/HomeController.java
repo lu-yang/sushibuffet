@@ -40,12 +40,15 @@ import com.betalife.sushibuffet.exchange.DiningtableListExchange;
 import com.betalife.sushibuffet.exchange.DodoroException;
 import com.betalife.sushibuffet.exchange.OrderListExchange;
 import com.betalife.sushibuffet.exchange.ProductListExchange;
+import com.betalife.sushibuffet.exchange.TakeawayExchange;
+import com.betalife.sushibuffet.exchange.TakeawayListExchange;
 import com.betalife.sushibuffet.exchange.TurnoverExchange;
 import com.betalife.sushibuffet.manager.CustomerManager;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
+import com.betalife.sushibuffet.model.Takeaway;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.Constant;
 
@@ -186,6 +189,42 @@ public class HomeController {
 
 		Map<String, Object> map = customerManager.getOrdersByDate(fromDate, toDate);
 		return map;
+	}
+
+	@RequestMapping(value = "takeaways", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	TakeawayListExchange takeaways() {
+		List<Takeaway> all = customerManager.getTakeaways();
+		TakeawayListExchange exchange = new TakeawayListExchange();
+		exchange.setList(all.toArray(new Takeaway[0]));
+		return exchange;
+	}
+
+	@RequestMapping(value = "takeaway", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	public @ResponseBody
+	TakeawayExchange addTakeaway(@RequestBody Takeaway takeaway) {
+		customerManager.add(takeaway);
+		TakeawayExchange exchange = new TakeawayExchange();
+		exchange.setModel(takeaway);
+		return exchange;
+	}
+
+	@RequestMapping(value = "takeaway", method = RequestMethod.DELETE, produces = "application/json", consumes = "application/json")
+	public @ResponseBody
+	BooleanExchange removeTakeaway(@RequestBody Takeaway takeaway) {
+		customerManager.remove(takeaway);
+		BooleanExchange exchange = new BooleanExchange();
+		exchange.setModel(true);
+		return exchange;
+	}
+
+	@RequestMapping(value = "takeaway/{checkout}", method = RequestMethod.PUT, produces = "application/json", consumes = "application/json")
+	public @ResponseBody
+	BooleanExchange updateTakeaway(@PathVariable boolean checkout, @RequestBody Takeaway takeaway) {
+		customerManager.update(takeaway, checkout);
+		BooleanExchange exchange = new BooleanExchange();
+		exchange.setModel(true);
+		return exchange;
 	}
 
 	@ExceptionHandler(Exception.class)

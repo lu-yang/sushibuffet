@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.betalife.sushibuffet.dao.TakeawayMapper">
+
+	<resultMap id="takeawayResult" type="Takeaway">
+		<id property="id" column="id" />
+		<result property="memo" column="memo" />
+		<result property="takeaway" column="takeaway" />
+		<result property="created" column="created" />
+		<association property="turnover" javaType="Turnover">
+			<id property="id" column="turnover_id" />
+			<result property="checkout" column="checkout" />
+			<result property="takeawayId" column="takeaway_id" />
+			<result property="discount" column="discount" />
+		</association>
+	</resultMap>
+
+	<insert id="insert" parameterType="Takeaway" useGeneratedKeys="true"
+		keyProperty="id">
+		INSERT INTO takeaway
+		(memo, takeaway)
+		VALUES
+		(#{memo},
+		#{takeaway})
+	</insert>
+
+	<update id="update" parameterType="Takeaway">
+		UPDATE takeaway
+		SET
+		memo=#{memo}, takeaway=#{takeaway},
+		updated=now()
+		WHERE id=#{id}
+	</update>
+
+	<select id="selectTodayUnTakeaways" resultMap="takeawayResult">
+		SELECT
+		tor.id as
+		turnover_id, tor.checkout,
+		ta.created,tor.discount,tor.takeaway_id,ta.memo,ta.takeaway,ta.id
+		FROM
+		takeaway ta, turnover tor
+		WHERE ta.id=tor.takeaway_id
+		AND
+		ta.takeaway=0
+		AND ta.created BETWEEN CURDATE() AND
+		DATE_ADD(CURDATE(),INTERVAL 1
+		DAY);
+	</select>
+
+	<delete id="delete" parameterType="Takeaway">
+		DELETE FROM takeaway
+		WHERE
+		id=#{id}
+	</delete>
+
+</mapper>

@@ -93,16 +93,16 @@ public class ReceiptTempletePOSUtil extends TempletePOSUtil {
 
 		putTotal(taxgroupsMap, ALCOHOL, kindTotalMap, ALCOHOL_WRAPPER, map);
 
-		int percent = turnover.getDiscount();
-		if (percent == 100) {
+		Integer percent = turnover.getDiscount();
+		if (percent == null) {
 			map.put("discount", "-");
 		} else if (percent == 0) {
 			map.put("discount", "Free");
 		} else {
-			map.put("discount", percent + "%");
+			map.put("discount", "-" + percent + "%");
 		}
 
-		map.put("discountPrice", DodoroUtil.getDiscountPrice(total * percent));
+		map.put("discountPrice", DodoroUtil.getDiscountPrice(total, percent));
 
 		return map;
 	}

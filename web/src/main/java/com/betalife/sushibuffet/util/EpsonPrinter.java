@@ -7,7 +7,8 @@ public class EpsonPrinter implements Printer {
 	@Override
 	public void print(List<?> lines, boolean logo, int times) throws Exception {
 		// TODO Auto-generated method stub
-
+		// String s = null;
+		// s.length();
 	}
 
 	@Override
