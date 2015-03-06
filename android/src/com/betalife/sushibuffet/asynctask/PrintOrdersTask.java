@@ -19,7 +19,7 @@ public class PrintOrdersTask extends AbstractAsyncTask<Void, BooleanExchange> {
 
 	@Override
 	protected BooleanExchange inBackground(Void... params) {
-		final String url = base_url + "/printOrders/" + DodoroContext.languageCode(activity) + "/"
+		String url = base_url + "/printOrders/" + DodoroContext.languageCode(activity) + "/"
 				+ DodoroContext.getInstance().getTurnover().getId();
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 		ResponseEntity<BooleanExchange> responseEntity = restTemplate.exchange(url, HttpMethod.GET,

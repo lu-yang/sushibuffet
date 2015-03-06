@@ -2,11 +2,6 @@ package com.betalife.sushibuffet.activity;
 
 import java.util.List;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.betalife.sushibuffet.asynctask.AsyncTaskCallback;
@@ -14,22 +9,9 @@ import com.betalife.sushibuffet.asynctask.OrdersAsyncTask;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-public class BaseFragmentHistory extends Fragment implements Refreshable {
-
-	protected int layout;
+public class BaseFragmentHistory extends BaseFragment {
 
 	protected AsyncTaskCallback<Order> callback;
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(layout, container, false);
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		// refresh();
-	}
 
 	@Override
 	public void refresh() {
@@ -49,22 +31,20 @@ public class BaseFragmentHistory extends Fragment implements Refreshable {
 		totalPrice.setText(getActivity().getString(R.string.lbl_total) + DodoroContext.getDisplayPrice(total)
 				+ getActivity().getString(R.string.lbl_eur));
 
-		TextView discount = (TextView) getActivity().findViewById(R.id.discount);
+		TextView discountTextView = (TextView) getActivity().findViewById(R.id.discount);
 		String discountText = getActivity().getString(R.string.lbl_discount);
-		int percent = DodoroContext.getInstance().getTurnover().getDiscount();
-		if (percent == 100) {
+		Integer percent = DodoroContext.getInstance().getTurnover().getDiscount();
+		if (percent == null) {
 			discountText += "-";
 		} else if (percent == 0) {
 			discountText += getActivity().getString(R.string.label_discount_free);
 		} else {
-			discountText += percent + "%";
+			discountText += "-" + percent + "%";
 		}
-		discount.setText(discountText);
+		discountTextView.setText(discountText);
 
 		TextView discountPrice = (TextView) getActivity().findViewById(R.id.discountPrice);
-		discountPrice
-				.setText(getActivity().getString(R.string.lbl_discount_price)
-						+ DodoroContext.getDiscountPrice(total * percent)
-						+ getActivity().getString(R.string.lbl_eur));
+		discountPrice.setText(getActivity().getString(R.string.lbl_discount_price)
+				+ DodoroContext.getDiscountPrice(total, percent) + getActivity().getString(R.string.lbl_eur));
 	}
 }

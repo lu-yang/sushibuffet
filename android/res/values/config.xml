@@ -17,7 +17,12 @@
     <string-array name="tabs">
         <item>fa_cutlery</item>
         <item>fa_history</item>
-        <!-- <item>fa_history</item> -->
+        <item>fa_globe</item>
+        <item>fa_cog</item>
+        <item>fa_info_circle</item>
+    </string-array>
+    <string-array name="takeaway_tabs">
+        <item>fa_history</item>
         <item>fa_globe</item>
         <item>fa_cog</item>
         <item>fa_info_circle</item>
@@ -28,6 +33,19 @@
         <item>com.betalife.sushibuffet.activity.FragmentDetailHistory</item>
         <item>com.betalife.sushibuffet.activity.FragmentLang</item>
         <item>com.betalife.sushibuffet.activity.FragmentSetting</item>
+        <item>com.betalife.sushibuffet.activity.FragmentIntroduction</item>
+    </string-array>
+    <string-array name="takeaway_fragments">
+        <item>com.betalife.sushibuffet.activity.FragmentOrderpage</item>
+        <item>com.betalife.sushibuffet.activity.FragmentDetailHistory</item>
+        <item>com.betalife.sushibuffet.activity.FragmentLang</item>
+        <item>com.betalife.sushibuffet.activity.FragmentTakeawaySetting</item>
+        <item>com.betalife.sushibuffet.activity.FragmentIntroduction</item>
+    </string-array>
+    <string-array name="frozen_fragments">
+        <item>com.betalife.sushibuffet.activity.FragmentDetailHistory</item>
+        <item>com.betalife.sushibuffet.activity.FragmentLang</item>
+        <item>com.betalife.sushibuffet.activity.FragmentTakeawaySetting</item>
         <item>com.betalife.sushibuffet.activity.FragmentIntroduction</item>
     </string-array>
 

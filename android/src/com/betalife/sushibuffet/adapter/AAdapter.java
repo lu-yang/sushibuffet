@@ -4,6 +4,8 @@ import java.util.List;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.betalife.sushibuffet.model.BaseModel;
@@ -11,8 +13,9 @@ import com.betalife.sushibuffet.model.BaseModel;
 public abstract class AAdapter<E extends BaseModel> extends BaseAdapter {
 
 	private List<E> list;
-	protected LayoutInflater layoutInflater;
+	private LayoutInflater layoutInflater;
 	protected Activity activity;
+	protected int resourceId;
 
 	public AAdapter() {
 		super();
@@ -28,13 +31,22 @@ public abstract class AAdapter<E extends BaseModel> extends BaseAdapter {
 		this.list = tables;
 	}
 
+	public View initConvertView(View convertView, ViewGroup parent) {
+		if (layoutInflater == null) {
+			layoutInflater = LayoutInflater.from(activity);
+		}
+		if (convertView == null) {
+			convertView = layoutInflater.inflate(resourceId, parent, false);
+		}
+		return convertView;
+	}
+
 	public Activity getActivity() {
 		return activity;
 	}
 
 	public void setActivity(Activity activity) {
 		this.activity = activity;
-		this.layoutInflater = LayoutInflater.from(activity);
 	}
 
 	@Override

@@ -107,7 +107,9 @@ public class DiscountAlertDialog {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Integer value = discount.getTag() == null ? 100 : (Integer) discount.getTag();
+				// Integer value = discount.getTag() == null ? 100 : (Integer)
+				// discount.getTag();
+				Integer value = (Integer) discount.getTag();
 
 				Turnover turnover = DodoroContext.getInstance().getTurnover();
 				turnover.setDiscount(value);
@@ -125,7 +127,7 @@ public class DiscountAlertDialog {
 			discount.setText(null);
 			discount.setTag(null);
 		} else {
-			discount.setText(value + "%");
+			discount.setText("-" + value + "%");
 			discount.setTag(NumberUtils.toInt(value));
 		}
 	}

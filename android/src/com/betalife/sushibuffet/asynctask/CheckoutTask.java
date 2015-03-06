@@ -18,9 +18,8 @@ public class CheckoutTask extends UpdateTurnoverTask {
 		Toast.makeText(activity, activity.getString(R.string.setting_activity_checkout_ok),
 				Toast.LENGTH_SHORT).show();
 		DodoroContext.getInstance().setTurnover(null);
-
+		DodoroContext.getInstance().setTakeaway(null);
 		// restart app
 		DodoroContext.restartApp(activity);
-
 	}
 }

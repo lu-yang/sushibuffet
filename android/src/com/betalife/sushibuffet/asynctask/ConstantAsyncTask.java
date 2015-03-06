@@ -5,13 +5,14 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
 import android.app.Activity;
-import android.content.Intent;
 
-import com.betalife.sushibuffet.activity.ChooseTableActivity;
+import com.betalife.sushibuffet.activity.OpenTableActivity;
 import com.betalife.sushibuffet.exchange.ConstantExchange;
 import com.betalife.sushibuffet.util.DodoroContext;
 
 public class ConstantAsyncTask extends AbstractAsyncTask<Void, ConstantExchange> {
+
+	String url = base_url + "/constant";
 
 	public ConstantAsyncTask(Activity activity) {
 		super(activity, false);
@@ -20,14 +21,11 @@ public class ConstantAsyncTask extends AbstractAsyncTask<Void, ConstantExchange>
 	@Override
 	public void postCallback(ConstantExchange result) {
 		DodoroContext.getInstance().setConstant(result.getModel());
-		Intent intent = new Intent();
-		intent.setClass(activity, ChooseTableActivity.class);
-		activity.startActivity(intent);
+		DodoroContext.goTo(OpenTableActivity.class, activity);
 	}
 
 	@Override
 	protected ConstantExchange inBackground(Void... params) {
-		String url = base_url + "/constant";
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 
 		ResponseEntity<ConstantExchange> responseEntity = restTemplate.exchange(url, HttpMethod.GET,

@@ -17,13 +17,12 @@ public class CategoryAdapter extends AAdapter<Category> {
 
 	public CategoryAdapter(Activity activity, List<Category> categories) {
 		super(activity, categories);
+		resourceId = R.layout.adapter_category;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			convertView = this.layoutInflater.inflate(R.layout.adapter_category, parent, false);
-		}
+		convertView = initConvertView(convertView, parent);
 
 		Category result = getItem(position);
 		if (result != null) {

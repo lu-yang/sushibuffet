@@ -3,7 +3,6 @@ package com.betalife.sushibuffet.activity;
 import java.util.Locale;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,16 +17,16 @@ import com.betalife.sushibuffet.util.DodoroContext;
  */
 
 /* 语言选择 */
-public class FragmentLang extends Fragment {
+public class FragmentLang extends BaseFragment {
 
 	public FragmentLang() {
-		// Required empty public constructor
+		layout = R.layout.fragment_lang;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		View langFragment = inflater.inflate(R.layout.fragment_lang, container, false);
+		View langFragment = super.onCreateView(inflater, container, savedInstanceState);
 		OnClickListener clickListener = new OnClickListener() {
 
 			@Override
@@ -59,5 +58,4 @@ public class FragmentLang extends Fragment {
 		lang_nl.setOnClickListener(clickListener);
 		return langFragment;
 	}
-
 }

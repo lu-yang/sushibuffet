@@ -19,13 +19,12 @@ public class OrderAdapter extends AAdapter<Order> {
 
 	public OrderAdapter(Activity activity) {
 		super(activity);
+		resourceId = R.layout.adapter_order;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			convertView = this.layoutInflater.inflate(R.layout.adapter_order, parent, false);
-		}
+		convertView = initConvertView(convertView, parent);
 
 		Order result = getItem(position);
 		if (result != null) {

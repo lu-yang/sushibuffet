@@ -17,13 +17,12 @@ public class CurrentOrderAdapter extends AAdapter<Order> {
 
 	public CurrentOrderAdapter(Activity activity, List<Order> orders) {
 		super(activity, orders);
+		resourceId = R.layout.adapter_current_order;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			convertView = this.layoutInflater.inflate(R.layout.adapter_current_order, parent, false);
-		}
+		convertView = initConvertView(convertView, parent);
 
 		Order result = getItem(position);
 		if (result == null) {

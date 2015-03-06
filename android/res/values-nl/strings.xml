@@ -22,7 +22,6 @@
     <string name="setting_activity_checkout">清空此台</string>
     <string name="setting_activity_checkout_msg">确认清台 ?</string>
     <string name="setting_activity_checkout_ok">清台成功</string>
-    <string name="setting_activity_checkout_err">清台失败</string>
     <string name="setting_activity_printOrders">打印结账单</string>
     <string name="setting_activity_printOrders_mes">De bestelling wordt gemaakt.</string>
     <string name="setting_activity_printOrders_err_mes">Printe Error.</string>

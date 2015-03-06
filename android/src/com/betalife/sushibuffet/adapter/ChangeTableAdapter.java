@@ -1,7 +1,6 @@
 package com.betalife.sushibuffet.adapter;
 
-import java.io.Serializable;
-
+import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,18 +14,16 @@ import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-public class ChangeTableAdapter extends AAdapter<Diningtable> implements Serializable {
+public class ChangeTableAdapter extends AAdapter<Diningtable> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	public ChangeTableAdapter(Activity activity) {
+		super(activity);
+		resourceId = R.layout.adapter_table;
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			convertView = this.layoutInflater.inflate(R.layout.adapter_table, parent, false);
-		}
+		convertView = initConvertView(convertView, parent);
 		Diningtable result = getItem(position);
 		convertView.setTag(result);
 		if (result != null) {

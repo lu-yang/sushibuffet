@@ -6,6 +6,7 @@ import java.util.Locale;
 import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -13,11 +14,14 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.TextView;
 
 import com.betalife.sushibuffet.activity.MainActivity;
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.model.Constant;
 import com.betalife.sushibuffet.model.Order;
+import com.betalife.sushibuffet.model.Takeaway;
 import com.betalife.sushibuffet.model.Turnover;
 
 public class DodoroContext {
@@ -35,7 +39,25 @@ public class DodoroContext {
 
 	private Drawable noImage;
 
+	private Takeaway takeaway;
+
+	public static final DialogInterface.OnClickListener noActionDialogClickListener = new DialogInterface.OnClickListener() {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+		}
+	};
+
 	private DodoroContext() {
+	}
+
+	public Takeaway getTakeaway() {
+		return takeaway;
+	}
+
+	public void setTakeaway(Takeaway takeaway) {
+		this.takeaway = takeaway;
+		turnover = takeaway == null ? null : takeaway.getTurnover();
 	}
 
 	public Drawable getNoImage() {
@@ -133,8 +155,16 @@ public class DodoroContext {
 		return price;
 	}
 
-	public static String getDiscountPrice(int total) {
-		return getDisplayPrice(total / 100);
+	public static String getDiscountPrice(int total, Integer discount) {
+		int percent = 0;
+		if (discount == null) {
+			percent = 0;
+		} else if (discount == 0) {
+			percent = 100;
+		} else {
+			percent = discount;
+		}
+		return getDisplayPrice(total * (100 - percent) / 100);
 	}
 
 	public static String getNum(Integer num) {
@@ -173,4 +203,38 @@ public class DodoroContext {
 		return base_url;
 	}
 
+	public static void goToMainActivity(Turnover turnover, Activity activity) {
+		getInstance().setTurnover(turnover);
+		goTo(MainActivity.class, activity);
+	}
+
+	public static void goTo(Class<?> clazz, Activity activity) {
+		Intent intent = new Intent();
+		intent.setClass(activity, clazz);
+		activity.startActivity(intent);
+	}
+
+	public void fillIdentify(Resources resources, View view) {
+		TextView table_no = (TextView) view.findViewById(R.id.identify);
+		if (takeaway != null) {
+			int takeawayId = takeaway.getId();
+			table_no.setText(resources.getString(R.string.lbl_takeaway_no) + takeawayId);
+		} else {
+			int tableId = turnover.getTableId();
+			table_no.setText(resources.getString(R.string.lbl_table_no) + tableId);
+		}
+	}
+
+	public int which(int eatin, int takeout, int frozen) {
+		if (takeaway == null) {
+			return eatin;
+		} else {
+			if ((takeaway.isTakeaway() || takeaway.getTurnover().isCheckout())) {
+				return frozen;
+			} else {
+				return takeout;
+			}
+		}
+
+	}
 }

@@ -19,7 +19,7 @@
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/table_no"
+            android:id="@+id/identify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -34,7 +34,8 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:padding="10dp"
-            android:text="@string/setting_activity_change_table" />
+            android:text="@string/setting_activity_change_table"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/btn_checkout"
@@ -44,7 +45,8 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:padding="10dp"
-            android:text="@string/setting_activity_checkout" />
+            android:text="@string/setting_activity_checkout"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/btn_printOrders"
@@ -54,7 +56,8 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:padding="10dp"
-            android:text="@string/setting_activity_printOrders" />
+            android:text="@string/setting_activity_printOrders"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/btn_discount"
@@ -64,7 +67,8 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:padding="10dp"
-            android:text="@string/setting_activity_changeDiscount" />
+            android:text="@string/setting_activity_changeDiscount"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/btn_finishOrder"
@@ -74,19 +78,19 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:padding="10dp"
-            android:text="@string/setting_activity_finishOrder" />
-        <!--
+            android:text="@string/setting_activity_finishOrder"
+            android:visibility="invisible" />
+
         <Button
-            android:id="@+id/btn_changeServerAddress"
+            android:id="@+id/btn_takeaway"
             style="@style/button_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:padding="10dp"
-            android:text="@string/setting_activity_change_server_address" />
-        -->
-
+            android:text="@string/btn_takeaway"
+            android:visibility="invisible" />
     </LinearLayout>
 
 </ScrollView>

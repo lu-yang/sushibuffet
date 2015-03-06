@@ -6,7 +6,6 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.betalife.sushibuffet.adapter.CurrentOrderAdapter;
 import com.betalife.sushibuffet.asynctask.GetCategoriesAsyncTask;
@@ -30,8 +28,12 @@ import com.betalife.sushibuffet.util.DodoroContext;
  */
 
 /* 菜单，点餐页面 */
-public class FragmentOrderpage extends Fragment implements Refreshable {
-	private boolean init = true;
+public class FragmentOrderpage extends BaseFragment {
+	// private boolean init = true;
+	public FragmentOrderpage() {
+		super();
+		layout = R.layout.fragment_orderpage;
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,11 +44,9 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_orderpage, container, false);
+		View view = super.onCreateView(inflater, container, savedInstanceState);
 
-		TextView table_no = (TextView) view.findViewById(R.id.table_no);
-		int tableId = DodoroContext.getInstance().getTurnover().getTableId();
-		table_no.setText(getActivity().getString(R.string.lbl_table_no) + tableId);
+		DodoroContext.getInstance().fillIdentify(getResources(), view);
 
 		Button btn_take_orders = (Button) view.findViewById(R.id.btn_take_orders);
 		btn_take_orders.setOnClickListener(new View.OnClickListener() {
@@ -64,12 +64,7 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 					}
 				});
 
-				builder.setNegativeButton(R.string._no, new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-					}
-				});
+				builder.setNegativeButton(R.string._no, DodoroContext.noActionDialogClickListener);
 
 				builder.create().show();
 			}
@@ -77,15 +72,6 @@ public class FragmentOrderpage extends Fragment implements Refreshable {
 
 		return view;
 
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		if (init) {
-			init = false;
-			refresh();
-		}
 	}
 
 	@Override

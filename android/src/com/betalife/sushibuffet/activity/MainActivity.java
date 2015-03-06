@@ -8,14 +8,13 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.betalife.sushibuffet.adapter.FragmentsAdapter;
+import com.betalife.sushibuffet.util.DodoroContext;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify.IconValue;
 
@@ -32,7 +31,7 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 
 		viewPager = (ViewPager) findViewById(R.id.pager);
-		adapter = new FragmentsAdapter(getSupportFragmentManager());
+		adapter = new FragmentsAdapter(this);
 		viewPager.setAdapter(adapter);
 
 		viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -41,7 +40,7 @@ public class MainActivity extends FragmentActivity {
 			public void onPageSelected(int arg0) {
 				actionBar.setSelectedNavigationItem(arg0);
 
-				refresh(adapter, arg0);
+				adapter.refresh(arg0);
 			}
 
 		});
@@ -86,7 +85,8 @@ public class MainActivity extends FragmentActivity {
 			public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 			}
 		};
-		String[] tabIcons = getResources().getStringArray(R.array.tabs);
+		int resourceId = DodoroContext.getInstance().which(R.array.tabs, R.array.tabs, R.array.takeaway_tabs);
+		String[] tabIcons = getResources().getStringArray(resourceId);
 		for (int i = 0; i < tabIcons.length; i++) {
 			String icon = tabIcons[i];
 			ActionBar.Tab tab = actionBar.newTab();
@@ -131,37 +131,7 @@ public class MainActivity extends FragmentActivity {
 		return super.onKeyDown(keyCode, event);
 	}
 
-	private class FragmentsAdapter extends FragmentPagerAdapter {
-
-		private Fragment[] fragments;
-		private String[] fragmentClazzs;
-
-		public FragmentsAdapter(FragmentManager fm) {
-			super(fm);
-			fragmentClazzs = getResources().getStringArray(R.array.fragments);
-			this.fragments = new Fragment[fragmentClazzs.length];
-		}
-
-		@Override
-		public Fragment getItem(int index) {
-			if (fragments[index] == null) {
-				fragments[index] = Fragment.instantiate(MainActivity.this, fragmentClazzs[index]);
-			}
-
-			return fragments[index];
-		}
-
-		@Override
-		public int getCount() {
-			return fragments.length;
-		}
-
-	}
-
-	private void refresh(final FragmentsAdapter adapter, int index) {
-		Fragment item = adapter.getItem(index);
-		if (item instanceof Refreshable) {
-			((Refreshable) item).refresh();
-		}
+	public FragmentsAdapter getAdapter() {
+		return adapter;
 	}
 }

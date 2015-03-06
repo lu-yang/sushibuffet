@@ -11,16 +11,24 @@ public class Turnover extends BaseModel {
 	private int tableId;
 	private boolean checkout;
 	private int firstTableId;
-	private int discount;
-
+	private Integer discount;
+	private Integer takeawayId;
 	private Date created;
 	private Date updated;
 
-	public int getDiscount() {
+	public Integer getTakeawayId() {
+		return takeawayId;
+	}
+
+	public void setTakeawayId(Integer takeawayId) {
+		this.takeawayId = takeawayId;
+	}
+
+	public Integer getDiscount() {
 		return discount;
 	}
 
-	public void setDiscount(int discount) {
+	public void setDiscount(Integer discount) {
 		this.discount = discount;
 	}
 

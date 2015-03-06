@@ -11,6 +11,8 @@ import com.betalife.sushibuffet.adapter.AAdapter;
 import com.betalife.sushibuffet.model.Diningtable;
 
 public abstract class TableActivity extends Activity {
+	protected int titleId;
+	protected AAdapter<Diningtable> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -18,19 +20,13 @@ public abstract class TableActivity extends Activity {
 		setContentView(R.layout.activity_tables);
 
 		TextView lbl_table_activity_title = (TextView) findViewById(R.id.lbl_table_activity_title);
-		lbl_table_activity_title.setText(getTitleId());
+		lbl_table_activity_title.setText(titleId);
 	}
 
-	public abstract int getTitleId();
-
 	public void displayTables(List<Diningtable> result) {
-		AAdapter<Diningtable> adapter = getAdapter();
 		adapter.setList(result);
-		adapter.setActivity(this);
 		GridView tables = (GridView) findViewById(R.id.diningtables);
 		tables.setAdapter(adapter);
 	}
-
-	public abstract AAdapter<Diningtable> getAdapter();
 
 }

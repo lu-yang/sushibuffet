@@ -17,13 +17,12 @@ public class ProductAdapter extends AAdapter<Product> {
 
 	public ProductAdapter(Activity activity, List<Product> products) {
 		super(activity, products);
+		resourceId = R.layout.adapter_product;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			convertView = this.layoutInflater.inflate(R.layout.adapter_product, parent, false);
-		}
+		convertView = initConvertView(convertView, parent);
 
 		final Product result = getItem(position);
 		if (result != null) {
@@ -52,5 +51,4 @@ public class ProductAdapter extends AAdapter<Product> {
 
 		return convertView;
 	}
-
 }

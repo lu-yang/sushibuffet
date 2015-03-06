@@ -11,6 +11,7 @@ import com.betalife.sushibuffet.exchange.DiningtableListExchange;
 
 public class GetAllTablesAsyncTask extends AbstractAsyncTask<Void, DiningtableListExchange> {
 
+	String url = base_url + "/availableTables";
 	private TableActivity activity;
 
 	public GetAllTablesAsyncTask(TableActivity activity) {
@@ -29,7 +30,6 @@ public class GetAllTablesAsyncTask extends AbstractAsyncTask<Void, DiningtableLi
 
 	@Override
 	protected DiningtableListExchange inBackground(Void... params) {
-		String url = base_url + "/availableTables";
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 		ResponseEntity<DiningtableListExchange> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
 				requestEntity, DiningtableListExchange.class);

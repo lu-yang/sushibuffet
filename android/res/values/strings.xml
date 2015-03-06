@@ -19,10 +19,9 @@
     <string name="head_historical">{fa_history} Ordered historical</string>
     <string name="setting_activity_title">Setting Page</string>
     <string name="setting_activity_change_table">换桌</string>
-    <string name="setting_activity_checkout">清空此台</string>
-    <string name="setting_activity_checkout_msg">确认清台 ?</string>
-    <string name="setting_activity_checkout_ok">清台成功</string>
-    <string name="setting_activity_checkout_err">清台失败</string>
+    <string name="setting_activity_checkout">清空此台（结账）</string>
+    <string name="setting_activity_checkout_msg">确认清台 （结账）?</string>
+    <string name="setting_activity_checkout_ok">清台（结账）成功</string>
     <string name="setting_activity_printOrders">打印结账单</string>
     <string name="setting_activity_printOrders_mes">Orders has been printed.</string>
     <string name="setting_activity_printOrders_err_mes">Printe Error.</string>
@@ -56,8 +55,17 @@
     <string name="lbl_discount">Discount: </string>
     <string name="setting_activity_changeDiscount_mes">Discount has been set.</string>
     <string name="setting_activity_changeDiscount">Change Discount</string>
-	<string name="lbl_eur"> €</string>
-	<string name="lbl_desc">Description: </string>
-	<string name="lbl_server_address">Server address</string>
-	
+    <string name="lbl_eur"> €</string>
+    <string name="lbl_desc">Description: </string>
+    <string name="lbl_server_address">Server address</string>
+    <string name="lbl_takeaway">Takeaway</string>
+    <string name="takeaway_activity_memo_empty_mes">不能为空.</string>
+    <string name="lbl_takeaway_no">Takeaway Number: O-</string>
+    <string name="btn_takeaway">取走</string>
+    <string name="setting_activity_uncheckout">请先结账</string>
+    <string name="setting_activity_uncheckout_msg">还未结账，不能取走外卖。\n是否结账并取走外卖？</string>
+    <string name="setting_activity_takeaway">取走外卖</string>
+    <string name="setting_activity_takeaway_msg">取走外卖？</string>
+    <string name="setting_activity_takeaway_ok">取走成功</string>
+
 </resources>

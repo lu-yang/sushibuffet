@@ -11,13 +11,14 @@ import com.betalife.sushibuffet.model.Turnover;
 
 public abstract class UpdateTurnoverTask extends AbstractAsyncTask<Turnover, BooleanExchange> {
 
+	String url = base_url + "/turnover";
+
 	public UpdateTurnoverTask(Activity activity) {
 		super(activity);
 	}
 
 	@Override
 	protected BooleanExchange inBackground(Turnover... params) {
-		final String url = base_url + "/turnover";
 		HttpEntity<Turnover> requestEntity = new HttpEntity<Turnover>(params[0], requestHeaders);
 		ResponseEntity<BooleanExchange> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
 				requestEntity, BooleanExchange.class);

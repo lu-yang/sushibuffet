@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
-import com.betalife.sushibuffet.adapter.AAdapter;
 import com.betalife.sushibuffet.adapter.ChangeTableAdapter;
 import com.betalife.sushibuffet.asynctask.GetAllTablesAsyncTask;
-import com.betalife.sushibuffet.model.Diningtable;
 
 public class ChangeTableActivity extends TableActivity {
+
+	public ChangeTableActivity() {
+		adapter = new ChangeTableAdapter(this);
+		titleId = R.string.lbl_table_activity_title_change_table;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,16 +24,6 @@ public class ChangeTableActivity extends TableActivity {
 		super.onResume();
 		GetAllTablesAsyncTask task = new GetAllTablesAsyncTask(this, true);
 		task.execute();
-	}
-
-	@Override
-	public AAdapter<Diningtable> getAdapter() {
-		return new ChangeTableAdapter();
-	}
-
-	@Override
-	public int getTitleId() {
-		return R.string.lbl_table_activity_title_change_table;
 	}
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

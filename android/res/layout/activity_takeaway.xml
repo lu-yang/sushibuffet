@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/activity_bg"
+    android:baselineAligned="false"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/edittext_new_takeaway"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:inputType="textMultiLine"
+            android:textColor="@color/dodoro"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/button_new_takeaway"
+            style="@style/button_text"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:clickable="true"
+            android:onClick="newTakeaway"
+            android:text="@string/lbl_takeaway" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/grid_takeaway"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="120dp"
+        android:gravity="center"
+        android:horizontalSpacing="10pt"
+        android:numColumns="auto_fit"
+        android:paddingBottom="40dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="40dp"
+        android:verticalSpacing="10pt" />
+
+</LinearLayout>
