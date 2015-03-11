@@ -13,4 +13,6 @@ public interface OrderMapper {
 	void insertOrder(Order o);
 
 	List<Order> selectOrdersByDate(Map<String, Date> map);
+
+	void delete(Order o);
 }

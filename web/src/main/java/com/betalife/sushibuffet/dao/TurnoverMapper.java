@@ -8,4 +8,6 @@ public interface TurnoverMapper {
 	void update(Turnover t);
 
 	Turnover select(Turnover t);
+
+	void delete(Turnover t);
 }

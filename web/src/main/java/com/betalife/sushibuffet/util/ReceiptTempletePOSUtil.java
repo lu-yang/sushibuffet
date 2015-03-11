@@ -1,6 +1,10 @@
 package com.betalife.sushibuffet.util;
 
+import static com.betalife.sushibuffet.util.DodoroUtil.TEN_THOUSAND;
+import static com.betalife.sushibuffet.util.DodoroUtil.ZERO;
+
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -48,12 +52,18 @@ public class ReceiptTempletePOSUtil extends TempletePOSUtil {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("date", sdf.format(new Date()));
 
-		int tableId = orders.get(0).getTurnover().getTableId();
-		map.put("tableNo", tableId);
+		boolean takeaway = DodoroUtil.isTakeaway(turnover);
+		if (takeaway) {
+			Integer takeawayId = turnover.getTakeawayId();
+			map.put("takeawayNo", takeawayId);
+		} else {
+			int tableId = orders.get(0).getTurnover().getTableId();
+			map.put("tableNo", tableId);
+		}
 
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		int total = 0;
-		Map<Integer, Integer> kindTotalMap = new HashMap<Integer, Integer>();
+		Map<String, Integer> kindTotalMap = new HashMap<String, Integer>();
 
 		for (Order order : orders) {
 			Product product = order.getProduct();
@@ -74,7 +84,7 @@ public class ReceiptTempletePOSUtil extends TempletePOSUtil {
 			list.add(one);
 
 			total += subTotal;
-			int taxgroupId = product.getTaxgroupId();
+			String taxgroupId = product.getTaxgroupId() + "";
 			if (kindTotalMap.containsKey(taxgroupId)) {
 				Integer kindTotal = kindTotalMap.get(taxgroupId);
 				kindTotalMap.put(taxgroupId, kindTotal + subTotal);
@@ -88,22 +98,39 @@ public class ReceiptTempletePOSUtil extends TempletePOSUtil {
 		map.put("total", DodoroUtil.getDisplayPrice(total));
 
 		Map<String, Taxgroups> taxgroupsMap = getTaxgroupMap();
+		Taxgroups foodTax = taxgroupsMap.get(FOOD);
+		Taxgroups alcoholTax = taxgroupsMap.get(ALCOHOL);
 
-		putTotal(taxgroupsMap, FOOD, kindTotalMap, FOOD_WRAPPER, map);
+		if (takeaway) {
+			putTotal(foodTax.getTakeaway(), FOOD, getKindTotal(kindTotalMap, foodTax.getId() + ""), map);
 
-		putTotal(taxgroupsMap, ALCOHOL, kindTotalMap, ALCOHOL_WRAPPER, map);
+			putTotal(alcoholTax.getTakeaway(), ALCOHOL, getKindTotal(kindTotalMap, alcoholTax.getId() + ""),
+					map);
+		} else {
+			putTotal(foodTax.getValue(), FOOD, getKindTotal(kindTotalMap, foodTax.getId() + ""), map);
+
+			putTotal(alcoholTax.getValue(), ALCOHOL, getKindTotal(kindTotalMap, alcoholTax.getId() + ""), map);
+		}
 
 		Integer percent = turnover.getDiscount();
 		if (percent == null) {
-			map.put("discount", "-");
+			map.put("discount", "No Discount");
+			percent = 100;
 		} else if (percent == 0) {
 			map.put("discount", "Free");
 		} else {
 			map.put("discount", "-" + percent + "%");
+			percent = 100 - percent;
 		}
 
-		map.put("discountPrice", DodoroUtil.getDiscountPrice(total, percent));
+		map.put("discountPrice", DodoroUtil.divide(total * percent, TEN_THOUSAND));
 
 		return map;
 	}
+
+	private BigDecimal getKindTotal(Map<String, Integer> kindTotalMap, String key) {
+		Integer integer = kindTotalMap.get(key);
+		return integer == null || integer == 0 ? ZERO : new BigDecimal(integer);
+	}
+
 }

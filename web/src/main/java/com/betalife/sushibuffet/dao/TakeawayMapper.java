@@ -12,4 +12,6 @@ public interface TakeawayMapper {
 	void delete(Takeaway t);
 
 	List<Takeaway> selectTodayUnTakeaways();
+
+	Takeaway select(Takeaway t);
 }

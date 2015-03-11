@@ -5,7 +5,11 @@
 \u001b|rATEL/FAX : 02 / 657 77 79\n
 \u001b|rAwww.dodoro.be\n\n
 
+<#if tableNo??>
 \u001b|bcTable No.: ${tableNo}\n
+<#else>
+\u001b|bcTakeaway No.: ${takeawayNo}\n
+</#if> 
 \u001b|bcOrder time: ${date}\n\n
 
 <#list list as one>

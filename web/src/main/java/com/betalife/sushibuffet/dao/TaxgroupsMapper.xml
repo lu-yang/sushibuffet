@@ -9,7 +9,8 @@
 		SELECT
 		id,
 		name,
-		value
+		value,
+		takeaway
 		FROM taxgroups
 	</select>
 

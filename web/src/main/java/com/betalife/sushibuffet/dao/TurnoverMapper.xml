@@ -26,5 +26,11 @@
 		FROM turnover
 		WHERE id=#{id}
 	</select>
+	
+	<delete id="delete" parameterType="Turnover">
+		DELETE FROM turnover
+		WHERE
+		takeaway_id=#{takeawayId}
+	</delete>
 
 </mapper>

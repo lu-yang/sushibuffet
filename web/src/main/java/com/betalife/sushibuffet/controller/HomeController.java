@@ -209,9 +209,11 @@ public class HomeController {
 		return exchange;
 	}
 
-	@RequestMapping(value = "takeaway", method = RequestMethod.DELETE, produces = "application/json", consumes = "application/json")
+	@RequestMapping(value = "takeaway/{takeawayId}", method = RequestMethod.DELETE, produces = "application/json")
 	public @ResponseBody
-	BooleanExchange removeTakeaway(@RequestBody Takeaway takeaway) {
+	BooleanExchange removeTakeaway(@PathVariable int takeawayId) {
+		Takeaway takeaway = new Takeaway();
+		takeaway.setId(takeawayId);
 		customerManager.remove(takeaway);
 		BooleanExchange exchange = new BooleanExchange();
 		exchange.setModel(true);

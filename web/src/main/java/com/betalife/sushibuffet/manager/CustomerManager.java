@@ -157,6 +157,12 @@ public class CustomerManager {
 
 	@Transactional(rollbackFor = Exception.class)
 	public void remove(Takeaway t) {
+		t = takeawayMapper.select(t);
+		Turnover turnover = t.getTurnover();
+		Order order = new Order();
+		order.setTurnover(turnover);
+		orderMapper.delete(order);
+		turnoverMapper.delete(turnover);
 		takeawayMapper.delete(t);
 	}
 

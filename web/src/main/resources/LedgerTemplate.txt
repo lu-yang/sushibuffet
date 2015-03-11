@@ -6,9 +6,13 @@
 \u001b|rAwww.dodoro.be\n\n
 
 \u001b|bcDate: ${date}\n\n
-			
+Eat-In			
 FOOD: $${food_tax}  $${food}  $${food_total}  
 alcool: $${alcool_tax}  $${alcool}  $${alcool_total}  
+
+Takeaway		
+FOOD: $${takeaway_food_tax}  $${takeaway_food}  $${takeaway_food_total}  
+alcool: $${takeaway_alcool_tax}  $${takeaway_alcool}  $${takeaway_alcool_total}  
 
 \u001b|bc\u001b|rATotal : ${total} Eur\n\n
 <#-- footer -->

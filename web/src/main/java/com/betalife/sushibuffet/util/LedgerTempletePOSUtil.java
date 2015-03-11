@@ -1,6 +1,10 @@
 package com.betalife.sushibuffet.util;
 
+import static com.betalife.sushibuffet.util.DodoroUtil.HUNDRED;
+import static com.betalife.sushibuffet.util.DodoroUtil.TEN_THOUSAND;
+
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +17,13 @@ import org.springframework.util.CollectionUtils;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.model.Taxgroups;
+import com.betalife.sushibuffet.model.Turnover;
 
 import freemarker.template.TemplateException;
 
 @Component
 public class LedgerTempletePOSUtil extends TempletePOSUtil {
+
 	@Value("${ledger.template}")
 	@Override
 	protected void setTemplateFile(String templateFile) {
@@ -29,16 +35,22 @@ public class LedgerTempletePOSUtil extends TempletePOSUtil {
 		map.put("date", sdf.format(new Date()));
 
 		int total = 0;
-		Map<Integer, Integer> kindTotalMap = new HashMap<Integer, Integer>();
-
+		Map<String, Integer> kindTotalMap = new HashMap<String, Integer>();
 		for (Order order : orders) {
+			Turnover turnover = order.getTurnover();
+			boolean takeaway = DodoroUtil.isTakeaway(turnover);
+
+			Integer discount = turnover.getDiscount();
+			// 0 表示免单，空表示无折扣
+			discount = discount == null ? 100 : discount;
+
 			Product product = order.getProduct();
 			int count = order.getCount();
 			int productPrice = product.getProductPrice();
-			int subTotal = productPrice * count;
+			int subTotal = productPrice * count * (100 - discount);
 
 			total += subTotal;
-			int taxgroupId = product.getTaxgroupId();
+			String taxgroupId = product.getTaxgroupId() + "_" + takeaway;
 			if (kindTotalMap.containsKey(taxgroupId)) {
 				Integer kindTotal = kindTotalMap.get(taxgroupId);
 				kindTotalMap.put(taxgroupId, kindTotal + subTotal);
@@ -47,15 +59,29 @@ public class LedgerTempletePOSUtil extends TempletePOSUtil {
 			}
 		}
 
-		map.put("total", DodoroUtil.getDisplayPrice(total));
+		map.put("total", DodoroUtil.getDisplayPrice(DodoroUtil.divide(total, TEN_THOUSAND)));
 
 		Map<String, Taxgroups> taxgroupsMap = getTaxgroupMap();
+		Taxgroups foodTax = taxgroupsMap.get(FOOD);
+		Taxgroups alcoholTax = taxgroupsMap.get(ALCOHOL);
 
-		putTotal(taxgroupsMap, FOOD, kindTotalMap, FOOD_WRAPPER, map);
+		putTotal(foodTax.getValue(), FOOD, getKindTotal(kindTotalMap, foodTax.getId() + "_" + false), map);
 
-		putTotal(taxgroupsMap, ALCOHOL, kindTotalMap, ALCOHOL_WRAPPER, map);
+		putTotal(alcoholTax.getValue(), ALCOHOL,
+				getKindTotal(kindTotalMap, alcoholTax.getId() + "_" + false), map);
+
+		putTotal(foodTax.getTakeaway(), TAKEAWAY_PREFIX + FOOD,
+				getKindTotal(kindTotalMap, foodTax.getId() + "_" + true), map);
+
+		putTotal(alcoholTax.getTakeaway(), TAKEAWAY_PREFIX + ALCOHOL,
+				getKindTotal(kindTotalMap, alcoholTax.getId() + "_" + true), map);
 
 		return map;
+	}
+
+	private BigDecimal getKindTotal(Map<String, Integer> kindTotalMap, String key) {
+		Integer integer = kindTotalMap.get(key);
+		return DodoroUtil.divide(integer, HUNDRED);
 	}
 
 	public String format_receipt_lines(List<Order> orders) throws TemplateException, IOException {

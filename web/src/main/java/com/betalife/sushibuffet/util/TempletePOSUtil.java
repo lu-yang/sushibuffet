@@ -1,5 +1,9 @@
 package com.betalife.sushibuffet.util;
 
+import static com.betalife.sushibuffet.util.DodoroUtil.HUNDRED;
+import static com.betalife.sushibuffet.util.DodoroUtil.ONE;
+import static com.betalife.sushibuffet.util.DodoroUtil.ZERO;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
@@ -29,12 +33,9 @@ public abstract class TempletePOSUtil extends TempleteUtil {
 	private final static String NL_STR = "\\n";
 	private final static String NL = "\n";
 
+	protected static final String TAKEAWAY_PREFIX = "takeaway_";
 	protected static final String FOOD = "food";
-	protected static final String FOOD_WRAPPER = "{" + FOOD + "}";
 	protected static final String ALCOHOL = "alcool";
-	protected static final String ALCOHOL_WRAPPER = "{" + ALCOHOL + "}";
-	private static final BigDecimal HUNDRED = new BigDecimal(100);
-	private static final BigDecimal ONE = new BigDecimal(1);
 
 	@PostConstruct
 	public void init() throws IOException {
@@ -47,21 +48,17 @@ public abstract class TempletePOSUtil extends TempleteUtil {
 		template.setEncoding("UTF-8");
 	}
 
-	protected void putTotal(Map<String, Taxgroups> taxgroupsMap, String kind,
-			Map<Integer, Integer> kindTotalMap, String wrapper, Map<String, Object> map) {
-		Taxgroups taxgroups = taxgroupsMap.get(kind);
-		int id = taxgroups.getId();
-		BigDecimal kindTaxRate = new BigDecimal(taxgroups.getValue());
-		if (!kindTotalMap.containsKey(id)) {
+	protected void putTotal(float tax, String kind, BigDecimal kindTotal, Map<String, Object> map) {
+		if (kindTotal == null || kindTotal.equals(ZERO)) {
 			map.put(kind + "_tax", "0");
 			map.put(kind + "_total", "0");
 			map.put(kind, "0");
 		} else {
-			BigDecimal kindTotal = new BigDecimal(kindTotalMap.get(id));
+			BigDecimal kindTaxRate = new BigDecimal(tax);
 			BigDecimal kindTotalTax = kindTotal.multiply(kindTaxRate).divide(
-					(kindTaxRate.add(ONE)).multiply(HUNDRED), 2, BigDecimal.ROUND_HALF_DOWN);
+					(kindTaxRate.add(ONE)).multiply(HUNDRED), 2, BigDecimal.ROUND_DOWN);
 			map.put(kind + "_tax", kindTotalTax.floatValue());
-			BigDecimal kindTotalF = kindTotal.divide(HUNDRED, 2, BigDecimal.ROUND_HALF_DOWN);
+			BigDecimal kindTotalF = kindTotal.divide(HUNDRED, 2, BigDecimal.ROUND_DOWN);
 			map.put(kind + "_total", kindTotalF.floatValue());
 
 			map.put(kind, "" + kindTotalF.subtract(kindTotalTax).floatValue());

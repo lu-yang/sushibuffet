@@ -42,11 +42,17 @@
 		FROM
 		takeaway ta, turnover tor
 		WHERE ta.id=tor.takeaway_id
-		AND
-		ta.takeaway=0
-		AND ta.created BETWEEN CURDATE() AND
-		DATE_ADD(CURDATE(),INTERVAL 1
-		DAY);
+		AND ta.created BETWEEN CURDATE() AND DATE_ADD(CURDATE(),INTERVAL 1 DAY);
+	</select>
+
+	<select id="select" parameterType="Takeaway" resultMap="takeawayResult">
+		SELECT
+		tor.id as turnover_id, tor.checkout, tor.takeaway_id, tor.discount,
+		ta.created,ta.memo,ta.takeaway,ta.id
+		FROM
+		takeaway ta, turnover tor
+		WHERE ta.id=tor.takeaway_id
+		AND ta.id=#{id};
 	</select>
 
 	<delete id="delete" parameterType="Takeaway">
