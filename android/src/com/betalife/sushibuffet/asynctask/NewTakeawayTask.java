@@ -15,7 +15,7 @@ public class NewTakeawayTask extends AbstractAsyncTask<Takeaway, TakeawayExchang
 	String url = base_url + "/takeaway";
 
 	public NewTakeawayTask(Activity activity) {
-		super(activity);
+		super(activity, true);
 	}
 
 	@Override

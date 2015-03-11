@@ -74,7 +74,9 @@ public class Turnover extends BaseModel {
 
 	@Override
 	public String toString() {
-		return "id=" + id;
-	}
+		return "Turnover [tableId=" + tableId + ", checkout=" + checkout + ", id=" + id + ", firstTableId="
+				+ firstTableId + ",discount=" + discount + ", takeawayId=" + takeawayId + ", created="
+				+ created + ", updated" + updated + "]";
 
+	}
 }

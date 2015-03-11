@@ -20,8 +20,7 @@ public class FragmentHistory extends BaseFragmentHistory {
 
 				OrderAdapter adapter = new OrderAdapter(getActivity());
 				adapter.setRawList(list);
-				ListView orders = (ListView) getActivity().findViewById(R.id.orders);
-				orders.setAdapter(adapter);
+				((ListView) orders).setAdapter(adapter);
 			}
 
 		};

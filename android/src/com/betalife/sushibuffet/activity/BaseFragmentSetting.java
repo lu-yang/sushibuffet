@@ -92,6 +92,7 @@ public abstract class BaseFragmentSetting extends BaseFragment implements Callba
 	};
 
 	protected List<Button> buttons;
+	private PasswordDialog dialog;
 
 	public BaseFragmentSetting() {
 		buttons = new ArrayList<Button>();
@@ -106,6 +107,8 @@ public abstract class BaseFragmentSetting extends BaseFragment implements Callba
 
 		addButton(view, R.id.btn_printOrders, printOrdersClickListener);
 		addButton(view, R.id.btn_finishOrder, finishOrderClickListener);
+
+		dialog = new PasswordDialog(getActivity(), this, true);
 
 		return view;
 	}
@@ -123,8 +126,9 @@ public abstract class BaseFragmentSetting extends BaseFragment implements Callba
 
 	@Override
 	public void refresh() {
+		super.refresh();
 		setVisibility(View.INVISIBLE);
-		PasswordDialog dialog = new PasswordDialog(this.getActivity(), this, true);
+
 		dialog.show();
 	}
 

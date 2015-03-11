@@ -3,7 +3,6 @@ package com.betalife.sushibuffet.dialog;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 
 import android.app.Activity;
@@ -33,7 +32,7 @@ public class DiscountAlertDialog {
 		final TextView discount = (TextView) view.findViewById(R.id.discount);
 
 		Turnover turnover = DodoroContext.getInstance().getTurnover();
-		setDiscount("" + turnover.getDiscount(), discount);
+		setDiscount(turnover.getDiscount(), discount);
 
 		List<Button> list = new LinkedList<Button>();
 		list.add((Button) view.findViewById(R.id.one));
@@ -52,7 +51,8 @@ public class DiscountAlertDialog {
 			@Override
 			public void onClick(View v) {
 				Button button = (Button) v;
-				String digital = button.getText().toString();
+				String letter = button.getText().toString();
+				int digital = NumberUtils.toInt(letter);
 				if (discount.getTag() == null) {
 					setDiscount(digital, discount);
 					return;
@@ -63,9 +63,9 @@ public class DiscountAlertDialog {
 					return;
 				}
 
-				int num = NumberUtils.toInt(current + digital);
+				int num = NumberUtils.toInt(current + letter);
 				if (num < 100) {
-					setDiscount("" + num, discount);
+					setDiscount(num, discount);
 				}
 			}
 		};
@@ -85,7 +85,7 @@ public class DiscountAlertDialog {
 				if (current == 0) {
 					setDiscount(null, discount);
 				} else {
-					setDiscount("" + current, discount);
+					setDiscount(current, discount);
 				}
 			}
 
@@ -122,13 +122,23 @@ public class DiscountAlertDialog {
 
 	}
 
-	private void setDiscount(String value, TextView discount) {
-		if (StringUtils.isEmpty(value)) {
+	// private void setDiscount(String value, TextView discount) {
+	// if (StringUtils.isEmpty(value)) {
+	// discount.setText(null);
+	// discount.setTag(null);
+	// } else {
+	// discount.setText("-" + value + "%");
+	// discount.setTag(NumberUtils.toInt(value));
+	// }
+	// }
+
+	private void setDiscount(Integer value, TextView discount) {
+		if (value == null) {
 			discount.setText(null);
 			discount.setTag(null);
 		} else {
 			discount.setText("-" + value + "%");
-			discount.setTag(NumberUtils.toInt(value));
+			discount.setTag(value);
 		}
 	}
 

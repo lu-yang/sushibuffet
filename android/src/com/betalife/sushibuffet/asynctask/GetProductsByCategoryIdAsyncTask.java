@@ -21,17 +21,14 @@ import com.betalife.sushibuffet.exchange.ProductListExchange;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-public class GetProductsByCategoryIdAsyncTask extends AbstractAsyncTask<Void, ProductListExchange> {
+public class GetProductsByCategoryIdAsyncTask extends AbstractAsyncTask<Integer, ProductListExchange> {
 
-	private int categoryId;
-
-	public GetProductsByCategoryIdAsyncTask(Activity activity, int categoryId) {
-		this(activity, categoryId, false);
+	public GetProductsByCategoryIdAsyncTask(Activity activity) {
+		this(activity, false);
 	}
 
-	public GetProductsByCategoryIdAsyncTask(Activity activity, int categoryId, boolean showProgressDialog) {
+	public GetProductsByCategoryIdAsyncTask(Activity activity, boolean showProgressDialog) {
 		super(activity, showProgressDialog);
-		this.categoryId = categoryId;
 	}
 
 	@Override
@@ -55,8 +52,8 @@ public class GetProductsByCategoryIdAsyncTask extends AbstractAsyncTask<Void, Pr
 	}
 
 	@Override
-	protected ProductListExchange inBackground(Void... params) {
-		String url = base_url + "/products/" + DodoroContext.languageCode(activity) + "/" + categoryId;
+	protected ProductListExchange inBackground(Integer... params) {
+		String url = base_url + "/products/" + DodoroContext.languageCode(activity) + "/" + params[0];
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 		ResponseEntity<ProductListExchange> responseEntity = restTemplate.exchange(url, HttpMethod.GET,
 				requestEntity, ProductListExchange.class);

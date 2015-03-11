@@ -56,6 +56,7 @@ public class Takeaway extends BaseModel {
 
 	@Override
 	public String toString() {
-		return "id=" + id;
+		return "Takeaway [takeaway=" + takeaway + ", memo=" + memo + ", id=" + id + ", created=" + created
+				+ ", updated=" + updated + ", turnover=[" + turnover + "]]";
 	}
 }

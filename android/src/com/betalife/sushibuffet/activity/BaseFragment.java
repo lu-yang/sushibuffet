@@ -18,9 +18,13 @@ public class BaseFragment extends Fragment implements Refreshable {
 	@Override
 	public void onResume() {
 		super.onResume();
+		System.out.println("onResume in " + getClass().getName());
+
 		if (getActivity() instanceof MainActivity) {
 			MainActivity activity = (MainActivity) getActivity();
-			if (activity.getAdapter().isSelected(getClass())) {
+			// if (activity.getAdapter().isSelected(getClass())) {
+			if (activity.isOnCreate()) {
+				activity.setOnCreate(false);
 				refresh();
 			}
 		}
@@ -28,6 +32,7 @@ public class BaseFragment extends Fragment implements Refreshable {
 
 	@Override
 	public void refresh() {
+		System.out.println("refresh() in " + getClass().getName());
 	}
 
 }

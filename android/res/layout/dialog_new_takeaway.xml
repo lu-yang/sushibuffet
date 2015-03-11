@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:text="@string/lbl_memo"
+        android:textColor="@color/dodoro"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/mes_new_takeaway_err"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/takeaway_activity_memo_empty_mes"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20sp"
+        android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/edittext_new_takeaway"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:inputType="textMultiLine"
+        android:textColor="@color/dodoro"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/ok"
+        style="@style/button_text"
+        android:layout_width="190dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:text="@string/_ok" />
+
+</LinearLayout>

@@ -22,13 +22,10 @@ import com.betalife.sushibuffet.dialog.OrderAlertDialog;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-/**
- * A simple {@link android.support.v4.app.Fragment} subclass.
- * 
- */
-
 /* 菜单，点餐页面 */
 public class FragmentOrderpage extends BaseFragment {
+	private ListView currentOrders;
+
 	// private boolean init = true;
 	public FragmentOrderpage() {
 		super();
@@ -47,6 +44,8 @@ public class FragmentOrderpage extends BaseFragment {
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 
 		DodoroContext.getInstance().fillIdentify(getResources(), view);
+
+		currentOrders = (ListView) view.findViewById(R.id.current_orders);
 
 		Button btn_take_orders = (Button) view.findViewById(R.id.btn_take_orders);
 		btn_take_orders.setOnClickListener(new View.OnClickListener() {
@@ -76,16 +75,16 @@ public class FragmentOrderpage extends BaseFragment {
 
 	@Override
 	public void refresh() {
+		super.refresh();
+		GetCategoriesAsyncTask getCategoriesAsyncTask = new GetCategoriesAsyncTask(getActivity(), true);
+		getCategoriesAsyncTask.execute();
 
-		GetCategoriesAsyncTask task = new GetCategoriesAsyncTask(getActivity(), true);
-		task.execute();
-		// TODO
-		GetProductsByCategoryIdAsyncTask task2 = new GetProductsByCategoryIdAsyncTask(getActivity(), 2, true);
-		task2.execute();
+		GetProductsByCategoryIdAsyncTask getProductsByCategoryIdAsyncTask = new GetProductsByCategoryIdAsyncTask(
+				getActivity(), true);
+		getProductsByCategoryIdAsyncTask.execute(2);
 
 		final List<Order> currentOrdersCache = DodoroContext.getInstance().getCurrentOrdersCache();
 		CurrentOrderAdapter oa = new CurrentOrderAdapter(getActivity(), currentOrdersCache);
-		ListView currentOrders = (ListView) getActivity().findViewById(R.id.current_orders);
 		currentOrders.setAdapter(oa);
 		currentOrders.setOnItemClickListener(new OnItemClickListener() {
 

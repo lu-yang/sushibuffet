@@ -12,19 +12,19 @@ import com.betalife.sushibuffet.exchange.BooleanExchange;
 import com.betalife.sushibuffet.model.Takeaway;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-public class UpdateTakeawayTask extends AbstractAsyncTask<Takeaway, BooleanExchange> {
+public class RemoveTakeawayTask extends AbstractAsyncTask<Takeaway, BooleanExchange> {
 
-	private String url = base_url + "/takeaway/";
+	private String url = base_url + "/takeaway";
 
-	public UpdateTakeawayTask(Activity activity, boolean checkout) {
-		super(activity);
-		url += checkout;
+	public RemoveTakeawayTask(Activity activity) {
+		super(activity, true);
 	}
 
 	@Override
 	protected BooleanExchange inBackground(Takeaway... params) {
-		HttpEntity<Takeaway> requestEntity = new HttpEntity<Takeaway>(params[0], requestHeaders);
-		ResponseEntity<BooleanExchange> responseEntity = restTemplate.exchange(url, HttpMethod.PUT,
+		url += "/" + params[0].getId();
+		HttpEntity<Void> requestEntity = new HttpEntity<Void>(requestHeaders);
+		ResponseEntity<BooleanExchange> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE,
 				requestEntity, BooleanExchange.class);
 		return responseEntity.getBody();
 	}
@@ -35,7 +35,7 @@ public class UpdateTakeawayTask extends AbstractAsyncTask<Takeaway, BooleanExcha
 		// restart app
 		DodoroContext.restartApp(activity);
 
-		Toast.makeText(activity, activity.getString(R.string.setting_activity_takeaway_ok),
+		Toast.makeText(activity, activity.getString(R.string.setting_activity_remove_takeaway_ok),
 				Toast.LENGTH_SHORT).show();
 	}
 

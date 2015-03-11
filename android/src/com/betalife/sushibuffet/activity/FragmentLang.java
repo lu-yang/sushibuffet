@@ -26,7 +26,7 @@ public class FragmentLang extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		View langFragment = super.onCreateView(inflater, container, savedInstanceState);
+		View view = super.onCreateView(inflater, container, savedInstanceState);
 		OnClickListener clickListener = new OnClickListener() {
 
 			@Override
@@ -50,12 +50,12 @@ public class FragmentLang extends BaseFragment {
 				DodoroContext.locale(locale, getActivity());
 			}
 		};
-		Button lang_en = (Button) langFragment.findViewById(R.id.lang_en);
+		Button lang_en = (Button) view.findViewById(R.id.lang_en);
 		lang_en.setOnClickListener(clickListener);
-		Button lang_fr = (Button) langFragment.findViewById(R.id.lang_fr);
+		Button lang_fr = (Button) view.findViewById(R.id.lang_fr);
 		lang_fr.setOnClickListener(clickListener);
-		Button lang_nl = (Button) langFragment.findViewById(R.id.lang_nl);
+		Button lang_nl = (Button) view.findViewById(R.id.lang_nl);
 		lang_nl.setOnClickListener(clickListener);
-		return langFragment;
+		return view;
 	}
 }

@@ -24,16 +24,19 @@ public class MainActivity extends FragmentActivity {
 	private ViewPager viewPager;
 	private ActionBar actionBar;
 	private FragmentsAdapter adapter;
+	private boolean onCreate = false;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_main);
 
+		setOnCreate(true);
+
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		adapter = new FragmentsAdapter(this);
 		viewPager.setAdapter(adapter);
-
+		viewPager.setOffscreenPageLimit(adapter.getCount());
 		viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 
 			@Override
@@ -101,7 +104,7 @@ public class MainActivity extends FragmentActivity {
 			index = intent.getIntExtra(SELECTED_NAVIGATION_INDEX, 0);
 		}
 		changeTab(index);
-		viewPager.setOffscreenPageLimit(0);
+		// adapter.refresh(index);
 		adapter.notifyDataSetChanged();// 通知界面更新
 	}
 
@@ -133,5 +136,13 @@ public class MainActivity extends FragmentActivity {
 
 	public FragmentsAdapter getAdapter() {
 		return adapter;
+	}
+
+	public boolean isOnCreate() {
+		return onCreate;
+	}
+
+	public void setOnCreate(boolean onCreate) {
+		this.onCreate = onCreate;
 	}
 }

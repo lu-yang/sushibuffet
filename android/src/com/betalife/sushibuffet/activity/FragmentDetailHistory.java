@@ -20,11 +20,11 @@ public class FragmentDetailHistory extends BaseFragmentHistory {
 
 				DetailOrderAdapter adapter = new DetailOrderAdapter(getActivity());
 				adapter.setRawList(list);
-				ExpandableListView orders = (ExpandableListView) getActivity().findViewById(R.id.orders);
-				orders.setAdapter(adapter);
+				ExpandableListView expandableOrders = (ExpandableListView) orders;
+				expandableOrders.setAdapter(adapter);
 				int groupCount = adapter.getGroupCount();
 				for (int i = 0; i < groupCount; i++) {
-					orders.expandGroup(i);
+					expandableOrders.expandGroup(i);
 				}
 			}
 

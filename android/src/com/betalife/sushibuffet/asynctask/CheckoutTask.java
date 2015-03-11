@@ -15,11 +15,11 @@ public class CheckoutTask extends UpdateTurnoverTask {
 
 	@Override
 	public void postCallback(BooleanExchange result) {
-		Toast.makeText(activity, activity.getString(R.string.setting_activity_checkout_ok),
-				Toast.LENGTH_SHORT).show();
 		DodoroContext.getInstance().setTurnover(null);
 		DodoroContext.getInstance().setTakeaway(null);
 		// restart app
 		DodoroContext.restartApp(activity);
+		Toast.makeText(activity, activity.getString(R.string.setting_activity_checkout_ok),
+				Toast.LENGTH_SHORT).show();
 	}
 }

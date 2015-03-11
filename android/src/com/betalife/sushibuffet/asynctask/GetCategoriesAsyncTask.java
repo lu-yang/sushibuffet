@@ -43,9 +43,8 @@ public class GetCategoriesAsyncTask extends AbstractAsyncTask<Void, CategoryList
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Category selected = list.get(position);
 
-				GetProductsByCategoryIdAsyncTask task2 = new GetProductsByCategoryIdAsyncTask(activity,
-						selected.getId());
-				task2.execute();
+				GetProductsByCategoryIdAsyncTask task2 = new GetProductsByCategoryIdAsyncTask(activity);
+				task2.execute(selected.getId());
 			}
 		});
 	}

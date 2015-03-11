@@ -1,17 +1,12 @@
 package com.betalife.sushibuffet.activity;
 
-import org.apache.commons.lang.StringUtils;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.betalife.sushibuffet.asynctask.GetTakeawaysAsyncTask;
-import com.betalife.sushibuffet.asynctask.NewTakeawayTask;
-import com.betalife.sushibuffet.model.Takeaway;
+import com.betalife.sushibuffet.dialog.NewTakeawayDialog;
 import com.betalife.sushibuffet.util.DodoroContext;
 
 public class TakeAwayActivity extends Activity {
@@ -34,17 +29,8 @@ public class TakeAwayActivity extends Activity {
 	}
 
 	public void newTakeaway(View view) {
-		EditText memoText = (EditText) findViewById(R.id.edittext_new_takeaway);
-		String memo = memoText.getText().toString().trim();
-		if (StringUtils.isEmpty(memo)) {
-			Toast.makeText(this, getString(R.string.takeaway_activity_memo_empty_mes), Toast.LENGTH_SHORT)
-					.show();
-			return;
-		}
-		Takeaway takeaway = new Takeaway();
-		takeaway.setMemo(memo);
-		NewTakeawayTask task = new NewTakeawayTask(this);
-		task.execute(takeaway);
+		NewTakeawayDialog dialog = new NewTakeawayDialog(this);
+		dialog.show();
 	}
 
 }
