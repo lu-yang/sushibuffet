@@ -14,8 +14,12 @@ body{font-family:Arial;font-size:13px;width:220px;}
 			</#list><br>
 			<hr><br><br>
 
-			
-				台号:${tableNo}
+				
+			<#if tableNo??>
+			台号:${tableNo}
+			<#else>
+			外卖号:${takeawayNo}
+			</#if> 
 
 </div>
 </html>

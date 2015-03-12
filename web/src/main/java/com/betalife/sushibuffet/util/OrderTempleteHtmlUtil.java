@@ -20,6 +20,7 @@ import org.springframework.util.CollectionUtils;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
+import com.betalife.sushibuffet.model.Turnover;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -66,8 +67,15 @@ public class OrderTempleteHtmlUtil extends TempleteUtil {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("date", sdf.format(new Date()));
 
-		int tableId = orders.get(0).getTurnover().getTableId();
-		map.put("tableNo", tableId);
+		Turnover turnover = orders.get(0).getTurnover();
+		boolean takeaway = DodoroUtil.isTakeaway(turnover);
+		if (takeaway) {
+			Integer takeawayId = turnover.getTakeawayId();
+			map.put("takeawayNo", takeawayId);
+		} else {
+			int tableId = orders.get(0).getTurnover().getTableId();
+			map.put("tableNo", tableId);
+		}
 
 		Map<String, List<Map<String, String>>> barNameMap = new HashMap<String, List<Map<String, String>>>();
 
