@@ -45,7 +45,6 @@ public class OrderTempleteHtmlUtil extends TempleteUtil {
 
 		OrderTempleteHtmlUtil name = new OrderTempleteHtmlUtil();
 		name.init();
-		// System.out.println(name.format(orders));
 	}
 
 	@PostConstruct

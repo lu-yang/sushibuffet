@@ -1,18 +1,19 @@
 <#-- header  with logo -->
 \u001b|1B
 
-\u001b|NBrusselsesteenweg 416, 3090 Overijse\n
-\u001b|rATEL/FAX : 02 / 657 77 79\n
-\u001b|rAwww.dodoro.be\n\n
 
-\u001b|bcDate: ${date}\n\n
-Eat-In			
-FOOD: $${food_tax}  $${food}  $${food_total}  
-alcool: $${alcool_tax}  $${alcool}  $${alcool_total}  
+\u001b|bCDate: ${date}\n\n
+\u001b|bCSur place:\n		
+\u001b|NTax: Net  \u001b|cAExcl \u001b|rATotal\n
+\u001b|N${food_tax}: ${food_tax_paid} Eur  \u001b|cA${food_paid} Eur  \u001b|rA${food_total_paid} Eur 
+\u001b|N${alcool_tax}: ${alcool_tax_paid} Eur  \u001b|cA${alcool_paid} Eur  \u001b|rA${alcool_total_paid} Eur\n\n
 
-Takeaway		
-FOOD: $${takeaway_food_tax}  $${takeaway_food}  $${takeaway_food_total}  
-alcool: $${takeaway_alcool_tax}  $${takeaway_alcool}  $${takeaway_alcool_total}  
+\u001b|N\u001b|bCEmporter:\n	
+\u001b|NTax: Net  \u001b|cAExcl \u001b|rATotal\n
+\u001b|N${food_tax}: ${takeaway_food_tax_paid} Eur  \u001b|cA${takeaway_food_paid} Eur  \u001b|rA${takeaway_food_total_paid} Eur 
+\u001b|N${alcool_tax}:  ${takeaway_alcool_tax_paid} Eur  \u001b|cA${takeaway_alcool_paid} Eur  \u001b|rA${takeaway_alcool_total_paid} Eur 
 
-\u001b|bc\u001b|rATotal : ${total} Eur\n\n
+
+\u001b|bC\u001b|cATotal : ${total} Eur\n\n
+
 <#-- footer -->

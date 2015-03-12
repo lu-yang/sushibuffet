@@ -1,25 +1,26 @@
 <#-- header  with logo -->
 \u001b|1B
-
-\u001b|NBrusselsesteenweg 416, 3090 Overijse\n
-\u001b|rATEL/FAX : 02 / 657 77 79\n
-\u001b|rAwww.dodoro.be\n\n
+\u001b|cABrusselsesteenweg 416, 3090 Overijse
+\u001b|cATEL: 02 / 657 77 79
+\u001b|cAwww.dodoro.be
 
 <#if tableNo??>
-\u001b|bcTable No.: ${tableNo}\n
+\u001b|bC\u001b|rATable No.: ${tableNo}\n
 <#else>
-\u001b|bcTakeaway No.: ${takeawayNo}\n
+\u001b|bC\u001b|rATakeaway No.: ${takeawayNo}\n
 </#if> 
-\u001b|bcOrder time: ${date}\n\n
+\u001b|bC\u001b|rAOrder time: ${date}\n
 
 <#list list as one>
- \u001b|2C${one['pnum']}. ${one['pname']} x ${one['count']}\n${one['cname']}  \u001b|rA${one['price']} ${one['subtotal']}\n\n
+\u001b|N${one['pnum']}. ${one['pname']} x ${one['count']}
+\u001b|N${one['cname']} \u001b|rA\u001b|uC${one['subtotal']} Eur\u001b|N\n
 </#list>
-			
-FOOD: $${food_tax}  $${food}  $${food_total}  
-alcool: $${alcool_tax}  $${alcool}  $${alcool_total}  
+\u001b|Nt.v.a / b.t.w / v.a.t\n
+\u001b|NTax: Net  \u001b|cAExcl \u001b|rATotal\n
+\u001b|N${food_tax}: ${food_tax_paid} Eur  \u001b|cA${food_paid} Eur  \u001b|rA${food_total_paid} Eur 
+\u001b|N${alcool_tax}: ${alcool_tax_paid} Eur  \u001b|cA${alcool_paid} Eur  \u001b|rA${alcool_total_paid} Eur
 
-\u001b|bc\u001b|rATotal : ${total} Eur\n\n
-\u001b|bc\u001b|rADiscount : ${discount} \n\n
-\u001b|bc\u001b|rADiscount Price : ${discountPrice} Eur\n\n
+\u001b|bC\u001b|cATotal : ${total} Eur\n\n
+\u001b|bC\u001b|cADiscount : ${discount}\n\n
+\u001b|bC\u001b|cADiscount Price : ${discountPrice} Eur\n\n
 <#-- footer -->
