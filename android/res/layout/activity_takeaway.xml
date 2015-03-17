@@ -14,7 +14,7 @@
         <Button
             android:id="@+id/button_new_takeaway"
             style="@style/button_text"
-            android:layout_width="160dp"
+            android:layout_width="300dp"
             android:layout_height="60dp"
             android:clickable="true"
             android:onClick="newTakeaway"
@@ -25,7 +25,7 @@
         android:id="@+id/grid_takeaway"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnWidth="120dp"
+        android:columnWidth="500dp"
         android:gravity="center"
         android:horizontalSpacing="10pt"
         android:numColumns="auto_fit"

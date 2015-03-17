@@ -27,7 +27,7 @@ public class FragmentSetting extends BaseFragmentSetting {
 		addButton(view, R.id.btn_discount, discountClickListener);
 		addButton(view, R.id.btn_checkout, checkoutClickListener);
 		addButton(view, R.id.btn_changeTable, changeTableClickListener);
-
+		
 		return view;
 	}
 

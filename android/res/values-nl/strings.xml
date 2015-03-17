@@ -43,5 +43,35 @@
     <string name="lbl_subtotal">subtotaal: </string>
     <string name="lbl_count">qty: </string>
     <string name="introduction">(NL)</string>
+        <string name="label_ellipsis">Show Details</string>
+    <string name="label_restart_app">Restart Pad app</string>
+    <string name="err_other_error">Unknow Error</string>
+    <string name="label_discount">Korting</string>
+    <string name="label_discount_detail">0 表示免单，空表示无折扣。</string>
+    <string name="lbl_discount_free">Free</string>
+    <string name="lbl_discount_price">Korting Prijs: </string>
+    <string name="lbl_discount">Korting: </string>
+    <string name="setting_activity_changeDiscount_mes">Discount has been set.</string>
+    <string name="setting_activity_changeDiscount">Change Discount</string>
+    <string name="lbl_eur"> €</string>
+    <string name="lbl_desc">Description: </string>
+    <string name="lbl_server_address">Server address</string>
+    <string name="lbl_takeaway">Takeaway</string>
+    <string name="takeaway_activity_memo_empty_mes">不能为空.</string>
+    <string name="lbl_takeaway_no">Takeaway Aantal: O-</string>
+    <string name="btn_takeaway">取走</string>
+    <string name="setting_activity_uncheckout">请先结账</string>
+    <string name="setting_activity_uncheckout_msg">还未结账，不能取走外卖。\n是否结账并取走外卖？</string>
+    <string name="setting_activity_takeaway">取走外卖</string>
+    <string name="setting_activity_takeaway_msg">取走外卖？</string>
+    <string name="setting_activity_takeaway_ok">取走成功</string>
+    <string name="btn_remove_takeaway">取消外卖</string>
+    <string name="setting_activity_remove_takeaway">取消外卖</string>
+    <string name="setting_activity_remove_takeaway_msg">取消外卖？</string>
+    <string name="setting_activity_remove_takeaway_ok">取消成功</string>
+    <string name="lbl_discount_no">Geen korting</string>
+    <string name="lbl_new_takeaway">Nieuwe Takeaway</string>
+    <string name="lbl_memo">备注</string>
+
 
 </resources>

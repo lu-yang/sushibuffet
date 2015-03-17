@@ -8,8 +8,19 @@
         android:layout_width="160dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginBottom="10dp"
         android:text="@string/lbl_memo"
+        android:textColor="@color/dodoro"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/edittext_new_takeaway"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:inputType="textMultiLine"
         android:textColor="@color/dodoro"
         android:textSize="25sp" />
 
@@ -22,17 +33,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="20sp"
         android:visibility="invisible" />
-
-    <EditText
-        android:id="@+id/edittext_new_takeaway"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:inputType="textMultiLine"
-        android:textColor="@color/dodoro"
-        android:textSize="25sp" />
-
+    
     <Button
         android:id="@+id/ok"
         style="@style/button_text"

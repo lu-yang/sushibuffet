@@ -44,7 +44,7 @@
     <string name="lbl_price">price: </string>
     <string name="lbl_subtotal">subtotal: </string>
     <string name="lbl_count">qty: </string>
-    <string name="introduction"></string>
+    <string name="introduction">(EN)</string>
     <string name="label_ellipsis">Show Details</string>
     <string name="label_restart_app">Restart Pad app</string>
     <string name="err_other_error">Unknow Error</string>
@@ -62,6 +62,7 @@
     <string name="takeaway_activity_memo_empty_mes">不能为空.</string>
     <string name="lbl_takeaway_no">Takeaway Number: O-</string>
     <string name="btn_takeaway">取走</string>
+    <string name="lbl_status">状态: </string>
     <string name="setting_activity_uncheckout">请先结账</string>
     <string name="setting_activity_uncheckout_msg">还未结账，不能取走外卖。\n是否结账并取走外卖？</string>
     <string name="setting_activity_takeaway">取走外卖</string>
@@ -73,6 +74,6 @@
     <string name="setting_activity_remove_takeaway_ok">取消成功</string>
     <string name="lbl_discount_no">No Discount</string>
     <string name="lbl_new_takeaway">New Takeaway</string>
-    <string name="lbl_memo">Memo</string>
+    <string name="lbl_memo">备注</string>
 
 </resources>
