@@ -23,6 +23,7 @@ public class SettingFragmentButtonAdapter extends BaseAdapter {
 	private List<Button> buttons = new ArrayList<Button>();
 
 	public SettingFragmentButtonAdapter(Activity activity) {
+		this.activity = activity;
 		resourceId = R.layout.adapter_setting_button;
 	}
 
