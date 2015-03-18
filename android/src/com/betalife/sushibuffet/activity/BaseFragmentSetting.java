@@ -6,12 +6,14 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.GridView;
 
+import com.betalife.sushibuffet.adapter.SettingFragmentButtonAdapter;
 import com.betalife.sushibuffet.asynctask.CheckoutTask;
 import com.betalife.sushibuffet.asynctask.PrintOrdersTask;
 import com.betalife.sushibuffet.dialog.DiscountAlertDialog;
@@ -91,11 +93,12 @@ public abstract class BaseFragmentSetting extends BaseFragment implements Callba
 		}
 	};
 
-	protected List<Button> buttons;
+	protected List<Pair<Integer, OnClickListener>> buttons;
 	private PasswordDialog dialog;
+	private SettingFragmentButtonAdapter adapter;
 
 	public BaseFragmentSetting() {
-		buttons = new ArrayList<Button>();
+		buttons = new ArrayList<Pair<Integer, OnClickListener>>();
 		layout = R.layout.fragment_setting;
 	}
 
@@ -105,8 +108,13 @@ public abstract class BaseFragmentSetting extends BaseFragment implements Callba
 
 		DodoroContext.getInstance().fillIdentify(getResources(), view);
 
-		addButton(view, R.id.btn_printOrders, printOrdersClickListener);
-		addButton(view, R.id.btn_finishOrder, finishOrderClickListener);
+		adapter = new SettingFragmentButtonAdapter(getActivity());
+		addButton(printOrdersClickListener, R.string.setting_activity_printOrders);
+		addButton(finishOrderClickListener, R.string.setting_activity_finishOrder);
+		onCreateView();
+
+		GridView buttonGridView = (GridView) view.findViewById(R.id.setting_fragment_buttons);
+		buttonGridView.setAdapter(adapter);
 
 		dialog = new PasswordDialog(getActivity(), this, true);
 
@@ -114,9 +122,7 @@ public abstract class BaseFragmentSetting extends BaseFragment implements Callba
 	}
 
 	private void setVisibility(int visibility) {
-		for (Button one : buttons) {
-			one.setVisibility(visibility);
-		}
+		adapter.setVisibility(visibility);
 	}
 
 	@Override
@@ -132,10 +138,9 @@ public abstract class BaseFragmentSetting extends BaseFragment implements Callba
 		dialog.show();
 	}
 
-	protected void addButton(View view, int resouceId, OnClickListener onClickListener) {
-		Button button = (Button) view.findViewById(resouceId);
-		button.setOnClickListener(onClickListener);
-		buttons.add(button);
+	protected void addButton(OnClickListener onClickListener, int textId) {
+		adapter.addItem(Pair.create(textId, onClickListener));
 	}
 
+	protected abstract void onCreateView();
 }

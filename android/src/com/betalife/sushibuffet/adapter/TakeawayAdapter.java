@@ -1,8 +1,9 @@
 package com.betalife.sushibuffet.adapter;
 
+import java.text.SimpleDateFormat;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -14,10 +15,12 @@ import com.betalife.sushibuffet.model.Takeaway;
 import com.betalife.sushibuffet.util.DodoroContext;
 
 public class TakeawayAdapter extends AAdapter<Takeaway> {
+	private SimpleDateFormat sdf;
 
 	public TakeawayAdapter(Activity activity) {
 		super(activity);
 		resourceId = R.layout.adapter_takeaway;
+		sdf = new SimpleDateFormat(activity.getString(R.string.order_history_format));
 	}
 
 	@Override
@@ -37,8 +40,8 @@ public class TakeawayAdapter extends AAdapter<Takeaway> {
 		desc.setText(result.getMemo());
 
 		TextView createDate = (TextView) convertView.findViewById(R.id.createDate);
-		createDate.setText(DateFormat.format(activity.getString(R.string.order_history_format),
-				result.getCreated()));
+		String format = sdf.format(result.getCreated());
+		createDate.setText(format);
 
 		TextView status = (TextView) convertView.findViewById(R.id.status);
 		if (result.isTakeaway()) {

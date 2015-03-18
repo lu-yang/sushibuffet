@@ -100,7 +100,7 @@
     <string name="s101">.101</string>
     <string name="sport">:8080/</string>
     <string name="sappname">sushibuffet</string>
-    <string name="order_history_format">dd-MMM-yyyy hh:mm a</string>
+    <string name="order_history_format">dd-MMM-yyyy HH:mm</string>
 
     <!--
    <string name="base_uri">http://dodoro.aliapp.com</string>

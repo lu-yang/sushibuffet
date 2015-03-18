@@ -1,5 +1,6 @@
 package com.betalife.sushibuffet.adapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -9,7 +10,6 @@ import java.util.Map;
 import java.util.Set;
 
 import android.app.Activity;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +27,12 @@ public class DetailOrderAdapter extends BaseExpandableListAdapter {
 	protected Activity activity;
 	private Map<Date, List<Order>> map;
 	private List<Date> groups;
+	private SimpleDateFormat sdf;
 
 	public DetailOrderAdapter(Activity activity) {
 		this.activity = activity;
 		this.layoutInflater = LayoutInflater.from(activity);
+		sdf = new SimpleDateFormat(activity.getString(R.string.order_history_format));
 	}
 
 	@Override
@@ -85,7 +87,11 @@ public class DetailOrderAdapter extends BaseExpandableListAdapter {
 		}
 		Date date = getGroup(groupPosition);
 		TextView time = (TextView) convertView.findViewById(R.id.time);
-		CharSequence format = DateFormat.format(activity.getString(R.string.order_history_format), date);
+
+		String format = sdf.format(date);
+		// CharSequence format =
+		// DateFormat.format(activity.getString(R.string.order_history_format),
+		// date);
 		time.setText(format);
 
 		return convertView;

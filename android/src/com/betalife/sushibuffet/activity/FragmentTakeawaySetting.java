@@ -2,10 +2,7 @@ package com.betalife.sushibuffet.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.betalife.sushibuffet.asynctask.RemoveTakeawayTask;
 import com.betalife.sushibuffet.asynctask.UpdateTakeawayTask;
@@ -87,22 +84,18 @@ public class FragmentTakeawaySetting extends BaseFragmentSetting {
 		}
 	};
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = super.onCreateView(inflater, container, savedInstanceState);
+	protected void onCreateView() {
 		Takeaway takeaway = DodoroContext.getInstance().getTakeaway();
 		if (takeaway.isTakeaway()) {
-			return view;
+			return;
 		}
 		Turnover turnover = takeaway.getTurnover();
 		if (!turnover.isCheckout()) {
-			addButton(view, R.id.btn_discount, discountClickListener);
-			addButton(view, R.id.btn_checkout, checkoutClickListener);
-			addButton(view, R.id.btn_remove_takeaway, removeTakeawayClickListener);
+			addButton(discountClickListener, R.string.setting_activity_changeDiscount);
+			addButton(checkoutClickListener, R.string.setting_activity_checkout);
+			addButton(removeTakeawayClickListener, R.string.btn_remove_takeaway);
 		}
-		addButton(view, R.id.btn_takeaway, takeawayClickListener);
-
-		return view;
+		addButton(takeawayClickListener, R.string.btn_takeaway);
 	}
 
 }
