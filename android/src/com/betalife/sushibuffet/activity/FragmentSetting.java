@@ -1,9 +1,6 @@
 package com.betalife.sushibuffet.activity;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.betalife.sushibuffet.util.DodoroContext;
 
@@ -21,14 +18,10 @@ public class FragmentSetting extends BaseFragmentSetting {
 		}
 	};
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = super.onCreateView(inflater, container, savedInstanceState);
-		addButton(view, R.id.btn_discount, discountClickListener);
-		addButton(view, R.id.btn_checkout, checkoutClickListener);
-		addButton(view, R.id.btn_changeTable, changeTableClickListener);
-		
-		return view;
+	protected void onCreateView() {
+		addButton(discountClickListener, R.string.setting_activity_changeDiscount);
+		addButton(checkoutClickListener, R.string.setting_activity_checkout);
+		addButton(changeTableClickListener, R.string.setting_activity_change_table);
 	}
 
 }
