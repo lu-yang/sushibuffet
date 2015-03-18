@@ -26,7 +26,7 @@
         android:id="@+id/setting_fragment_buttons"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnWidth="120dp"
+        android:columnWidth="450dp"
         android:gravity="center"
         android:horizontalSpacing="10pt"
         android:numColumns="auto_fit"

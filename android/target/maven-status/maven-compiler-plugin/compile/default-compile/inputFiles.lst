@@ -28,6 +28,7 @@
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/asynctask/OrdersAsyncTask.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/activity/OpenTableActivity.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/asynctask/CheckoutTask.java
+/Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/adapter/SettingFragmentButtonAdapter.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/activity/BaseFragmentHistory.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/exchange/DodoroException.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/asynctask/RemoveTakeawayTask.java
@@ -45,8 +46,8 @@
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/dialog/PasswordDialog.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/asynctask/ConstantAsyncTask.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/activity/AccessActivity.java
-/Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/model/BaseModel.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/exchange/OrderListExchange.java
+/Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/model/BaseModel.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/adapter/ChangeTableAdapter.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/asynctask/AbstractAsyncTask.java
 /Users/betalife/Documents/workspace/sushibuffet/trunk/android/src/com/betalife/sushibuffet/dialog/ServerAddressAlertDialog.java

@@ -60,6 +60,7 @@ com/betalife/sushibuffet/dialog/ErrorMessageAlertDialog$1.class
 com/betalife/sushibuffet/dialog/PasswordDialog.class
 com/betalife/sushibuffet/adapter/OpenTableAdapter$1.class
 com/betalife/sushibuffet/dialog/PasswordDialog$1.class
+com/betalife/sushibuffet/adapter/SettingFragmentButtonAdapter.class
 com/betalife/sushibuffet/activity/TakeAwayActivity.class
 com/betalife/sushibuffet/activity/R$drawable.class
 com/betalife/sushibuffet/dialog/PasswordDialog$2.class
