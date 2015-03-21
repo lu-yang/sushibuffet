@@ -10,4 +10,6 @@ public interface TurnoverMapper {
 	Turnover select(Turnover t);
 
 	void delete(Turnover t);
+
+	void deleteAll();
 }

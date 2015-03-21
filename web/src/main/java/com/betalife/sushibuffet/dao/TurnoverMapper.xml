@@ -32,5 +32,9 @@
 		WHERE
 		takeaway_id=#{takeawayId}
 	</delete>
+	
+	<delete id="deleteAll" >
+		DELETE FROM turnover
+	</delete>
 
 </mapper>

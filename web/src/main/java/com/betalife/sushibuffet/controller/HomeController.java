@@ -1,19 +1,3 @@
-/*
- * Copyright 2010-2014 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.betalife.sushibuffet.controller;
 
 import java.text.SimpleDateFormat;
@@ -66,6 +50,7 @@ public class HomeController {
 	@Autowired
 	private CustomerManager customerManager;
 
+	// 取所有桌子状态
 	@RequestMapping(value = "availableTables", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	DiningtableListExchange fetchAllTables() {
@@ -75,6 +60,9 @@ public class HomeController {
 		return exchange;
 	}
 
+	// 取指定分类的子类（取所有parentId等于{parentId}的分类）。例如：categoryName：热菜，categoryId：1；categoryName：炖菜，categoryId：2，
+	// parentId：1；categoryName：炒菜，categoryId：3， parentId：1；
+	// 参数parentId=1，结果是炖菜和炒菜
 	@RequestMapping(value = "categories/{locale}/{parentId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	CategoryListExchange fetchRootCategories(@PathVariable String locale, @PathVariable int parentId) {
@@ -88,6 +76,7 @@ public class HomeController {
 		return exchange;
 	}
 
+	// 开桌
 	@RequestMapping(value = "openTable", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
 	TurnoverExchange openTable(@RequestBody Turnover turnover) {
@@ -98,6 +87,7 @@ public class HomeController {
 		return exchange;
 	}
 
+	// 取constants.properties文件中的内容
 	@RequestMapping(value = "constant", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	ConstantExchange fetchConstants() {
@@ -108,6 +98,7 @@ public class HomeController {
 		return exchange;
 	}
 
+	// 取指定分类的菜品（取所有categoryId等于{categoryId}的菜品）。
 	@RequestMapping(value = "products/{locale}/{categoryId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	ProductListExchange fetchProductsByCategoryId(@PathVariable String locale, @PathVariable int categoryId) {
@@ -121,21 +112,33 @@ public class HomeController {
 		return exchange;
 	}
 
-	@RequestMapping(value = "takeOrders/{locale}", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	// 点菜。order的count表示增加量，例如：增加2个时，count是2，减少2个时，count是-2
+	@RequestMapping(value = "orders", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
-	BooleanExchange takeOrders(@PathVariable String locale, @RequestBody List<Order> orders) throws Exception {
+	BooleanExchange takeOrders(@RequestBody List<Order> orders) throws Exception {
 		customerManager.takeOrders(orders);
 		BooleanExchange exchange = new BooleanExchange();
 		exchange.setModel(true);
 		return exchange;
 	}
 
+	// 取所有turnoverId等于{turnoverId}的点单记录。
 	@RequestMapping(value = "orders/{locale}/{turnoverId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	OrderListExchange orders(@PathVariable String locale, @PathVariable int turnoverId) {
 		Order model = buildOrder(locale, turnoverId);
 		List<Order> all = customerManager.getOrders(model);
 
+		OrderListExchange exchange = new OrderListExchange();
+		exchange.setList(all.toArray(new Order[0]));
+		return exchange;
+	}
+
+	// 这个暂时不用
+	@RequestMapping(value = "nouse", method = RequestMethod.PUT, produces = "application/json", consumes = "application/json")
+	public @ResponseBody
+	OrderListExchange updateOrder(@RequestBody List<Order> orders) {
+		List<Order> all = customerManager.selectOrders(orders);
 		OrderListExchange exchange = new OrderListExchange();
 		exchange.setList(all.toArray(new Order[0]));
 		return exchange;
@@ -150,6 +153,7 @@ public class HomeController {
 		return model;
 	}
 
+	// 打印所有turnoverId等于{turnoverId}的点单记录（结帐单）
 	@RequestMapping(value = "printOrders/{locale}/{turnoverId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	BooleanExchange printOrders(@PathVariable String locale, @PathVariable int turnoverId) throws Exception {
@@ -164,6 +168,7 @@ public class HomeController {
 		return exchange;
 	}
 
+	// 打印所有turnoverId等于{turnoverId}的点单记录（厨房）
 	@RequestMapping(value = "printKitchenOrders/{locale}/{turnoverId}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	BooleanExchange printKitchenOrders(@PathVariable String locale, @PathVariable int turnoverId)
@@ -171,6 +176,7 @@ public class HomeController {
 		return printOrders(locale, turnoverId, true);
 	}
 
+	// 更新turnover
 	@RequestMapping(value = "turnover", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
 	BooleanExchange updateTurnover(@RequestBody Turnover turnover) {
@@ -180,6 +186,7 @@ public class HomeController {
 		return exchange;
 	}
 
+	// 打印指定时间内的总单
 	@RequestMapping(value = "ledger/{from}/{to}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	Map<String, Object> ledger(@PathVariable String from, @PathVariable String to) throws Exception {
@@ -191,6 +198,7 @@ public class HomeController {
 		return map;
 	}
 
+	// 取所有外卖记录（当天的）
 	@RequestMapping(value = "takeaways", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	TakeawayListExchange takeaways() {
@@ -200,6 +208,7 @@ public class HomeController {
 		return exchange;
 	}
 
+	// 创建一个外卖
 	@RequestMapping(value = "takeaway", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
 	TakeawayExchange addTakeaway(@RequestBody Takeaway takeaway) {
@@ -209,6 +218,7 @@ public class HomeController {
 		return exchange;
 	}
 
+	// 删除一个外卖
 	@RequestMapping(value = "takeaway/{takeawayId}", method = RequestMethod.DELETE, produces = "application/json")
 	public @ResponseBody
 	BooleanExchange removeTakeaway(@PathVariable int takeawayId) {
@@ -220,10 +230,21 @@ public class HomeController {
 		return exchange;
 	}
 
+	// 更新一个外卖，如果{checkout}是true，会更新{takeaway}所关联的{turnover}。通俗讲就是，{checkout}是true的时候，表示外卖结账，{takeaway}关联的{turnover}的{checkout}需要被更新成true
 	@RequestMapping(value = "takeaway/{checkout}", method = RequestMethod.PUT, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
 	BooleanExchange updateTakeaway(@PathVariable boolean checkout, @RequestBody Takeaway takeaway) {
 		customerManager.update(takeaway, checkout);
+		BooleanExchange exchange = new BooleanExchange();
+		exchange.setModel(true);
+		return exchange;
+	}
+
+	// 清表takeaway，turnover，order
+	@RequestMapping(value = "clear", method = RequestMethod.DELETE, produces = "application/json")
+	public @ResponseBody
+	BooleanExchange clear() {
+		customerManager.clear();
 		BooleanExchange exchange = new BooleanExchange();
 		exchange.setModel(true);
 		return exchange;

@@ -81,7 +81,11 @@ public class OrderTempleteHtmlUtil extends TempleteUtil {
 		for (Order order : orders) {
 			Product product = order.getProduct();
 			Category category = categoryMap.get(product.getCategoryId());
-			String cateName = category == null ? "" : category.getName();
+			if (category == null) {
+				logger.error("没有CategoryId是" + product.getCategoryId() + "的Category");
+				break;
+			}
+			String cateName = category.getName();
 			String barName = category.getBarName();
 			List<Map<String, String>> list = null;
 			if (barNameMap.containsKey(barName)) {

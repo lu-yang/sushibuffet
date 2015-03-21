@@ -8,11 +8,17 @@ import com.betalife.sushibuffet.model.Order;
 
 public interface OrderMapper {
 
-	List<Order> selectOrders(Order o);
+	List<Order> selectOrdersByTurnover(Order o);
 
-	void insertOrder(Order o);
+	List<Order> selectOrders(Map<String, Object> params);
+
+	void insert(Order o);
 
 	List<Order> selectOrdersByDate(Map<String, Date> map);
 
 	void delete(Order o);
+
+	void deleteAll();
+
+	void update(Order o);
 }

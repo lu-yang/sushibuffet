@@ -60,5 +60,9 @@
 		WHERE
 		id=#{id}
 	</delete>
+	
+	<delete id="deleteAll" >
+		DELETE FROM takeaway
+	</delete>
 
 </mapper>

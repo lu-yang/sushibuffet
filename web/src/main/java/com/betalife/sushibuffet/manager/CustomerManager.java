@@ -117,7 +117,7 @@ public class CustomerManager {
 		Date now = new Date();
 		for (Order o : orders) {
 			o.setCreated(now);
-			orderMapper.insertOrder(o);
+			orderMapper.insert(o);
 		}
 
 		List<byte[]> imgs = orderTempleteHtmlUtil.format_order_lines(orders, locale);
@@ -130,7 +130,7 @@ public class CustomerManager {
 	}
 
 	public List<Order> getOrders(Order order) {
-		return orderMapper.selectOrders(order);
+		return orderMapper.selectOrdersByTurnover(order);
 	}
 
 	public Map<String, Object> getOrdersByDate(Date from, Date to) throws Exception {
@@ -233,8 +233,28 @@ public class CustomerManager {
 		printer.print(list, logo, times);
 	}
 
+	public List<Order> selectOrders(List<Order> orders) {
+		List<Integer> ids = new ArrayList<Integer>();
+		for (Order order : orders) {
+			int id = order.getId();
+			ids.add(id);
+		}
+
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("ids", ids);
+		params.put("locale", locale);
+		List<Order> ordersWithInfo = orderMapper.selectOrders(params);
+		return ordersWithInfo;
+	}
+
 	// synchronized private void print(byte[] img, int times) throws Exception {
 	// printer.print(img, times);
 	// }
+	@Transactional(rollbackFor = Exception.class)
+	public void clear() {
+		orderMapper.deleteAll();
+		turnoverMapper.deleteAll();
+		takeawayMapper.deleteAll();
+	}
 
 }
