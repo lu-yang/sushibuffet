@@ -29,6 +29,7 @@ import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.model.Takeaway;
+import com.betalife.sushibuffet.model.TakeawayExt;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.Constant;
 import com.betalife.sushibuffet.util.LedgerTempletePOSUtil;
@@ -195,8 +196,8 @@ public class CustomerManager {
 		takeaway.setTurnover(turnover);
 	}
 
-	public List<Takeaway> getTakeaways() {
-		return takeawayMapper.selectTodayUnTakeaways();
+	public List<TakeawayExt> getTakeaways() {
+		return takeawayMapper.selectTodayTakeaways();
 	}
 
 	public void printOrders(Order model, boolean kitchen) throws Exception {

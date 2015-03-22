@@ -33,6 +33,7 @@ import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.model.Takeaway;
+import com.betalife.sushibuffet.model.TakeawayExt;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.Constant;
 
@@ -214,9 +215,9 @@ public class HomeController {
 	@RequestMapping(value = "takeaways", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	TakeawayListExchange takeaways() {
-		List<Takeaway> all = customerManager.getTakeaways();
+		List<TakeawayExt> all = customerManager.getTakeaways();
 		TakeawayListExchange exchange = new TakeawayListExchange();
-		exchange.setList(all.toArray(new Takeaway[0]));
+		exchange.setList(all.toArray(new TakeawayExt[0]));
 		return exchange;
 	}
 
