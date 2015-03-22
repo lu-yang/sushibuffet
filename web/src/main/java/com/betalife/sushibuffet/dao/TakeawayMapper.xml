@@ -38,23 +38,18 @@
 	</update>
 
 	<select id="selectTodayTakeaways" resultMap="takeawayExtResult">
-		SELECT SUM(o.COUNT*
-		p.product_price) AS total,
-		tn.id AS turnover_id, tn.discount,
-		tn.checkout,
-		ta.memo, ta.takeaway, ta.created, ta.id
-		FROM `order` o,
-		product p, turnover tn,
-		takeaway ta
-		WHERE ta.created BETWEEN CURDATE()
-		AND DATE_ADD(CURDATE(),
-		INTERVAL 1 DAY)
-		AND tn.takeaway_id = ta.id
-		AND
-		o.turnover_id = tn.id
-		AND
-		o.product_id = p.id
-		GROUP BY ta.id;
+		SELECT 
+		  SUM(o.COUNT* p.product_price) AS total,
+		  tn.id AS turnover_id, tn.discount, tn.checkout, ta.memo, ta.takeaway, ta.created, ta.id 
+		FROM
+		  `order` o, product p,  turnover tn, takeaway ta  
+		WHERE ta.created BETWEEN CURDATE() 
+		  AND DATE_ADD(CURDATE(), INTERVAL 1 DAY) 
+		  AND tn.takeaway_id = ta.id 
+		  AND o.turnover_id = tn.id 
+		  AND o.product_id = p.id 
+		GROUP BY ta.id 
+		ORDER BY ta.created DESC ;	    
 	</select>
 
 	<select id="select" parameterType="Takeaway" resultMap="takeawayResult">
