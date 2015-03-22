@@ -186,6 +186,18 @@ public class HomeController {
 		return exchange;
 	}
 
+	// 删除一个turnover
+	@RequestMapping(value = "turnover/{turnoverId}", method = RequestMethod.DELETE, produces = "application/json")
+	public @ResponseBody
+	BooleanExchange removeTurnover(@PathVariable int turnoverId) {
+		Turnover t = new Turnover();
+		t.setId(turnoverId);
+		customerManager.remove(t);
+		BooleanExchange exchange = new BooleanExchange();
+		exchange.setModel(true);
+		return exchange;
+	}
+
 	// 打印指定时间内的总单
 	@RequestMapping(value = "ledger/{from}/{to}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody

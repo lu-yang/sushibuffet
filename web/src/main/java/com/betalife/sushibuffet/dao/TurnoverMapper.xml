@@ -29,8 +29,7 @@
 	
 	<delete id="delete" parameterType="Turnover">
 		DELETE FROM turnover
-		WHERE
-		takeaway_id=#{takeawayId}
+		WHERE id=#{id}
 	</delete>
 	
 	<delete id="deleteAll" >
