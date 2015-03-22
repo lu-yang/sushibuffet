@@ -1,15 +1,15 @@
 package com.betalife.sushibuffet.exchange;
 
-import com.betalife.sushibuffet.model.Takeaway;
+import com.betalife.sushibuffet.model.TakeawayExt;
 
 public class TakeawayListExchange extends BaseExchange {
-	private Takeaway[] list;
+	private TakeawayExt[] list;
 
-	public Takeaway[] getList() {
+	public TakeawayExt[] getList() {
 		return list;
 	}
 
-	public void setList(Takeaway[] list) {
+	public void setList(TakeawayExt[] list) {
 		this.list = list;
 	}
 

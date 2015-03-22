@@ -11,10 +11,11 @@ import android.widget.TextView;
 
 import com.betalife.sushibuffet.activity.MainActivity;
 import com.betalife.sushibuffet.activity.R;
-import com.betalife.sushibuffet.model.Takeaway;
+import com.betalife.sushibuffet.activity.TotalPriceView;
+import com.betalife.sushibuffet.model.TakeawayExt;
 import com.betalife.sushibuffet.util.DodoroContext;
 
-public class TakeawayAdapter extends AAdapter<Takeaway> {
+public class TakeawayAdapter extends AAdapter<TakeawayExt> {
 	private SimpleDateFormat sdf;
 
 	public TakeawayAdapter(Activity activity) {
@@ -27,36 +28,39 @@ public class TakeawayAdapter extends AAdapter<Takeaway> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		convertView = initConvertView(convertView, parent);
 
-		final Takeaway result = getItem(position);
-		if (result == null) {
+		final TakeawayExt model = getItem(position);
+		if (model == null) {
 			return convertView;
 		}
 
-		convertView.setTag(result);
+		convertView.setTag(model);
 		TextView takeawayno = (TextView) convertView.findViewById(R.id.takeawayno);
-		takeawayno.setText("no. " + result.getId());
+		takeawayno.setText("no. " + model.getId());
 
 		TextView desc = (TextView) convertView.findViewById(R.id.desc);
-		desc.setText(result.getMemo());
+		desc.setText(model.getMemo());
 
 		TextView createDate = (TextView) convertView.findViewById(R.id.createDate);
-		String format = sdf.format(result.getCreated());
+		String format = sdf.format(model.getCreated());
 		createDate.setText(format);
 
 		TextView status = (TextView) convertView.findViewById(R.id.status);
-		if (result.isTakeaway()) {
+		if (model.isTakeaway()) {
 			status.setText("已取走");
-		} else if (result.getTurnover().isCheckout()) {
+		} else if (model.getTurnover().isCheckout()) {
 			status.setText("已结账，未取走");
 		} else {
 			status.setText("未结账");
 		}
 
+		TotalPriceView totalPriceView = new TotalPriceView(convertView);
+		totalPriceView.setTotalPrice(model.getTotal(), model.getTurnover().getDiscount());
+
 		convertView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				DodoroContext.getInstance().setTakeaway(result);
+				DodoroContext.getInstance().setTakeaway(model);
 				Intent intent = new Intent();
 				intent.setClass(activity, MainActivity.class);
 				activity.startActivity(intent);
