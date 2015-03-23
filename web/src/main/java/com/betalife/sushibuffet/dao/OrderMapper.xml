@@ -28,9 +28,30 @@
 		</association>
 	</resultMap>
 
+	<resultMap id="orderExtResult" type="OrderExt" extends="orderResult">
+		<association property="category" javaType="Category">
+			<id property="id" column="category_id" />
+			<result property="name" column="category_name" />			
+		</association>
+	</resultMap>
+
+	<select id="selectExtOrdersByTurnover" parameterType="Order" resultMap="orderExtResult">
+		SELECT o.id,o.`count`,o.turnover_id,o.product_id,t.checkout,o.updated,o.created,p.product_num, t.discount,
+			p.taxgroup_id,t.table_id,p.category_id,p.num,p.product_price,p.thumb,m.NAME product_name,m2.NAME category_name 
+		FROM `order` o, turnover t, 
+			product p LEFT JOIN multilang m ON m.id = CONCAT('p', p.id) AND m.locale = #{locale},
+			category c LEFT JOIN multilang m2 ON m2.id = CONCAT('c', c.id) AND m2.locale = #{locale} 
+		WHERE o.turnover_id = #{turnover.id} 
+		  AND o.turnover_id = t.id 
+		  AND o.product_id = p.id 
+		  AND c.id = p.category_id
+		  AND p.active = TRUE 
+		ORDER BY o.created 
+	</select>
+
 	<select id="selectOrdersByTurnover" parameterType="Order" resultMap="orderResult">
 		SELECT o.id, o.`count`, o.turnover_id, o.product_id, t.checkout, o.updated, o.created, p.product_num, p.taxgroup_id,
-		t.table_id, p.category_id, p.num, p.product_price, p.thumb, m.NAME
+		t.table_id, p.category_id, p.num, p.product_price, p.thumb, m.NAME, t.discount
 		FROM `order` o,	turnover t, product p LEFT JOIN multilang m ON m.id = CONCAT('p', p.id) 	AND m.locale = #{locale}
 		WHERE o.turnover_id = #{turnover.id}
 		AND o.turnover_id = t.id

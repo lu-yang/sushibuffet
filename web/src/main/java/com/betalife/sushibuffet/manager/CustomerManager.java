@@ -134,6 +134,10 @@ public class CustomerManager {
 		return orderMapper.selectOrdersByTurnover(order);
 	}
 
+	public List<Order> getExtOrders(Order order) {
+		return orderMapper.selectExtOrdersByTurnover(order);
+	}
+
 	public Map<String, Object> getOrdersByDate(Date from, Date to) throws Exception {
 		Map<String, Date> param = new HashMap<String, Date>();
 		param.put("from", from);

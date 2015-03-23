@@ -135,6 +135,18 @@ public class HomeController {
 		return exchange;
 	}
 
+	// 取所有turnoverId等于{turnoverId}的点单记录。
+	@RequestMapping(value = "extOrders/{locale}/{turnoverId}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	OrderListExchange extOrders(@PathVariable String locale, @PathVariable int turnoverId) {
+		Order model = buildOrder(locale, turnoverId);
+		List<Order> all = customerManager.getExtOrders(model);
+
+		OrderListExchange exchange = new OrderListExchange();
+		exchange.setList(all.toArray(new Order[0]));
+		return exchange;
+	}
+
 	// 这个暂时不用
 	@RequestMapping(value = "nouse", method = RequestMethod.PUT, produces = "application/json", consumes = "application/json")
 	public @ResponseBody
