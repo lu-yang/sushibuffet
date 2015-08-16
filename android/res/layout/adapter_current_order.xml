@@ -8,7 +8,6 @@
         android:id="@+id/thumb"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginLeft="10dip"
         android:contentDescription="@string/app_name"
         android:scaleType="fitXY" />
 
@@ -21,29 +20,9 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
             android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/totalPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:textSize="14sp" />
+        <include layout="@layout/custom_order_count" />
     </LinearLayout>
 
 </LinearLayout>

@@ -6,9 +6,9 @@
     android:orientation="vertical" >
 
     <LinearLayout
-      	android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
-    	android:orientation="vertical" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <ImageView
             android:id="@+id/thumb"
@@ -23,27 +23,15 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical" >
- 		<TextView
+
+        <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dodoro"
             android:textSize="16sp" />
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dodoro"
-            android:textSize="16sp" />
-
-       
-
-       <!--  <TextView
-            android:id="@+id/desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dodoro"
-            android:textSize="16sp" /> -->
     </LinearLayout>
+
+    <include layout="@layout/custom_order_count" />
 
 </LinearLayout>
