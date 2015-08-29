@@ -15,6 +15,33 @@ public class Turnover extends BaseModel {
 	private Integer takeawayId;
 	private Date created;
 	private Date updated;
+	private int round;
+	private Date roundTime;
+	private int roundOrderCount;
+
+	public int getRoundOrderCount() {
+		return roundOrderCount;
+	}
+
+	public void setRoundOrderCount(int roundOrderCount) {
+		this.roundOrderCount = roundOrderCount;
+	}
+
+	public Date getRoundTime() {
+		return roundTime;
+	}
+
+	public void setRoundTime(Date roundTime) {
+		this.roundTime = roundTime;
+	}
+
+	public int getRound() {
+		return round;
+	}
+
+	public void setRound(int round) {
+		this.round = round;
+	}
 
 	public Integer getTakeawayId() {
 		return takeawayId;
@@ -78,5 +105,9 @@ public class Turnover extends BaseModel {
 				+ firstTableId + ",discount=" + discount + ", takeawayId=" + takeawayId + ", created="
 				+ created + ", updated" + updated + "]";
 
+	}
+
+	public void addRound() {
+		++round;
 	}
 }

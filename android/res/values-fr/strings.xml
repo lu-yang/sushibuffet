@@ -72,5 +72,13 @@
     <string name="lbl_discount_no">Non remise</string>
     <string name="lbl_new_takeaway">Nouveau Emporter</string>
     <string name="lbl_memo">备注</string>
-
+	<string name="lbl_rounds">轮数: %1$s / %2$s</string>
+	<string name="round_out">%1$s轮已结束</string>
+	<string name="round_out_msg">%1$s轮已结束</string>
+	<string name="lbl_no_order">没有点菜，请点菜。</string>
+	<string name="lbl_round_interval">上一轮间隔不足%1$s 分钟，不能开始下一轮。</string>
+	<string name="lbl_round">第%1$s轮</string>
+	<string name="tlt_round_order_count">每轮点餐餐食数</string>
+	<string name="lbl_round_order_count">剩余: %1$s / %2$s</string>
+	<string name="err_round_order_count">超过每轮点餐餐食数量</string>
 </resources>

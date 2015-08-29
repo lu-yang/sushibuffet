@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.betalife.sushibuffet.adapter.SettingFragmentButtonAdapter;
 import com.betalife.sushibuffet.asynctask.CheckoutTask;
@@ -26,6 +27,8 @@ import com.betalife.sushibuffet.util.DodoroContext;
  * 
  */
 public abstract class BaseFragmentSetting extends BaseFragment implements Callback {
+
+	private TextView table_no;
 
 	protected View.OnClickListener printOrdersClickListener = new View.OnClickListener() {
 
@@ -106,7 +109,7 @@ public abstract class BaseFragmentSetting extends BaseFragment implements Callba
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 
-		DodoroContext.getInstance().fillIdentify(getResources(), view);
+		table_no = (TextView) view.findViewById(R.id.identify);
 
 		adapter = new SettingFragmentButtonAdapter(getActivity());
 		addButton(printOrdersClickListener, R.string.setting_activity_printOrders);
@@ -133,6 +136,8 @@ public abstract class BaseFragmentSetting extends BaseFragment implements Callba
 	@Override
 	public void refresh() {
 		super.refresh();
+		DodoroContext.getInstance().fillIdentify(getResources(), table_no);
+
 		setVisibility(View.INVISIBLE);
 
 		dialog.show();

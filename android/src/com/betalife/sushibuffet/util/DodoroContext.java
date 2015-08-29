@@ -1,5 +1,6 @@
 package com.betalife.sushibuffet.util;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,7 +15,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.widget.TextView;
 
 import com.betalife.sushibuffet.activity.MainActivity;
@@ -214,8 +214,7 @@ public class DodoroContext {
 		activity.startActivity(intent);
 	}
 
-	public void fillIdentify(Resources resources, View view) {
-		TextView table_no = (TextView) view.findViewById(R.id.identify);
+	public void fillIdentify(Resources resources, TextView table_no) {
 		if (takeaway != null) {
 			int takeawayId = takeaway.getId();
 			table_no.setText(resources.getString(R.string.lbl_takeaway_no) + takeawayId);
@@ -235,6 +234,39 @@ public class DodoroContext {
 				return takeout;
 			}
 		}
+	}
 
+	public void fillRound(Resources resources, TextView round) {
+		round.setText(resources.getString(R.string.lbl_rounds, turnover.getRound(), constant.getRounds()));
+	}
+
+	public boolean isOverRound() {
+		return turnover.getRound() >= constant.getRounds();
+	}
+
+	public boolean isInRoundInterval() {
+		Date roundTime = turnover.getRoundTime();
+		if (roundTime == null) {
+			return false;
+		}
+		return System.currentTimeMillis() < roundTime.getTime() + constant.getRoundInterval() * 1000 * 60;
+	}
+
+	public void fillRoundOrderCount(Resources resources, TextView roundOrderCount) {
+		int count = getRoundOrderAmount();
+		roundOrderCount.setText(resources.getString(R.string.lbl_round_order_count, count,
+				turnover.getRoundOrderCount()));
+	}
+
+	private int getRoundOrderAmount() {
+		int count = 0;
+		for (Order order : currentOrdersCache) {
+			count += order.getCount();
+		}
+		return count;
+	}
+
+	public boolean isOverRoundOrderCount() {
+		return getRoundOrderAmount() > turnover.getRoundOrderCount();
 	}
 }

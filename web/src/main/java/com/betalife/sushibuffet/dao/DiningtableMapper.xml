@@ -13,15 +13,20 @@
 			<result property="tableId" column="table_id" />
 			<result property="firstTableId" column="first_table_id" />
 			<result property="discount" column="discount" />
+			<result property="round" column="round" />
+			<result property="updated" column="updated" />
+			<result property="roundTime" column="round_time" />
+			<result property="roundOrderCount" column="round_order_count" />
+			
 		</association>
 	</resultMap>
 
 
 	<select id="selectTables" resultMap="diningtableResult">
-		SELECT d.id, d.available, t.checkout, t.id AS turnover_id,  t.first_table_id, t.table_id, t.discount  
+		SELECT d.id, d.available, t.checkout, t.id AS turnover_id,  t.first_table_id, t.table_id, t.discount, t.round, t.updated, t.round_time, t.round_order_count   
 		FROM diningtable d LEFT JOIN
 		  (
-		  	SELECT tn.checkout, tn.id, tn.table_id, tn.first_table_id, tn.discount  
+		  	SELECT tn.checkout, tn.id, tn.table_id, tn.first_table_id, tn.discount, tn.round, tn.updated, tn.round_time, tn.round_order_count  
 		   	FROM turnover tn,
 		    (
 		     SELECT MAX(id) AS id 

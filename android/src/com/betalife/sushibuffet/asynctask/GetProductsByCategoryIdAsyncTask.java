@@ -9,14 +9,10 @@ import org.springframework.http.ResponseEntity;
 
 import android.app.Activity;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.adapter.ProductAdapter;
-import com.betalife.sushibuffet.dialog.OrderAlertDialog;
 import com.betalife.sushibuffet.exchange.ProductListExchange;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.util.DodoroContext;
@@ -38,16 +34,17 @@ public class GetProductsByCategoryIdAsyncTask extends AbstractAsyncTask<Integer,
 		ProductAdapter aa = new ProductAdapter(activity, list);
 		GridView products = (GridView) activity.findViewById(R.id.products);
 		products.setAdapter(aa);
-		products.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Product selected = list.get(position);
-
-				OrderAlertDialog dialog = new OrderAlertDialog(activity, selected);
-				dialog.show();
-			}
-		});
+		// products.setOnItemClickListener(new OnItemClickListener() {
+		//
+		// @Override
+		// public void onItemClick(AdapterView<?> parent, View view, int
+		// position, long id) {
+		// Product selected = list.get(position);
+		//
+		// OrderAlertDialog dialog = new OrderAlertDialog(activity, selected);
+		// dialog.show();
+		// }
+		// });
 
 	}
 

@@ -9,6 +9,18 @@ public class Constant {
 
 	private String defaultThumb;
 
+	private int rounds;
+
+	private int roundInterval;
+
+	public int getRoundInterval() {
+		return roundInterval;
+	}
+
+	public int getRounds() {
+		return rounds;
+	}
+
 	public String getCategoryRootUrl() {
 		return categoryRootUrl;
 	}

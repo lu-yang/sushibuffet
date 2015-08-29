@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/layout_root"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+        
+        <TextView
+            android:id="@+id/tableNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:maxLength="4"
+            android:paddingBottom="10dp"
+            android:textColor="@color/dodoro"
+            android:textSize="22sp" />
+
+        <android.widget.IconTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:shadowColor="#22000000"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="1"
+            android:text="@string/tlt_round_order_count"
+            android:textColor="#C69C6D"
+            android:textSize="20sp" />
+
+        <NumberPicker
+            android:id="@+id/roundOrderCount"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</ScrollView>

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.activity.TakeAwayActivity;
-import com.betalife.sushibuffet.asynctask.OpenTableTask;
+import com.betalife.sushibuffet.dialog.RoundOrderCountAlertDialog;
 import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Turnover;
 import com.betalife.sushibuffet.util.DodoroContext;
@@ -65,12 +65,9 @@ public class OpenTableAdapter extends AAdapter<Diningtable> {
 				@Override
 				public void onClick(View v) {
 					Diningtable selected = (Diningtable) v.getTag();
-					Turnover turnover = new Turnover();
 					int tableId = selected.getId();
-					turnover.setTableId(tableId);
-					Toast.makeText(activity, "table: " + tableId, Toast.LENGTH_SHORT).show();
-					OpenTableTask task = new OpenTableTask(activity);
-					task.execute(turnover);
+					RoundOrderCountAlertDialog dialog = new RoundOrderCountAlertDialog(getActivity(), tableId);
+					dialog.show();
 				}
 			});
 		} else {

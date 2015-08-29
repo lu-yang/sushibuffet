@@ -87,12 +87,14 @@ public class DetailOrderAdapter extends BaseExpandableListAdapter {
 		}
 		Date date = getGroup(groupPosition);
 		TextView time = (TextView) convertView.findViewById(R.id.time);
-
 		String format = sdf.format(date);
 		// CharSequence format =
 		// DateFormat.format(activity.getString(R.string.order_history_format),
 		// date);
 		time.setText(format);
+
+		TextView round = (TextView) convertView.findViewById(R.id.round);
+		round.setText(activity.getString(R.string.lbl_round, groupPosition + 1));
 
 		return convertView;
 	}
@@ -115,15 +117,18 @@ public class DetailOrderAdapter extends BaseExpandableListAdapter {
 		int productCount = result.getCount();
 		count.setText(activity.getString(R.string.lbl_count) + productCount);
 
-		TextView price = (TextView) convertView.findViewById(R.id.price);
-		int productPrice = result.getProduct().getProductPrice();
-		price.setText(activity.getString(R.string.lbl_price) + DodoroContext.getDisplayPrice(productPrice)
-				+ activity.getString(R.string.lbl_eur));
-
-		TextView totalPrice = (TextView) convertView.findViewById(R.id.totalPrice);
-		int subTotal = productCount * productPrice;
-		totalPrice.setText(activity.getString(R.string.lbl_subtotal)
-				+ DodoroContext.getDisplayPrice(subTotal) + activity.getString(R.string.lbl_eur));
+		// TextView price = (TextView) convertView.findViewById(R.id.price);
+		// int productPrice = result.getProduct().getProductPrice();
+		// price.setText(activity.getString(R.string.lbl_price) +
+		// DodoroContext.getDisplayPrice(productPrice)
+		// + activity.getString(R.string.lbl_eur));
+		//
+		// TextView totalPrice = (TextView)
+		// convertView.findViewById(R.id.totalPrice);
+		// int subTotal = productCount * productPrice;
+		// totalPrice.setText(activity.getString(R.string.lbl_subtotal)
+		// + DodoroContext.getDisplayPrice(subTotal) +
+		// activity.getString(R.string.lbl_eur));
 
 		return convertView;
 	}

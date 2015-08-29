@@ -17,6 +17,26 @@ public class Constant {
 	@Value("#{constants['product.root.url']}")
 	private String productRootUrl;
 
+	private int rounds;
+
+	private int roundInterval;
+
+	public int getRoundInterval() {
+		return roundInterval;
+	}
+
+	public void setRoundInterval(int roundInterval) {
+		this.roundInterval = roundInterval;
+	}
+
+	public int getRounds() {
+		return rounds;
+	}
+
+	public void setRounds(int rounds) {
+		this.rounds = rounds;
+	}
+
 	public String getDefaultThumb() {
 		return defaultThumb;
 	}

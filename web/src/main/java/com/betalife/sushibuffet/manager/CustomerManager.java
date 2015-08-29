@@ -99,9 +99,11 @@ public class CustomerManager {
 	}
 
 	public Constant getConstant() {
-		Map<String, String> settings = settingsMapper.select();
-		constant.setCategoryRootUrl(settings.get("category_url"));
-		constant.setProductRootUrl(settings.get("product_url"));
+		Map<String, Object> settings = settingsMapper.select();
+		constant.setCategoryRootUrl((String) settings.get("category_url"));
+		constant.setProductRootUrl((String) settings.get("product_url"));
+		constant.setRounds((Integer) settings.get("rounds"));
+		constant.setRoundInterval((Integer) settings.get("round_interval"));
 		return constant;
 	}
 
@@ -110,9 +112,24 @@ public class CustomerManager {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void takeOrders(List<Order> orders) throws Exception {
+	public Turnover takeOrders(List<Order> orders) throws Exception {
+
 		if (CollectionUtils.isEmpty(orders)) {
-			return;
+			throw new IllegalArgumentException("Check Failed: orders is empty.");
+		}
+		Turnover turnover = orders.get(0).getTurnover();
+		turnover = turnoverMapper.select(turnover);
+		if (turnover.getRound() > constant.getRounds()) {
+			throw new IllegalArgumentException("Check Failed, round time is over " + constant.getRounds());
+		}
+
+		int count = 0;
+		for (Order o : orders) {
+			count += o.getCount();
+		}
+		if (count > turnover.getRoundOrderCount()) {
+			throw new IllegalArgumentException("Check Failed, round order count is over "
+					+ turnover.getRoundOrderCount());
 		}
 
 		Date now = new Date();
@@ -121,6 +138,10 @@ public class CustomerManager {
 			orderMapper.insert(o);
 		}
 
+		turnover.addRound();
+		turnover.setUpdated(now);
+		turnoverMapper.update(turnover);
+
 		List<byte[]> imgs = orderTempleteHtmlUtil.format_order_lines(orders, locale);
 		List<Object> list = new ArrayList<Object>();
 		for (byte[] img : imgs) {
@@ -128,6 +149,8 @@ public class CustomerManager {
 			list.add(printer.getCutPaper());
 		}
 		print(list, false, times);
+
+		return turnover;
 	}
 
 	public List<Order> getOrders(Order order) {

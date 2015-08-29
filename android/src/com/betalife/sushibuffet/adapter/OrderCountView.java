@@ -17,6 +17,7 @@ public class OrderCountView {
 	private Product viewModel;
 	private View convertView;
 	private Activity activity;
+	private TextView roundOrderCount;
 
 	public OrderCountView(Product viewModel, View convertView, Activity activity) {
 		this.viewModel = viewModel;
@@ -25,18 +26,24 @@ public class OrderCountView {
 	}
 
 	public void init() {
+		roundOrderCount = (TextView) activity.findViewById(R.id.roundOrderCount);
+
+		final DodoroContext instance = DodoroContext.getInstance();
+
 		final TextView num = (TextView) convertView.findViewById(R.id.num);
 		int count = getCount(viewModel);
-		setCount(num, count);
+		setTextAndTag(num, count);
 
 		Button add = (Button) convertView.findViewById(R.id.add);
 		add.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				int count = (Integer) num.getTag() + 1;
-				setCount(num, count);
-				changeCount(viewModel, num);
+				Integer oldValue = (Integer) num.getTag();
+				int newValue = oldValue + 1;
+				setTextAndTag(num, newValue);
+				changeCount(viewModel, newValue);
+				instance.fillRoundOrderCount(activity.getResources(), roundOrderCount);
 			}
 		});
 
@@ -45,17 +52,19 @@ public class OrderCountView {
 
 			@Override
 			public void onClick(View v) {
-				int count = (Integer) num.getTag() - 1;
-				if (count < 0) {
-					count = 0;
+				Integer oldValue = (Integer) num.getTag();
+				int newValue = oldValue - 1;
+				if (newValue < 0) {
+					newValue = 0;
 				}
-				setCount(num, count);
-				changeCount(viewModel, num);
+				setTextAndTag(num, newValue);
+				changeCount(viewModel, newValue);
+				instance.fillRoundOrderCount(activity.getResources(), roundOrderCount);
 			}
 		});
 	}
 
-	private void setCount(final TextView num, int count) {
+	private void setTextAndTag(final TextView num, int count) {
 		num.setText("" + count);
 		num.setTag(count);
 	}
@@ -73,8 +82,8 @@ public class OrderCountView {
 		return count;
 	}
 
-	private void changeCount(Product result, TextView num) {
-		changeOrderCount(result, num);
+	private void changeCount(Product result, int count) {
+		changeOrderCount(result, count);
 		changeCategoryCount();
 	}
 
@@ -84,7 +93,7 @@ public class OrderCountView {
 		adapter.notifyDataSetChanged();
 	}
 
-	private void changeOrderCount(Product result, TextView num) {
+	private void changeOrderCount(Product result, int count) {
 		List<Order> list = DodoroContext.getInstance().getCurrentOrdersCache();
 		int index = -1;
 		for (int i = 0; i < list.size(); i++) {
@@ -93,7 +102,6 @@ public class OrderCountView {
 				break;
 			}
 		}
-		int count = (Integer) num.getTag();
 		if (index == -1 && count != 0) {
 			Order o = new Order();
 			o.setCount(count);

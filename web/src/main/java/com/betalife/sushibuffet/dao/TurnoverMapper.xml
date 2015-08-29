@@ -7,22 +7,31 @@
 	<insert id="insert" parameterType="Turnover" useGeneratedKeys="true"
 		keyProperty="id">
 		INSERT INTO turnover
-		(table_id, checkout, first_table_id, discount, takeaway_id)
+		(table_id, checkout, first_table_id, discount, takeaway_id, round_order_count)
 		VALUES
-		(#{tableId}, #{checkout}, #{firstTableId}, #{discount}, #{takeawayId})
+		(#{tableId}, #{checkout}, #{firstTableId}, #{discount}, #{takeawayId}, #{roundOrderCount})
 	</insert>
 
-	<update id="update" parameterType="Turnover">
+	<update id="update" parameterType="Turnover" >
 		UPDATE turnover
 		SET
 		table_id=#{tableId}, discount=#{discount}, checkout=#{checkout},
-		updated=now()
+		<if test="updated == null">
+		    updated=now()
+		</if>
+		<if test="updated != null ">
+		    updated=#{updated} 
+        </if>
+        <if test="round != null ">
+		    , round=#{round} ,
+		    round_time=now()
+        </if>
 		WHERE id=#{id}
 	</update>
 
 	<select id="select" parameterType="Turnover" resultType="Turnover">
 		SELECT
-		id, table_id, discount, checkout, takeaway_id
+		id, table_id, discount, checkout, takeaway_id, round, round_time, round_order_count
 		FROM turnover
 		WHERE id=#{id}
 	</select>
