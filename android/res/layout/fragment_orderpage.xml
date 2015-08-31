@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:baselineAligned="false"
     android:orientation="horizontal" >
 
@@ -9,7 +9,7 @@
         android:id="@+id/categories"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.2"
+        android:layout_weight=".25"
         android:choiceMode="singleChoice"
         android:drawSelectorOnTop="false"
         android:scrollbars="vertical" />
@@ -17,41 +17,65 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
+        android:layout_weight=".75"
         android:orientation="vertical" >
+
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:padding="10dp"
+            android:background="@drawable/product_background"
+            >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/identify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/dodoro"
                 android:textSize="14sp" />
             
             <TextView
                 android:id="@+id/round"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/dodoro"
                 android:textSize="14sp" />
             
              <TextView
                 android:id="@+id/roundOrderCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/dodoro"
                 android:textSize="14sp" />
-
+		 </LinearLayout>
+             <TextView
+                android:text="category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@color/dodoro"
+                android:textSize="16sp" />
             <Button
                 android:id="@+id/btn_take_orders"
                 style="@style/button_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="10dp"
+                android:background="@drawable/round_button"
+        		android:layout_marginLeft="10dp"
+        		android:layout_marginRight="15dp"
                 android:text="@string/btn_take_orders"
                 android:textColor="@color/beige"
                 android:textSize="14sp" />
-        </LinearLayout>
+       </RelativeLayout>
 
         <GridView
             android:id="@+id/products"
@@ -59,7 +83,7 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:horizontalSpacing="1pt"
-            android:numColumns="auto_fit"
+            android:numColumns="3"
             android:verticalSpacing="1pt" />
     </LinearLayout>
 

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#222"
+    android:background="@drawable/product_background"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -14,6 +14,7 @@
             android:id="@+id/thumb"
             android:layout_width="match_parent"
             android:layout_height="220dp"
+            android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/app_name" />
     </LinearLayout>
