@@ -79,7 +79,7 @@ public class HomeController {
 	// 开桌
 	@RequestMapping(value = "openTable", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody TurnoverExchange openTable(@RequestBody Turnover turnover) {
-		customerManager.openTable(turnover);
+		turnover = customerManager.openTable(turnover);
 
 		TurnoverExchange exchange = new TurnoverExchange();
 		exchange.setModel(turnover);

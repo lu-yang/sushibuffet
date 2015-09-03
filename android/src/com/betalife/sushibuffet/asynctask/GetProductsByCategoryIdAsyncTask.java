@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import android.app.Activity;
 import android.util.Log;
 import android.widget.GridView;
+import android.widget.TextView;
 
+import com.betalife.sushibuffet.activity.OrderCountRefresh;
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.adapter.ProductAdapter;
 import com.betalife.sushibuffet.exchange.ProductListExchange;
@@ -31,7 +33,9 @@ public class GetProductsByCategoryIdAsyncTask extends AbstractAsyncTask<Integer,
 	public void postCallback(ProductListExchange result) {
 		final List<Product> list = Arrays.asList(result.getList());
 		Log.i("FragmentOrderpage", "" + list.size());
-		ProductAdapter aa = new ProductAdapter(activity, list);
+		TextView fragmentRoundOrderCount = (TextView) activity.findViewById(R.id.roundOrderCount);
+		OrderCountRefresh callback = new OrderCountRefresh(activity, fragmentRoundOrderCount);
+		ProductAdapter aa = new ProductAdapter(activity, list, callback);
 		GridView products = (GridView) activity.findViewById(R.id.products);
 		products.setAdapter(aa);
 		// products.setOnItemClickListener(new OnItemClickListener() {

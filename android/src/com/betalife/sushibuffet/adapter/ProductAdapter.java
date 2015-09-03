@@ -8,15 +8,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.betalife.sushibuffet.activity.Callback;
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.util.DodoroContext;
 import com.betalife.sushibuffet.util.ImageViewUtil;
 
 public class ProductAdapter extends AAdapter<Product> {
+	private Callback callback;
 
-	public ProductAdapter(Activity activity, List<Product> products) {
+	public ProductAdapter(Activity activity, List<Product> products, Callback callback) {
 		super(activity, products);
+		this.callback = callback;
 		resourceId = R.layout.adapter_product;
 	}
 
@@ -33,7 +36,7 @@ public class ProductAdapter extends AAdapter<Product> {
 			TextView name = (TextView) convertView.findViewById(R.id.name);
 			name.setText(viewModel.getProductName());
 
-			OrderCountView orderCountView = new OrderCountView(viewModel, convertView, activity);
+			OrderCountView orderCountView = new OrderCountView(viewModel, convertView, callback);
 			orderCountView.init();
 
 			// final TextView num = (TextView)

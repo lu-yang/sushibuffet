@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.betalife.sushibuffet.activity.OrderCountRefresh;
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.adapter.CurrentOrderAdapter;
 import com.betalife.sushibuffet.asynctask.TakeOrdersAsyncTask;
@@ -39,9 +40,13 @@ public class CurrentOrdersDialog extends Dialog {
 		TextView roundOrderCount = (TextView) findViewById(R.id.roundOrderCount);
 		instance.fillRoundOrderCount(resources, roundOrderCount);
 
+		TextView fragmentRoundOrderCount = (TextView) activity.findViewById(R.id.roundOrderCount);
+
+		OrderCountRefresh callback = new OrderCountRefresh(activity, roundOrderCount, fragmentRoundOrderCount);
+
 		ListView currentOrders = (ListView) findViewById(R.id.current_orders);
 		final List<Order> currentOrdersCache = DodoroContext.getInstance().getCurrentOrdersCache();
-		CurrentOrderAdapter oa = new CurrentOrderAdapter(activity, currentOrdersCache);
+		CurrentOrderAdapter oa = new CurrentOrderAdapter(activity, currentOrdersCache, callback);
 		currentOrders.setAdapter(oa);
 
 		Button ok = (Button) findViewById(R.id.ok);
@@ -50,6 +55,14 @@ public class CurrentOrdersDialog extends Dialog {
 			public void onClick(View v) {
 				if (instance.isOverRoundOrderCount()) {
 					Toast.makeText(activity, R.string.err_round_order_count, Toast.LENGTH_SHORT).show();
+					return;
+				}
+
+				if (instance.isInRoundInterval()) {
+					Toast.makeText(
+							activity,
+							activity.getString(R.string.lbl_round_interval, instance.getConstant()
+									.getRoundInterval()), Toast.LENGTH_SHORT).show();
 					return;
 				}
 

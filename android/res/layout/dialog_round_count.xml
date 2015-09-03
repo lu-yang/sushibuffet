@@ -29,7 +29,7 @@
             android:shadowDx="3"
             android:shadowDy="3"
             android:shadowRadius="1"
-            android:text="@string/tlt_round_order_count"
+            android:text="@string/ttl_round_order_count"
             android:textColor="#C69C6D"
             android:textSize="20sp" />
 

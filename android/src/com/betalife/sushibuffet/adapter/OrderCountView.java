@@ -2,12 +2,11 @@ package com.betalife.sushibuffet.adapter;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.betalife.sushibuffet.activity.Callback;
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Product;
@@ -16,19 +15,15 @@ import com.betalife.sushibuffet.util.DodoroContext;
 public class OrderCountView {
 	private Product viewModel;
 	private View convertView;
-	private Activity activity;
-	private TextView roundOrderCount;
+	private Callback refresh;
 
-	public OrderCountView(Product viewModel, View convertView, Activity activity) {
+	public OrderCountView(Product viewModel, View convertView, Callback refresh) {
 		this.viewModel = viewModel;
 		this.convertView = convertView;
-		this.activity = activity;
+		this.refresh = refresh;
 	}
 
 	public void init() {
-		roundOrderCount = (TextView) activity.findViewById(R.id.roundOrderCount);
-
-		final DodoroContext instance = DodoroContext.getInstance();
 
 		final TextView num = (TextView) convertView.findViewById(R.id.num);
 		int count = getCount(viewModel);
@@ -41,10 +36,9 @@ public class OrderCountView {
 			public void onClick(View v) {
 				Integer oldValue = (Integer) num.getTag();
 				int newValue = oldValue + 1;
-				setTextAndTag(num, newValue);
-				changeCount(viewModel, newValue);
-				instance.fillRoundOrderCount(activity.getResources(), roundOrderCount);
+				refresh(num, newValue);
 			}
+
 		});
 
 		Button subtract = (Button) convertView.findViewById(R.id.subtract);
@@ -57,16 +51,20 @@ public class OrderCountView {
 				if (newValue < 0) {
 					newValue = 0;
 				}
-				setTextAndTag(num, newValue);
-				changeCount(viewModel, newValue);
-				instance.fillRoundOrderCount(activity.getResources(), roundOrderCount);
+				refresh(num, newValue);
 			}
 		});
 	}
 
-	private void setTextAndTag(final TextView num, int count) {
+	private void setTextAndTag(TextView num, int count) {
 		num.setText("" + count);
 		num.setTag(count);
+	}
+
+	private void refresh(TextView num, int newValue) {
+		setTextAndTag(num, newValue);
+		changeOrderCount(viewModel, newValue);
+		refresh.callback();
 	}
 
 	private int getCount(Product result) {
@@ -80,17 +78,6 @@ public class OrderCountView {
 			}
 		}
 		return count;
-	}
-
-	private void changeCount(Product result, int count) {
-		changeOrderCount(result, count);
-		changeCategoryCount();
-	}
-
-	private void changeCategoryCount() {
-		ListView categories = (ListView) activity.findViewById(R.id.categories);
-		CategoryAdapter adapter = (CategoryAdapter) categories.getAdapter();
-		adapter.notifyDataSetChanged();
 	}
 
 	private void changeOrderCount(Product result, int count) {

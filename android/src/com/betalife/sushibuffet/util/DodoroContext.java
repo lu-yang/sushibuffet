@@ -237,11 +237,15 @@ public class DodoroContext {
 	}
 
 	public void fillRound(Resources resources, TextView round) {
-		round.setText(resources.getString(R.string.lbl_rounds, turnover.getRound(), constant.getRounds()));
+		if (isOverRound()) {
+			round.setText(resources.getString(R.string.lbl_round_out, constant.getRounds()));
+		} else {
+			round.setText(resources.getString(R.string.lbl_rounds, turnover.getRound(), constant.getRounds()));
+		}
 	}
 
 	public boolean isOverRound() {
-		return turnover.getRound() >= constant.getRounds();
+		return turnover.getRound() > constant.getRounds();
 	}
 
 	public boolean isInRoundInterval() {
@@ -252,10 +256,12 @@ public class DodoroContext {
 		return System.currentTimeMillis() < roundTime.getTime() + constant.getRoundInterval() * 1000 * 60;
 	}
 
-	public void fillRoundOrderCount(Resources resources, TextView roundOrderCount) {
+	public void fillRoundOrderCount(Resources resources, TextView... roundOrderCounts) {
 		int count = getRoundOrderAmount();
-		roundOrderCount.setText(resources.getString(R.string.lbl_round_order_count, count,
-				turnover.getRoundOrderCount()));
+		for (TextView textView : roundOrderCounts) {
+			textView.setText(resources.getString(R.string.lbl_round_order_count, count,
+					turnover.getRoundOrderCount()));
+		}
 	}
 
 	private int getRoundOrderAmount() {

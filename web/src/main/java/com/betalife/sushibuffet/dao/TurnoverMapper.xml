@@ -23,8 +23,10 @@
 		    updated=#{updated} 
         </if>
         <if test="round != null ">
-		    , round=#{round} ,
-		    round_time=now()
+		    , round=#{round} 
+        </if>
+        <if test="roundTime != null ">
+		   , round_time=#{roundTime}
         </if>
 		WHERE id=#{id}
 	</update>

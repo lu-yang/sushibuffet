@@ -85,9 +85,11 @@ public class CustomerManager {
 	private Constant constant;
 
 	@Transactional(rollbackFor = Exception.class)
-	public void openTable(Turnover turnover) {
+	public Turnover openTable(Turnover turnover) {
 		turnover.setFirstTableId(turnover.getTableId());
 		turnoverMapper.insert(turnover);
+
+		return turnoverMapper.select(turnover);
 	}
 
 	public List<Category> getCategoriesByParentId(Category category) {
@@ -140,6 +142,7 @@ public class CustomerManager {
 
 		turnover.addRound();
 		turnover.setUpdated(now);
+		turnover.setRoundTime(now);
 		turnoverMapper.update(turnover);
 
 		List<byte[]> imgs = orderTempleteHtmlUtil.format_order_lines(orders, locale);

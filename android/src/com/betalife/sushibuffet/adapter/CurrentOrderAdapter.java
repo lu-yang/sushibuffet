@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.betalife.sushibuffet.activity.Callback;
 import com.betalife.sushibuffet.activity.R;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.util.DodoroContext;
@@ -15,8 +16,11 @@ import com.betalife.sushibuffet.util.ImageViewUtil;
 
 public class CurrentOrderAdapter extends AAdapter<Order> {
 
-	public CurrentOrderAdapter(Activity activity, List<Order> orders) {
+	private Callback callback;
+
+	public CurrentOrderAdapter(Activity activity, List<Order> orders, Callback callback) {
 		super(activity, orders);
+		this.callback = callback;
 		resourceId = R.layout.adapter_current_order;
 	}
 
@@ -35,7 +39,7 @@ public class CurrentOrderAdapter extends AAdapter<Order> {
 		TextView name = (TextView) convertView.findViewById(R.id.name);
 		name.setText(viewModel.getProduct().getProductName());
 
-		OrderCountView orderCountView = new OrderCountView(viewModel.getProduct(), convertView, activity);
+		OrderCountView orderCountView = new OrderCountView(viewModel.getProduct(), convertView, callback);
 		orderCountView.init();
 
 		// TextView count = (TextView) convertView.findViewById(R.id.count);

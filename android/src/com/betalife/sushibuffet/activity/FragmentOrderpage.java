@@ -71,14 +71,6 @@ public class FragmentOrderpage extends BaseFragment {
 					return;
 				}
 
-				if (instance.isInRoundInterval()) {
-					Toast.makeText(
-							getActivity(),
-							getString(R.string.lbl_round_interval, instance.getConstant().getRoundInterval()),
-							Toast.LENGTH_SHORT).show();
-					return;
-				}
-
 				CurrentOrdersDialog dialog = new CurrentOrdersDialog(getActivity(), true);
 				dialog.show();
 			}
@@ -132,8 +124,8 @@ public class FragmentOrderpage extends BaseFragment {
 		AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
 		DodoroContext instance = DodoroContext.getInstance();
 		Constant constant = instance.getConstant();
-		dialog.setTitle(getString(R.string.round_out, constant.getRounds()));
-		dialog.setMessage(getString(R.string.round_out_msg, constant.getRounds()));
+		dialog.setTitle(getString(R.string.ttl_round_out, constant.getRounds()));
+		dialog.setMessage(getString(R.string.lbl_round_out, constant.getRounds()));
 		dialog.setNegativeButton(R.string._ok, DodoroContext.noActionDialogClickListener);
 		dialog.create().show();
 	}

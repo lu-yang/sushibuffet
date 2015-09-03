@@ -32,7 +32,9 @@ public class DetailOrderAdapter extends BaseExpandableListAdapter {
 	public DetailOrderAdapter(Activity activity) {
 		this.activity = activity;
 		this.layoutInflater = LayoutInflater.from(activity);
-		sdf = new SimpleDateFormat(activity.getString(R.string.order_history_format));
+
+		sdf = new SimpleDateFormat(activity.getString(R.string.order_history_format),
+				DodoroContext.locale(activity));
 	}
 
 	@Override
@@ -94,7 +96,7 @@ public class DetailOrderAdapter extends BaseExpandableListAdapter {
 		time.setText(format);
 
 		TextView round = (TextView) convertView.findViewById(R.id.round);
-		round.setText(activity.getString(R.string.lbl_round, groupPosition + 1));
+		round.setText(activity.getString(R.string.lbl_round, getGroupCount() - groupPosition));
 
 		return convertView;
 	}
