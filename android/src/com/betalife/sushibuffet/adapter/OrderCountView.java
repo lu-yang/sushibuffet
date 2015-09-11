@@ -29,7 +29,7 @@ public class OrderCountView {
 		int count = getCount(viewModel);
 		setTextAndTag(num, count);
 
-		Button add = (Button) convertView.findViewById(R.id.add);
+		TextView add = (TextView) convertView.findViewById(R.id.add);
 		add.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -41,7 +41,7 @@ public class OrderCountView {
 
 		});
 
-		Button subtract = (Button) convertView.findViewById(R.id.subtract);
+		TextView subtract = (TextView) convertView.findViewById(R.id.subtract);
 		subtract.setOnClickListener(new View.OnClickListener() {
 
 			@Override

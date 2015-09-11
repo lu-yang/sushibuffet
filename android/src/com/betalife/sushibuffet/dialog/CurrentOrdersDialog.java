@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,11 +33,18 @@ public class CurrentOrdersDialog extends Dialog {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		/* no-need title */
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.dialog_current_orders);
 		final DodoroContext instance = DodoroContext.getInstance();
 		Resources resources = activity.getResources();
-		setTitle(resources.getString(R.string.lbl_round, instance.getTurnover().getRound()));
-
+		
+		/* no-need title */
+// 		setTitle(resources.getString(R.string.lbl_round, instance.getTurnover().getRound())); 
+		
+		
+		TextView round = (TextView) findViewById(R.id.round);
+		instance.fillCurrentRound(resources, round);
 		TextView roundOrderCount = (TextView) findViewById(R.id.roundOrderCount);
 		instance.fillRoundOrderCount(resources, roundOrderCount);
 
@@ -49,7 +57,7 @@ public class CurrentOrdersDialog extends Dialog {
 		CurrentOrderAdapter oa = new CurrentOrderAdapter(activity, currentOrdersCache, callback);
 		currentOrders.setAdapter(oa);
 
-		Button ok = (Button) findViewById(R.id.ok);
+		TextView ok = (TextView) findViewById(R.id.ok);
 		ok.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

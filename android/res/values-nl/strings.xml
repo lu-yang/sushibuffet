@@ -29,6 +29,7 @@
     <string name="setting_activity_finishOrder_msg">确定结束点单 ?</string>
     <string name="_ok">OK</string>
     <string name="_cancel">Annuleren</string>
+    <string name="btn_order_ok">Sturen {fa_arrow_circle_o_right}</string>
     <string name="btn_take_orders">Sturen</string>
     <string name="err_take_orders">Er een fout tijdens het uitvoeren van deze opdracht.</string>
     <string name="msg_take_orders">Confirm taking orders?</string>

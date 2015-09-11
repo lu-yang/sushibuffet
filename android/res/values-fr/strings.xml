@@ -29,6 +29,7 @@
     <string name="setting_activity_finishOrder_msg">确定结束点单 ?</string>
     <string name="_ok">OK</string>
     <string name="_cancel">Annuler</string>
+    <string name="btn_order_ok">Envoyer {fa_arrow_circle_o_right}</string>
     <string name="btn_take_orders">Envoyer</string>
     <string name="err_take_orders">Une erreur lors de l exécution de cette commande.</string>
     <string name="msg_take_orders">Vous voulez envoyer cette commande ?</string>
@@ -71,14 +72,14 @@
     <string name="setting_activity_remove_takeaway_ok">取消成功</string>
     <string name="lbl_discount_no">Non remise</string>
     <string name="lbl_new_takeaway">Nouveau Emporter</string>
-    <string name="lbl_memo">备注</string>
-	<string name="lbl_rounds">轮数: %1$s / %2$s</string>
+    <string name="lbl_memo">Remarques</string>
+	<string name="lbl_rounds">Nombre de tour: %1$s / %2$s</string>
 	<string name="ttl_round_out">%1$s轮已结束</string>
 	<string name="lbl_round_out">%1$s轮已结束</string>
-	<string name="lbl_no_order">没有点菜，请点菜。</string>
+	<string name="lbl_no_order">Aucun plat a été choisi.</string>
 	<string name="lbl_round_interval">上一轮间隔不足%1$s 分钟，不能开始下一轮。</string>
-	<string name="lbl_round">第%1$s轮</string>
-	<string name="ttl_round_order_count">每轮点餐餐食数</string>
-	<string name="lbl_round_order_count">剩余: %1$s / %2$s</string>
-	<string name="err_round_order_count">超过每轮点餐餐食数量</string>
+	<string name="lbl_round">Tour %1$s</string>
+	<string name="ttl_round_order_count">Nombre de plat à choisir</string>
+	<string name="lbl_round_order_count">Déjà choisi: %1$s / ( Max. %2$s articles ) </string>
+	<string name="err_round_order_count">Dépasser le nombre maximum pour chaque tour</string>
 </resources>

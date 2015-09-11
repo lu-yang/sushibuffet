@@ -244,6 +244,12 @@ public class DodoroContext {
 		}
 	}
 
+	public void fillCurrentRound(Resources resources, TextView round) {
+		
+			round.setText(resources.getString(R.string.lbl_round, turnover.getRound(), constant.getRounds()));
+		
+	}
+	
 	public boolean isOverRound() {
 		return turnover.getRound() > constant.getRounds();
 	}

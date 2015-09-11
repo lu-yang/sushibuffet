@@ -35,6 +35,7 @@
 
         <NumberPicker
             android:id="@+id/roundOrderCount"
+            android:layout_gravity="center"
             android:layout_width="40dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
