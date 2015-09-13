@@ -8,45 +8,31 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
 import android.app.Activity;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 
-import com.betalife.sushibuffet.activity.R;
-import com.betalife.sushibuffet.adapter.CategoryAdapter;
+import com.betalife.sushibuffet.activity.CallbackResult;
 import com.betalife.sushibuffet.exchange.CategoryListExchange;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.util.DodoroContext;
 
 public class GetCategoriesAsyncTask extends AbstractAsyncTask<Void, CategoryListExchange> {
 
-	public GetCategoriesAsyncTask(Activity activity) {
-		this(activity, false);
+	private CallbackResult<List<Category>> callback;
+
+	public GetCategoriesAsyncTask(Activity activity, CallbackResult<List<Category>> callback) {
+		this(activity, callback, false);
 	}
 
-	public GetCategoriesAsyncTask(Activity activity, boolean showProgressDialog) {
+	public GetCategoriesAsyncTask(Activity activity, CallbackResult<List<Category>> callback,
+			boolean showProgressDialog) {
 		super(activity, showProgressDialog);
+		this.callback = callback;
+
 	}
 
 	@Override
 	public void postCallback(CategoryListExchange result) {
 		final List<Category> list = Arrays.asList(result.getList());
-		Log.i("FragmentOrderpage", "" + list.size());
-		CategoryAdapter aa = new CategoryAdapter(activity, list);
-		ListView categories = (ListView) activity.findViewById(R.id.categories);
-		categories.setAdapter(aa);
-		categories.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Category selected = list.get(position);
-
-				GetProductsByCategoryIdAsyncTask task2 = new GetProductsByCategoryIdAsyncTask(activity);
-				task2.execute(selected.getId());
-			}
-		});
+		callback.callback(list);
 	}
 
 	@Override

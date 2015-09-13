@@ -82,4 +82,5 @@
 	<string name="ttl_round_order_count">每轮点餐餐食数</string>
 	<string name="lbl_round_order_count">剩余: %1$s / %2$s</string>
 	<string name="err_round_order_count">超过每轮点餐餐食数量</string>
+	<string name="lbl_round_interval_left">%1$s秒</string>
 </resources>

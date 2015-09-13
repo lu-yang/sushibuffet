@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.betalife.sushibuffet.activity.Callback;
 import com.betalife.sushibuffet.activity.R;
+import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.util.DodoroContext;
 import com.betalife.sushibuffet.util.ImageViewUtil;
@@ -39,6 +40,11 @@ public class CurrentOrderAdapter extends AAdapter<Order> {
 		TextView name = (TextView) convertView.findViewById(R.id.name);
 		name.setText(viewModel.getProduct().getProductName());
 
+		TextView cateName = (TextView) convertView.findViewById(R.id.cateName);
+		int cateId = viewModel.getProduct().getCategoryId();
+		Category category = DodoroContext.getInstance().getCategory(cateId);
+		cateName.setText(category.getName());
+
 		OrderCountView orderCountView = new OrderCountView(viewModel.getProduct(), convertView, callback);
 		orderCountView.init();
 
@@ -62,5 +68,4 @@ public class CurrentOrderAdapter extends AAdapter<Order> {
 
 		return convertView;
 	}
-
 }

@@ -5,71 +5,70 @@
     android:background="#333"
     android:orientation="vertical" >
 
-	<LinearLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
- 		android:orientation="vertical" >
-	      <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
             android:id="@+id/round"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:padding="10dp"
             android:textColor="@color/dodoro"
-            android:textSize="22sp" 
-            android:textStyle="bold" />    
-            
-            <View 
-   android:layout_width="fill_parent"
-   android:layout_height="2dp"       
-   android:background="@color/dodoro"/>
-            
-	</LinearLayout>
-   
-    
-    
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/dodoro" />
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" 
-        android:padding="10dp">
-		
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
         <TextView
             android:id="@+id/roundOrderCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:padding="10dp"
             android:textColor="@color/dodoro"
-            android:textSize="22sp" 
-            android:textStyle="bold"
-            />
-	  
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
         <android.widget.IconTextView
             android:id="@+id/ok"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:shadowColor="#22000000"
-	        android:shadowDx="3"
-	        android:shadowDy="3"
-	        android:shadowRadius="1"
-	        android:text="@string/btn_order_ok"
-	        android:background="@drawable/round_button"
-	        android:layout_marginLeft="10dp"
-        	android:layout_marginRight="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-	        android:textSize="18sp" 
-	        android:textStyle="bold"
-	        android:textColor="#ffffff"
-	        android:paddingLeft="20dp" 
-	        android:paddingRight="20dp" 
-	        android:paddingTop="10dp"
-	        android:paddingBottom="10dp"
-	        android:layout_marginTop="10dp"  />
-        
-     
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_button"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:shadowColor="#22000000"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="1"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </RelativeLayout>
- 
+
     <ListView
         android:id="@+id/current_orders"
         android:layout_width="match_parent"

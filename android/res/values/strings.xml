@@ -87,4 +87,5 @@
 	<string name="err_round_order_count">Exceeding the maximum number for each round</string>
 	<string name="btn_subtract">{fa_minus}</string>
 	<string name="btn_add">{fa_plus}</string>
+	<string name="lbl_round_interval_left">%1$s秒</string>
 </resources>

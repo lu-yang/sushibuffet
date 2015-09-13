@@ -15,10 +15,12 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
+import android.util.SparseArray;
 import android.widget.TextView;
 
 import com.betalife.sushibuffet.activity.MainActivity;
 import com.betalife.sushibuffet.activity.R;
+import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Constant;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.model.Takeaway;
@@ -40,6 +42,10 @@ public class DodoroContext {
 	private Drawable noImage;
 
 	private Takeaway takeaway;
+
+	private List<Category> categories;
+
+	private SparseArray<Category> categoryMap;
 
 	public static final DialogInterface.OnClickListener noActionDialogClickListener = new DialogInterface.OnClickListener() {
 
@@ -245,11 +251,11 @@ public class DodoroContext {
 	}
 
 	public void fillCurrentRound(Resources resources, TextView round) {
-		
-			round.setText(resources.getString(R.string.lbl_round, turnover.getRound(), constant.getRounds()));
-		
+
+		round.setText(resources.getString(R.string.lbl_round, turnover.getRound(), constant.getRounds()));
+
 	}
-	
+
 	public boolean isOverRound() {
 		return turnover.getRound() > constant.getRounds();
 	}
@@ -260,6 +266,17 @@ public class DodoroContext {
 			return false;
 		}
 		return System.currentTimeMillis() < roundTime.getTime() + constant.getRoundInterval() * 1000 * 60;
+	}
+
+	public long getInRoundInterval() {
+		Date roundTime = turnover.getRoundTime();
+		if (roundTime == null) {
+			return 0;
+		}
+
+		long interval = roundTime.getTime() + constant.getRoundInterval() * 1000 * 60
+				- System.currentTimeMillis();
+		return interval > 0 ? interval : 0;
 	}
 
 	public void fillRoundOrderCount(Resources resources, TextView... roundOrderCounts) {
@@ -281,4 +298,21 @@ public class DodoroContext {
 	public boolean isOverRoundOrderCount() {
 		return getRoundOrderAmount() > turnover.getRoundOrderCount();
 	}
+
+	public void setCategories(List<Category> list) {
+		this.categories = list;
+		categoryMap = new SparseArray<Category>();
+		for (Category one : list) {
+			categoryMap.put(one.getId(), one);
+		}
+	}
+
+	public List<Category> getCategories() {
+		return this.categories;
+	}
+
+	public Category getCategory(int id) {
+		return categoryMap.get(id);
+	}
+
 }

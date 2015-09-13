@@ -7,16 +7,23 @@ import org.springframework.util.CollectionUtils;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.betalife.sushibuffet.adapter.CategoryAdapter;
 import com.betalife.sushibuffet.asynctask.GetCategoriesAsyncTask;
 import com.betalife.sushibuffet.asynctask.GetProductsByCategoryIdAsyncTask;
 import com.betalife.sushibuffet.dialog.CurrentOrdersDialog;
+import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Constant;
 import com.betalife.sushibuffet.model.Order;
 import com.betalife.sushibuffet.util.DodoroContext;
@@ -28,6 +35,7 @@ public class FragmentOrderpage extends BaseFragment {
 	private TextView round;
 	private TextView roundOrderCount;
 	private TextView table_no;
+	private TextView countDownTimer;
 
 	// private boolean init = true;
 	public FragmentOrderpage() {
@@ -51,6 +59,8 @@ public class FragmentOrderpage extends BaseFragment {
 		round = (TextView) view.findViewById(R.id.round);
 
 		roundOrderCount = (TextView) view.findViewById(R.id.roundOrderCount);
+
+		countDownTimer = (TextView) view.findViewById(R.id.countDownTimer);
 
 		// currentOrders = (ListView) view.findViewById(R.id.current_orders);
 
@@ -83,17 +93,53 @@ public class FragmentOrderpage extends BaseFragment {
 	@Override
 	public void refresh() {
 		super.refresh();
-		DodoroContext instance = DodoroContext.getInstance();
+		final DodoroContext instance = DodoroContext.getInstance();
 		instance.fillRound(getResources(), round);
 		instance.fillIdentify(getResources(), table_no);
 		instance.fillRoundOrderCount(getResources(), roundOrderCount);
 
-		GetCategoriesAsyncTask getCategoriesAsyncTask = new GetCategoriesAsyncTask(getActivity(), true);
-		getCategoriesAsyncTask.execute();
+		if (instance.isInRoundInterval()) {
+			countDownTimer.setVisibility(View.VISIBLE);
+			long millisInFuture = DodoroContext.getInstance().getInRoundInterval();
+			CountDownTimer timer = new CountDownTimer(millisInFuture, 1000) {
 
-		GetProductsByCategoryIdAsyncTask getProductsByCategoryIdAsyncTask = new GetProductsByCategoryIdAsyncTask(
-				getActivity(), true);
-		getProductsByCategoryIdAsyncTask.execute(2);
+				@Override
+				public void onFinish() {
+					countDownTimer.setVisibility(View.INVISIBLE);
+				}
+
+				@Override
+				public void onTick(long millisUntilFinished) {
+					countDownTimer.setText(getString(R.string.lbl_round_interval_left,
+							millisUntilFinished / 1000));
+				}
+
+			};
+
+			timer.start();
+		} else {
+			countDownTimer.setVisibility(View.INVISIBLE);
+		}
+
+		List<Category> categories = instance.getCategories();
+		if (CollectionUtils.isEmpty(categories)) {
+			CallbackResult<List<Category>> callback = new CallbackResult<List<Category>>() {
+
+				@Override
+				public void callback(final List<Category> list) {
+					instance.setCategories(list);
+					showCategories(list);
+					showProduct(list);
+				}
+			};
+
+			GetCategoriesAsyncTask getCategoriesAsyncTask = new GetCategoriesAsyncTask(getActivity(),
+					callback, true);
+			getCategoriesAsyncTask.execute();
+		} else {
+			showCategories(categories);
+			showProduct(categories);
+		}
 
 		if (instance.isOverRound()) {
 			showRoundOutAlert();
@@ -120,13 +166,49 @@ public class FragmentOrderpage extends BaseFragment {
 
 	}
 
+	protected void showProduct(List<Category> list) {
+		Category selected = null;
+		for (Category category : list) {
+			if (category.getId() == 2) {
+				selected = category;
+				break;
+			}
+		}
+		if (selected == null) {
+			selected = list.get(0);
+		}
+
+		GetProductsByCategoryIdAsyncTask getProductsByCategoryIdAsyncTask = new GetProductsByCategoryIdAsyncTask(
+				getActivity(), true);
+		getProductsByCategoryIdAsyncTask.execute(selected);
+	}
+
 	private void showRoundOutAlert() {
 		AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
 		DodoroContext instance = DodoroContext.getInstance();
 		Constant constant = instance.getConstant();
-//		dialog.setTitle(getString(R.string.ttl_round_out, constant.getRounds()));
+		// dialog.setTitle(getString(R.string.ttl_round_out,
+		// constant.getRounds()));
 		dialog.setMessage(getString(R.string.lbl_round_out, constant.getRounds()));
 		dialog.setNegativeButton(R.string._ok, DodoroContext.noActionDialogClickListener);
 		dialog.create().show();
+	}
+
+	public void showCategories(final List<Category> list) {
+		final FragmentActivity activity = getActivity();
+		CategoryAdapter aa = new CategoryAdapter(activity, list);
+		ListView categories = (ListView) activity.findViewById(R.id.categories);
+		categories.setAdapter(aa);
+		categories.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Category selected = list.get(position);
+
+				GetProductsByCategoryIdAsyncTask task2 = new GetProductsByCategoryIdAsyncTask(activity);
+				task2.execute(selected);
+			}
+		});
+
 	}
 }

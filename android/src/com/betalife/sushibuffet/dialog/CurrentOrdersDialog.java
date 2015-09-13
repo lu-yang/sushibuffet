@@ -6,9 +6,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +23,7 @@ import com.betalife.sushibuffet.util.DodoroContext;
 public class CurrentOrdersDialog extends Dialog {
 
 	private Activity activity;
+	private TextView sendBtn;
 
 	public CurrentOrdersDialog(Activity activity, boolean cancelable) {
 		super(activity);
@@ -38,11 +39,11 @@ public class CurrentOrdersDialog extends Dialog {
 		this.setContentView(R.layout.dialog_current_orders);
 		final DodoroContext instance = DodoroContext.getInstance();
 		Resources resources = activity.getResources();
-		
+
 		/* no-need title */
-// 		setTitle(resources.getString(R.string.lbl_round, instance.getTurnover().getRound())); 
-		
-		
+		// setTitle(resources.getString(R.string.lbl_round,
+		// instance.getTurnover().getRound()));
+
 		TextView round = (TextView) findViewById(R.id.round);
 		instance.fillCurrentRound(resources, round);
 		TextView roundOrderCount = (TextView) findViewById(R.id.roundOrderCount);
@@ -57,8 +58,38 @@ public class CurrentOrdersDialog extends Dialog {
 		CurrentOrderAdapter oa = new CurrentOrderAdapter(activity, currentOrdersCache, callback);
 		currentOrders.setAdapter(oa);
 
-		TextView ok = (TextView) findViewById(R.id.ok);
-		ok.setOnClickListener(new View.OnClickListener() {
+		sendBtn = (TextView) findViewById(R.id.ok);
+		if (instance.isInRoundInterval()) {
+			sendBtn.setClickable(false);
+			long millisInFuture = DodoroContext.getInstance().getInRoundInterval();
+			CountDownTimer timer = new CountDownTimer(millisInFuture, 1000) {
+
+				@Override
+				public void onFinish() {
+					activeSendBtn();
+				}
+
+				@Override
+				public void onTick(long millisUntilFinished) {
+					sendBtn.setText(activity.getString(R.string.lbl_round_interval_left,
+							millisUntilFinished / 1000));
+				}
+
+			};
+
+			timer.start();
+
+		} else {
+			activeSendBtn();
+		}
+
+	}
+
+	private void activeSendBtn() {
+		sendBtn.setClickable(true);
+		sendBtn.setText(R.string.btn_order_ok);
+		final DodoroContext instance = DodoroContext.getInstance();
+		sendBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (instance.isOverRoundOrderCount()) {
@@ -79,5 +110,6 @@ public class CurrentOrdersDialog extends Dialog {
 				cancel();
 			}
 		});
+
 	}
 }
