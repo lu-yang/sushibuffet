@@ -17,16 +17,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import com.betalife.sushibuffet.dao.AttributionGroupMapper;
 import com.betalife.sushibuffet.dao.CategoryMapper;
 import com.betalife.sushibuffet.dao.DiningtableMapper;
+import com.betalife.sushibuffet.dao.OrderAttributionMapper;
 import com.betalife.sushibuffet.dao.OrderMapper;
 import com.betalife.sushibuffet.dao.ProductMapper;
 import com.betalife.sushibuffet.dao.SettingsMapper;
 import com.betalife.sushibuffet.dao.TakeawayMapper;
 import com.betalife.sushibuffet.dao.TurnoverMapper;
+import com.betalife.sushibuffet.model.AttributionGroup;
 import com.betalife.sushibuffet.model.Category;
 import com.betalife.sushibuffet.model.Diningtable;
 import com.betalife.sushibuffet.model.Order;
+import com.betalife.sushibuffet.model.OrderAttribution;
 import com.betalife.sushibuffet.model.Product;
 import com.betalife.sushibuffet.model.Takeaway;
 import com.betalife.sushibuffet.model.TakeawayExt;
@@ -62,6 +66,12 @@ public class CustomerManager {
 
 	@Autowired
 	private TakeawayMapper takeawayMapper;
+
+	@Autowired
+	private AttributionGroupMapper attributionGroupMapper;
+
+	@Autowired
+	private OrderAttributionMapper orderAttributionMapper;
 
 	@Resource(name = "printer")
 	private Printer printer;
@@ -106,7 +116,25 @@ public class CustomerManager {
 	}
 
 	public List<Product> getProductsByCategoryId(Product product) {
-		return productMapper.selectByCategoryId(product);
+		List<Product> products = productMapper.selectByCategoryId(product);
+
+		Map<Integer, Product> map = new HashMap<Integer, Product>();
+		for (Product one : products) {
+			int id = one.getId();
+			map.put(id, one);
+		}
+
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("ids", map.keySet());
+		params.put("locale", product.getLocale());
+		List<AttributionGroup> attributionGroups = attributionGroupMapper.selectByProductIds(params);
+
+		for (AttributionGroup one : attributionGroups) {
+			int productId = one.getProductId();
+			Product parent = map.get(productId);
+			parent.addAttribution(one.getAttribution());
+		}
+		return products;
 	}
 
 	@Transactional(rollbackFor = Exception.class)
@@ -119,6 +147,13 @@ public class CustomerManager {
 		for (Order o : orders) {
 			o.setCreated(now);
 			orderMapper.insert(o);
+
+			List<OrderAttribution> orderAttributions = o.getOrderAttributions();
+			for (OrderAttribution oa : orderAttributions) {
+				oa.setOrderId(o.getId());
+				oa.setCreated(now);
+				orderAttributionMapper.insert(oa);
+			}
 		}
 
 		List<byte[]> imgs = orderTempleteHtmlUtil.format_order_lines(orders, locale);
@@ -131,11 +166,37 @@ public class CustomerManager {
 	}
 
 	public List<Order> getOrders(Order order) {
-		return orderMapper.selectOrdersByTurnover(order);
+		List<Order> orders = orderMapper.selectOrdersByTurnover(order);
+		fillOrderAttribution(order.getLocale(), orders);
+		return orders;
 	}
 
 	public List<Order> getExtOrders(Order order) {
-		return orderMapper.selectExtOrdersByTurnover(order);
+		List<Order> orders = orderMapper.selectExtOrdersByTurnover(order);
+		fillOrderAttribution(order.getLocale(), orders);
+		return orders;
+	}
+
+	private void fillOrderAttribution(String locale, List<Order> orders) {
+		if (CollectionUtils.isEmpty(orders)) {
+			return;
+		}
+		Map<Integer, Order> map = new HashMap<Integer, Order>();
+		for (Order one : orders) {
+			int id = one.getId();
+			map.put(id, one);
+		}
+
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("ids", map.keySet());
+		params.put("locale", locale);
+		List<OrderAttribution> orderAttributions = orderAttributionMapper.selectByOrderIds(params);
+
+		for (OrderAttribution one : orderAttributions) {
+			int orderId = one.getOrderId();
+			Order parent = map.get(orderId);
+			parent.addOrderAttribution(one);
+		}
 	}
 
 	public Map<String, Object> getOrdersByDate(Date from, Date to) throws Exception {
@@ -146,6 +207,7 @@ public class CustomerManager {
 		if (CollectionUtils.isEmpty(orders)) {
 			return null;
 		}
+		fillOrderAttribution(locale, orders);
 		Map<String, Object> map = ledgerTempletePOSUtil.buildParam(orders);
 		String html = ledgerTempletePOSUtil.format(map);
 		List<Object> list = new ArrayList<Object>();
@@ -173,6 +235,7 @@ public class CustomerManager {
 		Order order = new Order();
 		order.setTurnover(t);
 		orderMapper.delete(order);
+		orderAttributionMapper.delete(order);
 		turnoverMapper.delete(t);
 	}
 
@@ -209,18 +272,8 @@ public class CustomerManager {
 		if (CollectionUtils.isEmpty(orders)) {
 			logger.info("there is no order to print." + model);
 		}
-		Map<Integer, Order> map = new HashMap<Integer, Order>();
-		for (Order order : orders) {
-			int id = order.getProduct().getId();
-			if (map.containsKey(id)) {
-				Order one = map.get(id);
-				one.setCount(one.getCount() + order.getCount());
-			} else {
-				Order one = order.copy();
-				map.put(id, one);
-			}
-		}
-		Collection<Order> values = map.values();
+		fillOrderAttribution(model.getLocale(), orders);
+
 		List<Object> list = new ArrayList<Object>();
 		if (kitchen) {
 			List<byte[]> imgs = orderTempleteHtmlUtil.format_order_lines(orders, locale);
@@ -230,6 +283,37 @@ public class CustomerManager {
 			}
 			print(list, false, times);
 		} else {
+			// productId
+			Map<Integer, Order> map = new HashMap<Integer, Order>();
+			// productId-attId
+			Map<String, OrderAttribution> attMap = new HashMap<String, OrderAttribution>();
+			for (Order order : orders) {
+				int id = order.getProduct().getId();
+				if (map.containsKey(id)) {
+					Order one = map.get(id);
+					one.setCount(one.getCount() + order.getCount());
+					List<OrderAttribution> orderAttributions = order.getOrderAttributions();
+					for (OrderAttribution orderAttribution : orderAttributions) {
+						String key = id + "-" + orderAttribution.getId();
+						if (attMap.containsKey(key)) {
+							OrderAttribution value = attMap.get(key);
+							value.setCount(value.getCount() + orderAttribution.getCount());
+						} else {
+							one.addOrderAttribution(orderAttribution);
+							attMap.put(key, orderAttribution);
+						}
+					}
+				} else {
+					Order one = order.copy();
+					map.put(id, one);
+					List<OrderAttribution> orderAttributions = one.getOrderAttributions();
+					for (OrderAttribution orderAttribution : orderAttributions) {
+						attMap.put(id + "-" + orderAttribution.getId(), orderAttribution);
+					}
+				}
+			}
+			Collection<Order> values = map.values();
+
 			Turnover turnover = turnoverMapper.select(model.getTurnover());
 			String content = receiptTempletePOSUtil.format_receipt_lines(new ArrayList<Order>(values),
 					model.getLocale(), turnover);
@@ -254,6 +338,7 @@ public class CustomerManager {
 		params.put("ids", ids);
 		params.put("locale", locale);
 		List<Order> ordersWithInfo = orderMapper.selectOrders(params);
+		fillOrderAttribution(locale, ordersWithInfo);
 		return ordersWithInfo;
 	}
 
@@ -262,6 +347,7 @@ public class CustomerManager {
 	// }
 	@Transactional(rollbackFor = Exception.class)
 	public void clear() {
+		orderAttributionMapper.deleteAll();
 		orderMapper.deleteAll();
 		turnoverMapper.deleteAll();
 		takeawayMapper.deleteAll();

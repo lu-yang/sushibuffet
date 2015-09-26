@@ -1,5 +1,7 @@
 package com.betalife.sushibuffet.model;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class Product extends BaseModel {
 	/**
@@ -18,6 +20,23 @@ public class Product extends BaseModel {
 	private int taxgroupId;
 	private int productPrice;
 	private String locale;
+
+	private List<Attribution> attributions;
+
+	public List<Attribution> getAttributions() {
+		return attributions;
+	}
+
+	public void setAttributions(List<Attribution> attributions) {
+		this.attributions = attributions;
+	}
+
+	public void addAttribution(Attribution att) {
+		if (attributions == null) {
+			attributions = new ArrayList<Attribution>();
+		}
+		attributions.add(att);
+	}
 
 	public String getLocale() {
 		return locale;

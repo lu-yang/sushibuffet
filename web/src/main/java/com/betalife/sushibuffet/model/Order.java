@@ -1,6 +1,8 @@
 package com.betalife.sushibuffet.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Order extends BaseModel {
 	/**
@@ -18,6 +20,8 @@ public class Order extends BaseModel {
 
 	private Date created;
 	private Date updated;
+
+	private List<OrderAttribution> orderAttributions;
 
 	// public int getTurnoverId() {
 	// return turnoverId;
@@ -37,6 +41,21 @@ public class Order extends BaseModel {
 
 	public Date getCreated() {
 		return created;
+	}
+
+	public List<OrderAttribution> getOrderAttributions() {
+		return orderAttributions;
+	}
+
+	public void setOrderAttributions(List<OrderAttribution> orderAttributions) {
+		this.orderAttributions = orderAttributions;
+	}
+
+	public void addOrderAttribution(OrderAttribution orderAttribution) {
+		if (orderAttributions == null) {
+			orderAttributions = new ArrayList<OrderAttribution>();
+		}
+		this.orderAttributions.add(orderAttribution);
 	}
 
 	public void setCreated(Date created) {
@@ -91,7 +110,9 @@ public class Order extends BaseModel {
 		copy.turnover = turnover;
 		copy.created = created;
 		copy.updated = updated;
-
+		for (OrderAttribution one : orderAttributions) {
+			copy.orderAttributions.add(one.copy());
+		}
 		return copy;
 	}
 
