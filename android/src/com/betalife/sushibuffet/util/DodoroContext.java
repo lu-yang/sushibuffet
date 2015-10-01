@@ -106,6 +106,7 @@ public class DodoroContext {
 	}
 
 	public static void locale(Locale locale, Activity activity) {
+		clean();
 		Resources resources = activity.getResources();
 		Configuration config = resources.getConfiguration();
 		config.locale = locale;
@@ -118,16 +119,24 @@ public class DodoroContext {
 		activity.startActivity(intent);
 	}
 
+	private static void clean() {
+		instance.setCategories(null);
+	}
+
 	public static Locale locale(Activity activity) {
 		Resources resources = activity.getResources();
 		Configuration config = resources.getConfiguration();
-		return config.locale;
+		Locale locale = config.locale;
+
+		if (!locale.equals(Locale.FRENCH) && !locale.equals(Locale.ENGLISH) && !locale.equals(DEFAULT_LOCALE)) {
+			locale = DEFAULT_LOCALE;
+		}
+		return locale;
 	}
 
 	public static String languageCode(Activity activity) {
-		Resources resources = activity.getResources();
-		Configuration config = resources.getConfiguration();
-		return config.locale.getLanguage();
+		Locale locale = locale(activity);
+		return locale.getLanguage();
 	}
 
 	public static String getProductThumbUrl(String thumb) {
@@ -301,9 +310,13 @@ public class DodoroContext {
 
 	public void setCategories(List<Category> list) {
 		this.categories = list;
-		categoryMap = new SparseArray<Category>();
-		for (Category one : list) {
-			categoryMap.put(one.getId(), one);
+		if (list == null) {
+			categoryMap = null;
+		} else {
+			categoryMap = new SparseArray<Category>();
+			for (Category one : list) {
+				categoryMap.put(one.getId(), one);
+			}
 		}
 	}
 
