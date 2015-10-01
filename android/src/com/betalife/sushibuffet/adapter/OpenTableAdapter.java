@@ -33,6 +33,14 @@ public class OpenTableAdapter extends AAdapter<Diningtable> {
 
 		convertView.setTag(result);
 		TextView name = (TextView) convertView.findViewById(R.id.no);
+		name.setText(result.getId() + "");
+
+		TextView desc = (TextView) convertView.findViewById(R.id.status);
+		if (!result.isAvailable()) {
+			desc.setText("{fa-ban}");
+			return convertView;
+		}
+
 		if (result.getId() == 0) {
 			// takeaway
 			name.setText(R.string.lbl_takeaway);
@@ -45,14 +53,6 @@ public class OpenTableAdapter extends AAdapter<Diningtable> {
 					activity.startActivity(intent);
 				}
 			});
-			return convertView;
-		}
-
-		name.setText(result.getId() + "");
-
-		TextView desc = (TextView) convertView.findViewById(R.id.status);
-		if (!result.isAvailable()) {
-			desc.setText("{fa-ban}");
 			return convertView;
 		}
 
