@@ -13,9 +13,18 @@ public class Turnover extends BaseModel {
 	private int firstTableId;
 	private Integer discount;
 	private Integer takeawayId;
+	private Integer payment;
 
 	private Date created;
 	private Date updated;
+
+	public Integer getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Integer payment) {
+		this.payment = payment;
+	}
 
 	public Integer getTakeawayId() {
 		return takeawayId;

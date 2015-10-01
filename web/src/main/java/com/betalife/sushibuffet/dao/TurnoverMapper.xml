@@ -15,14 +15,14 @@
 	<update id="update" parameterType="Turnover">
 		UPDATE turnover
 		SET
-		table_id=#{tableId}, discount=#{discount}, checkout=#{checkout},
+		table_id=#{tableId}, discount=#{discount}, checkout=#{checkout}, payment=#{payment},
 		updated=now()
 		WHERE id=#{id}
 	</update>
 
 	<select id="select" parameterType="Turnover" resultType="Turnover">
 		SELECT
-		id, table_id, discount, checkout, takeaway_id
+		id, table_id, discount, checkout, takeaway_id, payment
 		FROM turnover
 		WHERE id=#{id}
 	</select>

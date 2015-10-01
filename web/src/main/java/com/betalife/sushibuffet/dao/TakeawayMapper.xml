@@ -14,6 +14,7 @@
 			<result property="checkout" column="checkout" />
 			<result property="takeawayId" column="id" />
 			<result property="discount" column="discount" />
+			<result property="payment" column="payment" />
 		</association>
 	</resultMap>
 
@@ -40,7 +41,7 @@
 	<select id="selectTodayTakeaways" resultMap="takeawayExtResult">
 		SELECT 
 		  SUM(o.COUNT* p.product_price) AS total,
-		  tn.id AS turnover_id, tn.discount, tn.checkout, ta.memo, ta.takeaway, ta.created, ta.id 
+		  tn.id AS turnover_id, tn.discount, tn.checkout, tn.payment, ta.memo, ta.takeaway, ta.created, ta.id 
 		FROM
 		  `order` o, product p,  turnover tn, takeaway ta  
 		WHERE ta.created BETWEEN CURDATE() 
@@ -54,7 +55,7 @@
 
 	<select id="select" parameterType="Takeaway" resultMap="takeawayResult">
 		SELECT
-		tor.id as turnover_id, tor.checkout, tor.takeaway_id, tor.discount,
+		tor.id as turnover_id, tor.checkout, tor.takeaway_id, tor.discount, tor.payment
 		ta.created,ta.memo,ta.takeaway,ta.id
 		FROM
 		takeaway ta, turnover tor
