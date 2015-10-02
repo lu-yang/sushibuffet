@@ -28,6 +28,9 @@
         <if test="roundTime != null ">
 		   , round_time=#{roundTime}
         </if>
+         <if test="roundOrderCount != null ">
+		   , round_order_count=#{roundOrderCount}
+        </if>
 		WHERE id=#{id}
 	</update>
 

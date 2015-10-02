@@ -83,4 +83,6 @@
 	<string name="lbl_round_order_count">Déjà choisi: %1$s / ( Max. %2$s articles ) </string>
 	<string name="err_round_order_count">Dépasser le nombre maximum pour chaque tour</string>
 	<string name="lbl_round_interval_left">%1$s秒</string>
+	<string name="setting_activity_change_round_order_count">修改每轮点餐餐食数</string>
+	<string name="msg_round_order_count">table: %1$s, Count per Round: %2$s</string>
 </resources>
