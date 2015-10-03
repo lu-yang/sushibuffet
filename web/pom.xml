@@ -23,16 +23,26 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.1</version>
 			</plugin>
 		</plugins>
+
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+
 	</build>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -159,23 +169,8 @@
 		<!-- <dependency> <groupId>gui.ava</groupId> <artifactId>html2image</artifactId> 
 			<version>0.9</version> </dependency> -->
 
-		<!-- ace libs -->
-		<dependency>
-			<groupId>com.alibaba.appengine</groupId>
-			<artifactId>services-api</artifactId>
-			<version>1.4.2</version>
-			<scope>provided</scope>
-		</dependency>
 
 	</dependencies>
 
-	<repositories>
-		<!-- repo for ace dependency -->
-		<repository>
-			<id>acesdk-repository</id>
-			<name>Ace Sdk Repository</name>
-			<url>http://acesdk.github.io/repo</url>
-		</repository>
 
-	</repositories>
 </project>
