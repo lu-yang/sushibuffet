@@ -16,16 +16,21 @@
          					http://www.springframework.org/schema/mvc     
     						http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	
-    <bean id="corsFilter" class="com.betalife.sushibuffet.controller.CorsFilter" />
-    
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+   	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
 				<value>classpath:config.properties</value>
 			</list>
 		</property>
 	</bean>
-	
+    
+    <bean id="corsFilter" class="com.betalife.sushibuffet.controller.CorsFilter" />
+    
+    <bean id="commonsRequestLoggingFilter" class="org.springframework.web.filter.CommonsRequestLoggingFilter" >
+        <property name="includePayload"  value="${status.debug}" />
+        <property name="includeQueryString"  value="${status.debug}" />
+    </bean>
+	    
 	<util:properties id="constants" location="classpath:constants.properties" />
 	
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />

@@ -81,8 +81,21 @@ public class CustomerManager {
 	@Value("${print.times}")
 	private int times;
 
-	@Autowired
 	private Constant constant;
+
+	@Autowired
+	public void setConstant(Constant constant) {
+		this.constant = constant;
+		Map<String, Object> settings = settingsMapper.select();
+		constant.setCategoryRootUrl((String) settings.get("category_url"));
+		constant.setProductRootUrl((String) settings.get("product_url"));
+		constant.setRounds((Integer) settings.get("rounds"));
+		constant.setRoundInterval((Integer) settings.get("round_interval"));
+	}
+
+	public Constant getConstant() {
+		return constant;
+	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public Turnover openTable(Turnover turnover) {
@@ -100,15 +113,6 @@ public class CustomerManager {
 		return tableMapper.selectTables();
 	}
 
-	public Constant getConstant() {
-		Map<String, Object> settings = settingsMapper.select();
-		constant.setCategoryRootUrl((String) settings.get("category_url"));
-		constant.setProductRootUrl((String) settings.get("product_url"));
-		constant.setRounds((Integer) settings.get("rounds"));
-		constant.setRoundInterval((Integer) settings.get("round_interval"));
-		return constant;
-	}
-
 	public List<Product> getProductsByCategoryId(Product product) {
 		return productMapper.selectByCategoryId(product);
 	}
@@ -121,8 +125,13 @@ public class CustomerManager {
 		}
 		Turnover turnover = orders.get(0).getTurnover();
 		turnover = turnoverMapper.select(turnover);
+		if (turnover == null) {
+			throw new IllegalArgumentException("Check Failed: turnover is empty.");
+		}
 		if (turnover.getRound() > constant.getRounds()) {
-			throw new IllegalArgumentException("Check Failed, round time is over " + constant.getRounds());
+			logger.error("[[#turnover#]]: " + turnover);
+			logger.error("[[#constant#]]: " + constant);
+			throw new IllegalArgumentException("Check Failed, round count is over " + constant.getRounds());
 		}
 
 		int count = 0;
@@ -130,7 +139,7 @@ public class CustomerManager {
 			count += o.getCount();
 		}
 		if (count > turnover.getRoundOrderCount()) {
-			throw new IllegalArgumentException("Check Failed, round order count is over "
+			throw new IllegalArgumentException("Check Failed, round order item count is over "
 					+ turnover.getRoundOrderCount());
 		}
 

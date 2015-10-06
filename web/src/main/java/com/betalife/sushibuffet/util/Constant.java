@@ -68,4 +68,12 @@ public class Constant {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return "Constant [password=" + password + ", defaultThumb=" + defaultThumb + ", categoryRootUrl="
+				+ categoryRootUrl + ", productRootUrl=" + productRootUrl + ", rounds=" + rounds
+				+ ", roundInterval=" + roundInterval + "]";
+	}
+
 }

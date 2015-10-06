@@ -2,6 +2,8 @@ package com.betalife.sushibuffet.dialog;
 
 import java.util.List;
 
+import org.springframework.util.CollectionUtils;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.res.Resources;
@@ -92,6 +94,12 @@ public class CurrentOrdersDialog extends Dialog {
 		sendBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				List<Order> currentOrdersCache = instance.getCurrentOrdersCache();
+				if (CollectionUtils.isEmpty(currentOrdersCache)) {
+					Toast.makeText(activity, R.string.lbl_no_order, Toast.LENGTH_SHORT).show();
+					return;
+				}
+
 				if (instance.isOverRoundOrderCount()) {
 					Toast.makeText(activity, R.string.err_round_order_count, Toast.LENGTH_SHORT).show();
 					return;

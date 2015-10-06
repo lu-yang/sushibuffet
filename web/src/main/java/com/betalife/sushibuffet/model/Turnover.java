@@ -103,7 +103,10 @@ public class Turnover extends BaseModel {
 
 	@Override
 	public String toString() {
-		return "Turnover [tableId=" + tableId + ", checkout=" + checkout + ", id=" + id + "]";
+		return "Turnover [tableId=" + tableId + ", checkout=" + checkout + ", firstTableId=" + firstTableId
+				+ ", discount=" + discount + ", takeawayId=" + takeawayId + ", created=" + created
+				+ ", updated=" + updated + ", round=" + round + ", roundTime=" + roundTime
+				+ ", roundOrderCount=" + roundOrderCount + ", id=" + id + "]";
 	}
 
 	public void addRound() {
