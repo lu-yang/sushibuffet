@@ -23,6 +23,10 @@ public class FragmentsAdapter extends FragmentPagerAdapter {
 				R.array.frozen_fragments);
 		fragmentClazzs = activity.getResources().getStringArray(resourceId);
 		this.fragments = new Fragment[fragmentClazzs.length];
+
+		for (int i = 0; i < fragmentClazzs.length; i++) {
+			fragments[i] = Fragment.instantiate(activity, fragmentClazzs[i]);
+		}
 	}
 
 	@Override

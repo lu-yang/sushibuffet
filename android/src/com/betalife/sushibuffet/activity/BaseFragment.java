@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class BaseFragment extends Fragment implements Refreshable {
+public abstract class BaseFragment extends Fragment implements Refreshable {
 
 	protected int layout;
 
@@ -33,6 +33,21 @@ public class BaseFragment extends Fragment implements Refreshable {
 	@Override
 	public void refresh() {
 		System.out.println("refresh() in " + getClass().getName());
+		if (isShowing()) {
+			show();
+		}
+	}
+
+	abstract protected void show();
+
+	protected boolean isShowing() {
+		if (isAdded()) {
+			MainActivity mainActivity = (MainActivity) getActivity();
+			if (mainActivity.getAdapter().isSelected(this.getClass())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

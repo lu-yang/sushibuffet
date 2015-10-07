@@ -91,8 +91,7 @@ public class FragmentOrderpage extends BaseFragment {
 	}
 
 	@Override
-	public void refresh() {
-		super.refresh();
+	public void show() {
 		final DodoroContext instance = DodoroContext.getInstance();
 		instance.fillRound(getResources(), round);
 		instance.fillIdentify(getResources(), table_no);

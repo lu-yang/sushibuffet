@@ -65,7 +65,7 @@ public class MainActivity extends FragmentActivity {
 		View homeIcon = findViewById(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? android.R.id.home
 				: R.id.FragmentHeader);
 		((View) homeIcon.getParent()).setVisibility(View.GONE);
-		((View) homeIcon).setVisibility(View.GONE);
+		homeIcon.setVisibility(View.GONE);
 
 		// actionBar.setCustomView(R.layout.abs_layout);
 		// actionBar.setDisplayShowHomeEnabled(true);
@@ -98,6 +98,12 @@ public class MainActivity extends FragmentActivity {
 			tab.setTabListener(tabListener);
 			actionBar.addTab(tab);
 		}
+
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 		int index = 0;
 		Intent intent = getIntent();
 		if (intent != null) {

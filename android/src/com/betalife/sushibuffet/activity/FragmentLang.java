@@ -58,4 +58,8 @@ public class FragmentLang extends BaseFragment {
 		lang_nl.setOnClickListener(clickListener);
 		return view;
 	}
+
+	@Override
+	protected void show() {
+	}
 }

@@ -27,8 +27,7 @@ public class BaseFragmentHistory extends BaseFragment {
 	}
 
 	@Override
-	public void refresh() {
-		super.refresh();
+	public void show() {
 		OrdersAsyncTask task = new OrdersAsyncTask(getActivity(), true, callback);
 		task.execute();
 	}

@@ -131,15 +131,12 @@ public abstract class BaseFragmentSetting extends BaseFragment implements Callba
 	@Override
 	public void callback() {
 		setVisibility(View.VISIBLE);
+		DodoroContext.getInstance().fillIdentify(getResources(), table_no);
 	}
 
 	@Override
-	public void refresh() {
-		super.refresh();
-		DodoroContext.getInstance().fillIdentify(getResources(), table_no);
-
+	public void show() {
 		setVisibility(View.INVISIBLE);
-
 		dialog.show();
 	}
 

@@ -48,8 +48,8 @@ public class FragmentDetailHistory extends BaseFragmentHistory {
 	}
 
 	@Override
-	public void refresh() {
-		super.refresh();
+	public void show() {
+		super.show();
 		DodoroContext instance = DodoroContext.getInstance();
 		instance.fillRound(getResources(), round);
 	}
